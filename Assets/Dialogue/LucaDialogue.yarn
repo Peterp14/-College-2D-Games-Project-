@@ -1,0 +1,37 @@
+﻿title: Luca
+---
+Luca: What do you want to talk about?
+
+-> School
+    <<jump LucaSchool>>
+-> Friends
+    <<jump LucaFriends>>
+-> Lunch
+    <<jump LucaLunch>>
+-> Goodbye
+    <<jump LucaGoodbye>>
+===
+
+title: LucaSchool
+---
+Luca: School is pretty boring.
+<<stop>>
+===
+
+title: LucaFriends
+---
+Luca: I have a few friends around here.
+<<stop>>
+===
+
+title: LucaLunch
+---
+Luca: I'm starving!
+<<stop>>
+===
+
+title: LucaGoodbye
+---
+Luca: See you later!
+<<stop>>
+===
