@@ -1,0 +1,21 @@
+﻿title: HallDoor
+---
+Do you want to go to the Quad?
+
+-> Yes
+    <<jump EnterQuad>>
+-> No
+    <<jump StayHere>>
+===
+
+title: EnterQuad
+---
+<<nextPeriod>>
+<<changeScene "Quad">>
+<<stop>>
+===
+
+title: StayHere
+---
+<<stop>>
+===

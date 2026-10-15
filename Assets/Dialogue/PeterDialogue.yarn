@@ -1,0 +1,30 @@
+﻿title: Peter
+---
+Peter: What do you want to talk about?
+
+-> School
+    <<jump PeterSchool>>
+-> Friends
+    <<jump PeterFriends>>
+-> Goodbye
+    <<jump PeterGoodbye>>
+===
+
+title: PeterSchool
+---
+Peter: We are O(Passing).
+<<stop>>
+===
+
+title: PeterFriends
+---
+Peter: My buddy Stephen dropped out, but I think there's something more to it... 
+<<stop>>
+===
+
+
+title: PeterGoodbye
+---
+Peter: See you later!
+<<stop>>
+===
