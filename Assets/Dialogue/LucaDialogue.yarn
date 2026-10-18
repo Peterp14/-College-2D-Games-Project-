@@ -1,37 +1,30 @@
 ﻿title: Luca
 ---
-Luca: What do you want to talk about?
+<<declare $helpedLuca = false>>
 
--> School
-    <<jump LucaSchool>>
--> Friends
-    <<jump LucaFriends>>
--> Lunch
-    <<jump LucaLunch>>
--> Goodbye
-    <<jump LucaGoodbye>>
+<<if $helpedLuca>>
+    Luca: Thanks again for helping me!
+    <<stop>>
+<<endif>>
+
+Luca: Hey, can you help me with something?
+
+-> Sure! <<if hasActions()>>
+    <<jump HelpLuca>>
+-> Not right now.
+    <<jump DeclineLuca>>
 ===
 
-title: LucaSchool
+title: HelpLuca
 ---
-Luca: School is pretty boring.
+<<useAction>>
+<<set $helpedLuca = true>>
+Luca: Thanks! I appreciate it.
 <<stop>>
 ===
 
-title: LucaFriends
+title: DeclineLuca
 ---
-Luca: I have a few friends around here.
-<<stop>>
-===
-
-title: LucaLunch
----
-Luca: I'm starving!
-<<stop>>
-===
-
-title: LucaGoodbye
----
-Luca: See you later!
+Luca: Alright, maybe later.
 <<stop>>
 ===

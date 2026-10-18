@@ -11,6 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quad.unity
     guid: 8047b163e699f204581a4067c28ec139
+  - enabled: 1
+    path: Assets/Scenes/Class.unity
+    guid: 2cc144c6bacb9074e8fb8be6de18fa32
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

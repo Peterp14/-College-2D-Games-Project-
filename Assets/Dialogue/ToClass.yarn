@@ -1,0 +1,15 @@
+﻿title: ClassDoor
+---
+Do you want to go to Class?
+
+-> Yes
+    <<jump EnterClass>>
+-> No
+    <<jump StayHere>>
+===
+
+title: EnterClass
+---
+<<changeScene "Class">>
+<<stop>>
+===
