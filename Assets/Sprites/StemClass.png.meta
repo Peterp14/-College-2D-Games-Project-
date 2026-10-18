@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: e6b30234895c07b42af04a9aac494d67
+guid: 46bc629f8a42a09449ced6b386032d18
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5797287731232756760
-    second: Quad_0
+      213: 6412359521945111981
+    second: StemClass_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -72,10 +72,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 4096
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Quad_0
+      name: StemClass_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1024
-        height: 1536
+        width: 1144
+        height: 1375
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 814dbd8e97a147050800000000000000
-      internalID: 5797287731232756760
+      spriteID: dadc1a5d2074df850800000000000000
+      internalID: 6412359521945111981
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Quad_0: 5797287731232756760
+      StemClass_0: 6412359521945111981
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

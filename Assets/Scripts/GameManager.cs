@@ -16,6 +16,9 @@ public class GameManagerScript : MonoBehaviour
         EndOfDay
     }
 
+    public int maxActions = 5;
+    public int actionsRemaining = 5;
+
     public TimePeriod currentPeriod = TimePeriod.Morning;
 
     void Awake()
@@ -49,7 +52,9 @@ public class GameManagerScript : MonoBehaviour
         {
             dialogueRunner.AddCommandHandler<string>("changeScene", ChangeScene);
             dialogueRunner.AddCommandHandler("nextPeriod", NextPeriod);
-            dialogueRunner.AddFunction("isClassTime", IsClassTime);
+            dialogueRunner.AddFunction<string, bool>("isPeriod", IsPeriod);
+            dialogueRunner.AddCommandHandler("useAction", UseAction);
+            dialogueRunner.AddFunction("hasActions", HasActions);
         }
     }
 
@@ -63,13 +68,35 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod < TimePeriod.EndOfDay)
         {
             currentPeriod++;
+            actionsRemaining = maxActions;
         }
 
         Debug.Log("Current Period: " + currentPeriod);
+        Debug.Log("Actions Remaining: " + actionsRemaining);
     }
 
-    public bool IsClassTime()
+    public void UseAction()
     {
-        return currentPeriod == TimePeriod.Class;
+        if (actionsRemaining <= 0)
+            return;
+
+        actionsRemaining--;
+
+        Debug.Log("Actions Remaining: " + actionsRemaining);
+
+        if (actionsRemaining == 0)
+        {
+            Debug.Log("No actions left! Time to move on.");
+        }
+    }
+
+    public bool IsPeriod(string period)
+    {
+        return currentPeriod.ToString() == period;
+    }
+
+    public bool HasActions()
+    {
+        return actionsRemaining > 0;
     }
 }
