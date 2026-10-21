@@ -1547,6 +1547,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   paper: {fileID: 437575841}
   hasPaper: 0
+  hasChapelPass: 0
+  hasItem1: 0
+  hasItem2: 0
   maxActions: 5
   actionsRemaining: 5
   currentPeriod: 0
@@ -2207,6 +2210,10 @@ PrefabInstance:
     - target: {fileID: 7271399637379827164, guid: 50ac61ab35c9ccf4cb10f4a5ec4cd483, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929565716755080810, guid: 50ac61ab35c9ccf4cb10f4a5ec4cd483, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
