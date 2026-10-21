@@ -1,0 +1,42 @@
+﻿title: Luke
+---
+<<declare $helpedLuke = false>>
+
+<<if $helpedLuke>>
+    Luke: Thanks again for helping me!
+    <<stop>>
+<<endif>>
+
+Luke: Hey! You free today? I have something big planned...
+
+-> Yeah, I have time. <<if hasChapelPass() and hasActions()>>
+    <<jump HelpLuke>>
+-> No, sorry.
+    <<jump DeclineLuke>>
+===
+
+title: HelpLuke
+---
+<<useAction>>
+<<set $helpedLuke = true>>
+Luke: Bet! I'm throwing Grove's Perfect Party, and I need some help. You in?
+
+-> Absolutely!
+    <<jump HelpLuke2>>
+-> No thanks.
+    <<jump DeclineLuke>>
+
+<<stop>>
+===
+
+title: HelpLuke2
+---
+Luke: Sweet! We need a few things, first, we need posters to spread the word. Meet me at class for more.
+<<stop>>
+===
+
+title: DeclineLuke
+---
+Luke: No worries! I'll see you around.
+<<stop>>
+===

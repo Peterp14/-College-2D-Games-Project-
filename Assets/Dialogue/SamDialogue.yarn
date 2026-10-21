@@ -1,0 +1,30 @@
+﻿title: Sam
+---
+<<declare $talkedToSam = false>>
+
+<<if $talkedToSam>>
+    Sam: Go get your chapel credits!
+    <<stop>>
+<<endif>>
+
+Sam: Friendly reminder from your RA, make sure to get the rest of your chapel credits done today! Wouldn't want to get behind!
+
+-> Sir yes sir! <<if hasActions()>>
+    <<jump NoChapelCredits>>
+-> Already done! <<if hasChapelPass() and hasActions()>>
+    <<jump HasChapelPass>>
+===
+
+title: NoChapelCredits
+---
+<<useAction>>
+<<set $talkedToSam = true>>
+I can grind one out during class, but Dr. Dickinson wouldn't be too happy if he saw me. I need a way to distract him...
+<<stop>>
+===
+
+title: HasChapelPass
+---
+Sam: Cheater.
+<<stop>>
+===

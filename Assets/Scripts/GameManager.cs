@@ -6,6 +6,15 @@ public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
 
+    public GameObject paper;
+
+    public int hasPaper = 0;
+
+    public bool hasChapelPass = false;
+
+    public bool hasItem1 = false;
+    public bool hasItem2 = false;
+
     public enum TimePeriod
     {
         Morning,
@@ -55,6 +64,11 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddFunction<string, bool>("isPeriod", IsPeriod);
             dialogueRunner.AddCommandHandler("useAction", UseAction);
             dialogueRunner.AddFunction("hasActions", HasActions);
+            dialogueRunner.AddFunction("hasChapelPass", HasChapelPass);
+            dialogueRunner.AddFunction("hasItem1", HasItem1);
+            dialogueRunner.AddFunction("hasItem2", HasItem2);
+            dialogueRunner.AddCommandHandler("PaperTook", takenPaper);
+            dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
         }
     }
 
@@ -98,5 +112,33 @@ public class GameManagerScript : MonoBehaviour
     public bool HasActions()
     {
         return actionsRemaining > 0;
+    }
+
+    public bool HasChapelPass()
+    {
+        return hasChapelPass;
+    }
+
+    public bool HasItem1()
+    {
+        return hasItem1;
+    }
+    public bool HasItem2()
+    {
+        return hasItem2;
+    }
+
+    public void takenPaper()
+    {
+        Destroy(paper);
+        hasPaper = 1;
+        //Debug.Log(hasPaper);
+    }
+
+    public void takenPaperCrumple()
+    {
+        Destroy(paper);
+        hasPaper = 2;
+        //Debug.Log(hasPaper);
     }
 }

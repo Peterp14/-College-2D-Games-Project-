@@ -1,30 +1,37 @@
 ﻿title: Peter
 ---
-Peter: What do you want to talk about?
+<<declare $helpedPeter = false>>
 
--> School
-    <<jump PeterSchool>>
--> Friends
-    <<jump PeterFriends>>
--> Goodbye
-    <<jump PeterGoodbye>>
+<<if $helpedPeter>>
+    Peter: We can find him together!
+    <<stop>>
+<<endif>>
+
+Peter: Sorry, I'm a bit busy. I can't find Stephen anywhere lately...
+
+-> What do you mean? <<if hasActions()>>
+    <<jump InquirePeter>>
+-> Sorry, good luck.
+    <<stop>>
 ===
 
-title: PeterSchool
+title: InquirePeter
 ---
-Peter: We are O(Passing).
+<<useAction>>
+Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
+
+
+-> Does this mean anything to you? <<if hasItem1() and hasActions() and hasItem2()>>
+    <<jump helpPeter>>
+-> Sorry, good luck with that.
+
 <<stop>>
 ===
-
-title: PeterFriends
+title: helpPeter
 ---
-Peter: My buddy Stephen dropped out, but I think there's something more to it... 
-<<stop>>
-===
+<<useAction>>
+<<set $helpedPeter = true>>
+Peter: No way! This is proof that Stephen is here! Let's go!
 
-
-title: PeterGoodbye
----
-Peter: See you later!
 <<stop>>
 ===
