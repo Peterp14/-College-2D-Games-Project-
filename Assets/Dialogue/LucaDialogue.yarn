@@ -7,24 +7,24 @@
     <<stop>>
 <<endif>>
 
-Luca: Hey, can you help me with something?
+Luca: Hey! I am going to propose today and I need your help. Are you free today?
 
--> Sure! <<if hasActions()>>
-    <<jump HelpLuca>>
--> Not right now.
+-> No, sorry.
     <<jump DeclineLuca>>
+-> {hasChapelPass() and hasActions()} Yeah, I have time.
+    <<jump HelpLuca>>
 ===
 
 title: HelpLuca
 ---
 <<useAction>>
 <<set $helpedLuca = true>>
-Luca: Thanks! I appreciate it.
+Luca: Perfect! I want her to be in the Quad by the Afternoon. Convince her to be there during class, ok? Thanks!
 <<stop>>
 ===
 
 title: DeclineLuca
 ---
-Luca: Alright, maybe later.
+Luca: That's okay! I got this! Yea! All by myself! Hmmmm....
 <<stop>>
 ===

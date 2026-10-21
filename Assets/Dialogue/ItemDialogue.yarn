@@ -1,0 +1,29 @@
+﻿title: Paper
+---
+<<declare $takenPaper = false>>
+
+There's a piece of paper on the floor. Do you take it?
+
+-> Take it. <<if hasActions()>>
+    <<jump PaperTaken>>
+-> Crumple it up and take it. <<if hasActions()>>
+    <<jump PaperCrumple>>
+-> Leave
+    <<stop>>
+===
+title: PaperTaken
+---
+<<useAction>>
+<<PaperTook>>
+<<set $takenPaper = true>>
+You take the paper and carefully stow it away in your backpack.
+<<stop>>
+===
+title: PaperCrumple
+---
+<<useAction>>
+<<PaperCrumpleTook>>
+<<set $takenPaper = true>>
+You grab the paper and crumple it and stuff it into your pocket.
+<<stop>>
+===
