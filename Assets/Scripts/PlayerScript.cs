@@ -1,7 +1,7 @@
+
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Yarn.Unity;
-using TMPro; 
 public class PlayerScript : MonoBehaviour
 {
     private Vector2 moveDirection;
@@ -10,8 +10,8 @@ public class PlayerScript : MonoBehaviour
     private SpriteRenderer _renderer;
     private Animator _animator;
 
-    private InteractionManagerScript interactable; 
-    private InteractionManagerScript nearbyInteractable;
+    private InteractionScript interactable;
+    private InteractionScript nearbyInteractable;
     public DialogueRunner dialogueRunner;
     public GameObject interactionIndicator;
 
@@ -20,7 +20,6 @@ public class PlayerScript : MonoBehaviour
         _rbody = GetComponent<Rigidbody2D>();
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-
 
         MeshRenderer textRenderer = interactionIndicator.GetComponent<MeshRenderer>();
 
@@ -32,7 +31,7 @@ public class PlayerScript : MonoBehaviour
     {
         bool isTalking = dialogueRunner != null && dialogueRunner.IsDialogueRunning;
 
-        _animator.SetBool("isMoving",!isTalking && moveDirection.sqrMagnitude > 0.01f);
+        _animator.SetBool("isMoving", !isTalking && moveDirection.sqrMagnitude > 0.01f);
 
         interactionIndicator.SetActive(!isTalking && nearbyInteractable != null);
     }
@@ -75,7 +74,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        interactable = collision.GetComponent<InteractionManagerScript>();
+        interactable = collision.GetComponent<InteractionScript>();
         if (interactable != null)
         {
             interactionIndicator.SetActive(true);
@@ -85,7 +84,7 @@ public class PlayerScript : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        interactable = collision.GetComponent<InteractionManagerScript>();
+        interactable = collision.GetComponent<InteractionScript>();
         if (interactable != null && interactable == nearbyInteractable)
         {
             interactionIndicator.SetActive(false);

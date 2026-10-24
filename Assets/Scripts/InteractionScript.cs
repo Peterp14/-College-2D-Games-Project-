@@ -1,14 +1,14 @@
 using UnityEngine;
 using Yarn.Unity;
 
-public class ItemScript : InteractionManagerScript
+public class InteractionScript : MonoBehaviour
 {
     public string dialogueNode;
     public DialogueRunner dialogueRunner;
 
-    public override void Interact()
+    public void Interact()
     {
-        if (!dialogueRunner.IsDialogueRunning)
+        if (dialogueRunner != null && !dialogueRunner.IsDialogueRunning)
         {
             dialogueRunner.StartDialogue(dialogueNode);
         }

@@ -26,4 +26,6 @@ title: PaperCrumple
 <<set $takenPaper = true>>
 You grab the paper and crumple it and stuff it into your pocket.
 <<stop>>
+
 ===
+

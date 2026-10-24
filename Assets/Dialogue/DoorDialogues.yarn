@@ -1,0 +1,42 @@
+﻿title: ClassDoor
+---
+Do you want to go to Class and start your day?
+
+-> Yes
+    <<jump EnterClass>>
+-> No
+    <<jump StayHere>>
+===
+
+title: KetlerDoor
+---
+<<if isPeriod("Chapel")>>
+    You can't return to the Hallway right now.
+    <<stop>>
+<<endif>>
+
+Do you want to go to the Buffalo Hall?
+
+-> Yes
+    <<jump EnterHall>>
+-> No
+    <<jump StayHere>>
+===
+
+title: EnterHall
+---
+<<changeScene "Hall">>
+<<stop>>
+===
+
+title: EnterClass
+---
+<<changeScene "Class">>
+<<nextPeriod>>
+<<stop>>
+===
+
+title: StayHere
+---
+<<stop>>
+===
