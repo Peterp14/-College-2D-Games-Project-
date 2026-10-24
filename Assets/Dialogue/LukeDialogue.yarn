@@ -40,3 +40,40 @@ title: DeclineLuke
 Luke: No worries! I'll see you around.
 <<stop>>
 ===
+
+
+
+
+
+title: LukeClass
+---
+Luke: Hey man, quick question...
+Luke: What's your opinion on Windows???
+
+-> It's fine.
+    <<jump LukeHatesWindows>>
+-> I hate it. 
+    <<jump LukeYaps>>
+
+<<stop>>
+===
+
+
+
+title: LukeHatesWindows
+---
+Luke: What an awful opinion, it is OBJECTIVELY worse!
+Luke: Can't have someone with your mindset going around campus... 
+<<gameOver>> 
+
+<<stop>>
+===
+
+title: LukeYaps
+---
+Luke: RIGHT?! I'm litteraly doing two things that should not affect eachother AT ALL but the one says it can't run due to other programs!
+
+-> That sucks man.  
+
+<<stop>>
+===

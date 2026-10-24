@@ -1,11 +1,16 @@
 ﻿title: ClassDoor
 ---
-Do you want to go to Class and start your day?
+<<if isPeriod("Morning")>>
+    Do you want to go to Class and start your day?
 
--> Yes
-    <<jump EnterClass>>
--> No
-    <<jump StayHere>>
+    -> Yes
+        <<jump EnterClass>>
+    -> No
+        <<jump StayHere>>
+<<else>>
+    You can't enter the classroom right now.
+    <<stop>>
+<<endif>>
 ===
 
 title: KetlerDoor
@@ -38,5 +43,15 @@ title: EnterClass
 
 title: StayHere
 ---
+<<stop>>
+===
+
+title: ClassOver
+---
+Teacher: Alright guys my time's over for today. There's a meeting in 10 so make sure you're outta here. 
+Player: Guess I gotta head out. It's chapel hour anyways. 
+
+<<changeScene "Quad">>
+<<nextPeriod>>
 <<stop>>
 ===

@@ -1,0 +1,22 @@
+﻿title: Prof
+---
+<<if hasScheduledMeeting()>>
+    Prof: Alright, go sit down now.
+    <<stop>>
+<<else>>
+    Prof: Oh? Do you have a question?
+
+    -> I need something. <<if hasActions()>>
+        <<jump OfficeHours>>
+    -> No, sorry.
+        <<stop>>
+<<endif>>
+===
+
+title: OfficeHours
+---
+Prof: Well if you need something, then come to my office hours later. They'll be in the classroom today after Chapel.
+<<scheduleMeeting>>
+<<useAction>>
+<<stop>>
+===

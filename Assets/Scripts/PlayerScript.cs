@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     private InteractionScript nearbyInteractable;
     public DialogueRunner dialogueRunner;
     public GameObject interactionIndicator;
-
+    public bool inCutscene = false;
     void Start()
     {
         _rbody = GetComponent<Rigidbody2D>();
@@ -47,12 +47,23 @@ public class PlayerScript : MonoBehaviour
         if (moveDirection.x != 0)
             _renderer.flipX = moveDirection.x < 0;
 
+        if (inCutscene)
+        {
+            _rbody.linearVelocity = Vector2.zero;
+            return;
+        }
         _rbody.linearVelocity = moveDirection * speed;
     }
 
     public void OnMove(InputValue value)
     {
         if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+        {
+            moveDirection = Vector2.zero;
+            return;
+        }
+
+        if (inCutscene)
         {
             moveDirection = Vector2.zero;
             return;
@@ -65,11 +76,14 @@ public class PlayerScript : MonoBehaviour
     {
         if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
             return;
+        if (inCutscene)
+            return;
 
         if (value.isPressed && nearbyInteractable != null)
         {
             nearbyInteractable.Interact();
         }
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

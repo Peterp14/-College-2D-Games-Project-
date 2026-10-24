@@ -28,3 +28,18 @@ title: DeclineLuca
 Luca: That's okay! I got this! Yea! All by myself! Hmmmm....
 <<stop>>
 ===
+
+title: LucaLate
+---
+<<if isTeacherDistracted()>>
+    Luca: Ah Sweet! He didn't notice me coming in! 
+<<else>>
+    Teacher: I see you slept in again...
+
+    Luca: Sorry, I'm a chud.
+
+    Teacher: We know...
+<<endif>>
+
+<<stop>>
+===

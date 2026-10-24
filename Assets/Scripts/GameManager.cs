@@ -1,12 +1,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
-
+using System.Collections;
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
 
-
+    public PlayerScript player;
+    public GameObject gameOverCanvas;
     public bool hasChapelPass = false;
     public bool hasItem1 = false;
     public bool hasItem2 = false;
@@ -19,14 +20,23 @@ public class GameManagerScript : MonoBehaviour
         Afternoon,
         EndOfDay
     }
-    public int maxActions = 5;
-    public int actionsRemaining = 5;
+    public int maxActions;
+    public int actionsRemaining;
     public TimePeriod currentPeriod = TimePeriod.Morning;
+    private ClassCutsceneScript classCutscenes;
+    private DialogueRunner dialogueRunner;
+
+    public GameObject gameOverPanel;
 
 
-    public bool teacherDistracted = false;
     public GameObject paper;
     public int hasPaper = 0;
+
+    public bool teacherDistracted = false;
+    public int teacherDistractedAt = -1;
+    private bool eventRunning = false;
+    public bool teacherSeesPlayer = true;
+    public bool scheduledMeeting = false; 
 
     void Awake()
     {
@@ -53,10 +63,9 @@ public class GameManagerScript : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        DialogueRunner dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
-        if (dialogueRunner != null)
+        if (FindFirstObjectByType<DialogueRunner>() != null)
         {
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler<string>("changeScene", ChangeScene);
             dialogueRunner.AddCommandHandler("nextPeriod", NextPeriod);
             dialogueRunner.AddFunction<string, bool>("isPeriod", IsPeriod);
@@ -69,7 +78,19 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
             dialogueRunner.AddFunction("GetPaper", GetPaper);
             dialogueRunner.AddFunction("isTeacherDistracted", IsTeacherDistracted);
+            dialogueRunner.AddFunction("GetTeacherSeesYou", GetTeacherSeesYou);
+            dialogueRunner.AddCommandHandler("gameOver", GameOver);
+            dialogueRunner.AddCommandHandler("scheduleMeeting", ScheduleMeeting);
+            dialogueRunner.AddFunction("hasScheduledMeeting", HasScheduledMeeting);
         }
+      
+
+        if (FindFirstObjectByType<ClassCutsceneScript>() != null)
+            classCutscenes = FindFirstObjectByType<ClassCutsceneScript>();
+
+        if (FindFirstObjectByType<PlayerScript>() != null)
+            player = FindFirstObjectByType<PlayerScript>();
+
     }
 
     public void ChangeScene(string sceneName)
@@ -100,8 +121,54 @@ public class GameManagerScript : MonoBehaviour
 
         if (actionsRemaining == 0)
         {
-            Debug.Log("No actions left! Time to move on.");
+            StartCoroutine(WaitForEvent(TimeChanges())); 
         }
+
+        EventChecks();
+    }
+
+    private void EventChecks()
+    {
+        if (currentPeriod == TimePeriod.Class && actionsRemaining == 3)
+        {
+            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.luca, classCutscenes.lucaPath, "LucaLate",true)));
+
+        }
+
+        if (currentPeriod == TimePeriod.Class && actionsRemaining == 2)
+        {
+            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters( classCutscenes.sam,classCutscenes.samPath,"SamLate", !teacherSeesPlayer)));
+        }
+
+        if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt && classCutscenes != null)
+        {
+            StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns() ));
+        }
+    }
+
+    private IEnumerator WaitForEvent(IEnumerator nextEvent)
+    {
+        DialogueRunner dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+
+        // Wait until no other event, dialogue, or cutscene is running
+        yield return new WaitUntil(() =>
+            !eventRunning &&
+            (dialogueRunner == null || !dialogueRunner.IsDialogueRunning) &&
+            (classCutscenes == null || !player.inCutscene)
+        );
+
+        // Reserve the event slot
+        eventRunning = true;
+
+        // Play the cutscene and wait for it to finish
+        yield return StartCoroutine(nextEvent);
+        // Wait for any dialogue started by the cutscene
+        if (dialogueRunner != null)
+        {
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        }
+
+        eventRunning = false;
     }
 
     public bool IsPeriod(string period)
@@ -151,4 +218,33 @@ public class GameManagerScript : MonoBehaviour
         return teacherDistracted;
     }
 
+    public bool GetTeacherSeesYou()
+    {
+        return teacherSeesPlayer;
+    }
+    public void ScheduleMeeting()
+    {
+        scheduledMeeting = true;
+    }
+
+    public bool HasScheduledMeeting()
+    {
+        return scheduledMeeting;
+    }
+
+    public void GameOver()
+    {
+        gameOverPanel.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    private IEnumerator TimeChanges()
+    {
+        if (currentPeriod == TimePeriod.Class)
+        {
+            dialogueRunner.StartDialogue("ClassOver");
+
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        }
+    }
 }

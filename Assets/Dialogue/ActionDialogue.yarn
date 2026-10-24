@@ -2,49 +2,56 @@
 ---
 <<if isTeacherDistracted()>>
     What do you want to do with the teacher distracted?
-
-    -> Pump out an essay for Opitz. <<if hasActions()>>
-        <<jump Essay>>
-    -> Back
-        <<stop>>
-
 <<else>>
     What do you want to do during class?
-
-    -> Pay attention. <<if hasActions()>>
-        <<useAction>> 
-        You pay attention to the lecture, Dr. Dickinson is pleased. 
-    -> Cause a distraction. <<if hasActions() and GetPaper() > 0>>
-        <<jump Distraction>>
-    -> Back
-        <<stop>>
 <<endif>>
 
+-> Pump out an essay for Opitz. <<if isTeacherDistracted() and hasActions()>>
+    <<jump Essay>>
+-> Pay attention. <<if not isTeacherDistracted() and hasActions()>>
+    <<jump PayAttention>>
+-> Cause a distraction. <<if not isTeacherDistracted() and hasActions() and GetPaper() > 0>>
+    <<jump Distraction>>
+-> Back
+    <<stop>>
 ===
+
+title: PayAttention
+---
+You pay attention to the lecture, for about 12 minutes...
+<<useAction>>
+<<stop>>
+===
+
 title: Distraction
 ---
 <<useAction>>
 
-<<if GetPaper() == 1>>
+<<if GetTeacherSeesYou()>>
+    Teacher: Dude... I can see you. 
+    Teacher: Get out of my class.
+    <<gameOver>>
+
+<<elseif GetPaper() == 1>>
     You pull out the normal piece of paper.
-    Teacher: Bruh... 
-    Teacher: Get out of my class. 
+    Teacher: Bruh...
+    Teacher: Get out of my class.
+    <<gameOver>>
 
 <<elseif GetPaper() == 2>>
     You pull out the crumpled paper.
     Teacher: WHO THREW THAT?!
     <<PaperDistraction>>
-
 <<endif>>
 
 <<stop>>
 ===
+
 title: Essay
 ---
 <<useAction>>
-You write up an essay to turn into Optiz in exchange for a chapel credit. 
-Thats your first credit gained! 
+You write up an essay to turn into Opitz in exchange for a chapel credit.
+That's your first credit gained!
 
 <<stop>>
 ===
-
