@@ -6,15 +6,10 @@ public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
 
-    public GameObject paper;
-
-    public int hasPaper = 0;
 
     public bool hasChapelPass = false;
-
     public bool hasItem1 = false;
     public bool hasItem2 = false;
-
     public enum TimePeriod
     {
         Morning,
@@ -24,11 +19,14 @@ public class GameManagerScript : MonoBehaviour
         Afternoon,
         EndOfDay
     }
-
     public int maxActions = 5;
     public int actionsRemaining = 5;
-
     public TimePeriod currentPeriod = TimePeriod.Morning;
+
+
+    public bool teacherDistracted = false;
+    public GameObject paper;
+    public int hasPaper = 0;
 
     void Awake()
     {
@@ -69,6 +67,8 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddFunction("hasItem2", HasItem2);
             dialogueRunner.AddCommandHandler("PaperTook", takenPaper);
             dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
+            dialogueRunner.AddFunction("GetPaper", GetPaper);
+            dialogueRunner.AddFunction("isTeacherDistracted", IsTeacherDistracted);
         }
     }
 
@@ -141,4 +141,14 @@ public class GameManagerScript : MonoBehaviour
         hasPaper = 2;
         //Debug.Log(hasPaper);
     }
+    public int GetPaper()
+    {
+        return hasPaper;
+    }
+
+    public bool IsTeacherDistracted()
+    {
+        return teacherDistracted;
+    }
+
 }

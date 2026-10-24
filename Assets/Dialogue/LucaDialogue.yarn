@@ -11,8 +11,8 @@ Luca: Hey! I am going to propose today and I need your help. Are you free today?
 
 -> No, sorry.
     <<jump DeclineLuca>>
--> {hasChapelPass() and hasActions()} Yeah, I have time.
-    <<jump HelpLuca>>
+-> Yeah, I have time. <<if hasChapelPass() and hasActions()>>
+        <<jump HelpLuca>>
 ===
 
 title: HelpLuca
