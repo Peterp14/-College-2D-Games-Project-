@@ -268,7 +268,7 @@ SpriteRenderer:
   m_SortingLayerID: -2116437731
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_Sprite: {fileID: -2311659948842064771, guid: 98f7c37deb034474ea25efd41f00fc42, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -316,6 +316,7 @@ MonoBehaviour:
   speed: 8
   dialogueRunner: {fileID: 0}
   interactionIndicator: {fileID: 2909278273021559339}
+  inCutscene: 0
 --- !u!61 &3923017619386431616
 BoxCollider2D:
   m_ObjectHideFlags: 0

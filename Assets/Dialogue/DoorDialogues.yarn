@@ -44,6 +44,26 @@ Do you want to go to the Buffalo Hall?
     <<jump StayHere>>
 ===
 
+title: OutOfKetRecDoor
+---
+Do you want to go to the Quad?
+
+-> Yes
+    <<jump EnterQuad>>
+-> No
+    <<jump StayHere>>
+===
+
+title: IntoKetRecDoor
+---
+Do you want to go to KetRec?
+
+-> Yes
+    <<jump EnterKetRec>>
+-> No
+    <<jump StayHere>>
+===
+
 title: EnterHall
 ---
 <<changeScene "Hall">>
@@ -54,6 +74,18 @@ title: EnterClass
 ---
 <<changeScene "Class">>
 <<nextPeriod>>
+<<stop>>
+===
+
+title: EnterQuad
+---
+<<changeScene "Quad">>
+<<stop>>
+===
+
+title: EnterKetRec
+---
+<<changeScene "Ketrec">>
 <<stop>>
 ===
 
