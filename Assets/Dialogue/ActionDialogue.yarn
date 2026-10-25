@@ -55,3 +55,30 @@ That's your first credit gained!
 
 <<stop>>
 ===
+
+
+
+
+
+
+
+
+title: ChapelSeat
+---
+Sit down for chapel? 
+-> Yes.
+     <<jump Chapel>>
+-> Not yet.
+
+<<stop>>
+===
+
+title: Chapel
+---
+<<useAction>>
+Opitz: blah blah blah... 
+You listen until chapel is over and are let out. 
+<<changeScene "Quad">>
+<<nextPeriod>>
+<<stop>>
+===
