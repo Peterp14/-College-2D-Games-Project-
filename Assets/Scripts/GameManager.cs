@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
 using System.Collections;
+using TMPro;
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
 
     public PlayerScript player;
-    public GameObject gameOverCanvas;
     public bool hasChapelPass = false;
     public bool hasItem1 = false;
     public bool hasItem2 = false;
@@ -26,8 +26,8 @@ public class GameManagerScript : MonoBehaviour
     private ClassCutsceneScript classCutscenes;
     private DialogueRunner dialogueRunner;
 
-    public GameObject gameOverPanel;
-
+    public GameObject gameOver;
+    public TMP_Text reason; 
 
     public GameObject paper;
     public int hasPaper = 0;
@@ -140,7 +140,7 @@ public class GameManagerScript : MonoBehaviour
             StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters( classCutscenes.sam,classCutscenes.samPath,"SamLate", !teacherSeesPlayer)));
         }
 
-        if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt && classCutscenes != null)
+        if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt)
         {
             StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns() ));
         }
@@ -152,9 +152,7 @@ public class GameManagerScript : MonoBehaviour
 
         // Wait until no other event, dialogue, or cutscene is running
         yield return new WaitUntil(() =>
-            !eventRunning &&
-            (dialogueRunner == null || !dialogueRunner.IsDialogueRunning) &&
-            (classCutscenes == null || !player.inCutscene)
+            !eventRunning && !dialogueRunner.IsDialogueRunning && !player.inCutscene
         );
 
         // Reserve the event slot
@@ -162,6 +160,7 @@ public class GameManagerScript : MonoBehaviour
 
         // Play the cutscene and wait for it to finish
         yield return StartCoroutine(nextEvent);
+
         // Wait for any dialogue started by the cutscene
         if (dialogueRunner != null)
         {
@@ -234,7 +233,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver()
     {
-        gameOverPanel.SetActive(true);
+        gameOver.SetActive(true);
         Time.timeScale = 0f;
     }
 
@@ -246,5 +245,6 @@ public class GameManagerScript : MonoBehaviour
 
             yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         }
+
     }
 }
