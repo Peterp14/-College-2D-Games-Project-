@@ -28,3 +28,20 @@ title: HasChapelPass
 Sam: Cheater.
 <<stop>>
 ===
+
+title: SamLate
+---
+<<if isTeacherDistracted()>>
+    Sam: Another victory for the OG's! 
+<<else>>
+    Teacher: Regularly scheduled entrance... 
+	
+    Sam: I'm not late that often!
+
+    Teacher: Yes, yes you are.
+
+    Luke: CHUD!
+<<endif>>
+
+<<stop>>
+===
