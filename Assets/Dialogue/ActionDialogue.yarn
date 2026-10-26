@@ -56,29 +56,47 @@ That's your first credit gained!
 <<stop>>
 ===
 
+title: Bench
+---
+Take a quick rest?
+-> Yes!
+    <<jump Resting>>
+-> Nah.
+    <<stop>>
+===
 
-
-
-
-
-
+title: Resting
+---
+You rest for a while and can no longer enter chapel in time...
+<<useAction>>
+<<stop>>
+===
 
 title: ChapelSeat
 ---
-Sit down for chapel? 
--> Yes.
-     <<jump Chapel>>
--> Not yet.
+Sit down for chapel?
 
-<<stop>>
+-> Yes.
+    <<jump Chapel>>
+-> Not yet.
+    <<stop>>
 ===
 
 title: Chapel
 ---
 <<useAction>>
-Opitz: blah blah blah... 
-You listen until chapel is over and are let out. 
-<<changeScene "Quad">>
+You gain a chapel credit for listening!
+
+<<cameraToOpitz>>
+
+Opitz: Welcome to chapel, everyone!
+Opitz: Blah blah blah...
+
+<<cameraToPlayer>>
+
+You listen until chapel is over and are let out.
+
 <<nextPeriod>>
+<<changeScene "Lunch">>
 <<stop>>
 ===

@@ -25,6 +25,11 @@ public class PlayerScript : MonoBehaviour
 
         textRenderer.sortingLayerID = _renderer.sortingLayerID;
         textRenderer.sortingOrder = _renderer.sortingOrder + 100;
+
+        if (FindFirstObjectByType<DialogueRunner>() != null)
+        {
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+        }
     }
 
     void Update()
