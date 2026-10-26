@@ -13,6 +13,22 @@
 <<endif>>
 ===
 
+title: ChapelDoor
+---
+<<if isPeriod("Chapel")>>
+    Do you want to go to Chapel and get a credit? 
+
+    -> Yes
+        <<jump EnterChapel>>
+    -> No
+        <<jump StayHere>>
+<<else>>
+    You can't enter the Chapel right now.
+    <<stop>>
+<<endif>>
+===
+
+
 title: KetlerDoor
 ---
 <<if isPeriod("Chapel")>>
@@ -52,6 +68,14 @@ Teacher: Alright guys my time's over for today. There's a meeting in 10 so make 
 Player: Guess I gotta head out. It's chapel hour anyways. 
 
 <<changeScene "Quad">>
+<<nextPeriod>>
+<<stop>>
+===
+
+
+title: EnterChapel
+---
+<<changeScene "Chapel">>
 <<nextPeriod>>
 <<stop>>
 ===

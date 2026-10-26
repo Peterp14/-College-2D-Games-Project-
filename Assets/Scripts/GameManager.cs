@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using Yarn.Unity;
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
@@ -24,6 +25,8 @@ public class GameManagerScript : MonoBehaviour
     public int actionsRemaining;
     public TimePeriod currentPeriod = TimePeriod.Morning;
     private ClassCutsceneScript classCutscenes;
+    private QuadCutsceneScript quadCutscenes;
+
     private DialogueRunner dialogueRunner;
 
     public GameObject gameOver;
@@ -91,6 +94,9 @@ public class GameManagerScript : MonoBehaviour
         if (FindFirstObjectByType<PlayerScript>() != null)
             player = FindFirstObjectByType<PlayerScript>();
 
+        if (FindFirstObjectByType<QuadCutsceneScript>() != null)
+            quadCutscenes = FindFirstObjectByType<QuadCutsceneScript>();
+
     }
 
     public void ChangeScene(string sceneName)
@@ -143,6 +149,11 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt)
         {
             StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns() ));
+        }
+
+        if (currentPeriod == TimePeriod.Chapel && !hasChapelPass && actionsRemaining == 3)
+        {
+            StartCoroutine(WaitForEvent(WillieDeath())); 
         }
     }
 
@@ -247,4 +258,15 @@ public class GameManagerScript : MonoBehaviour
         }
 
     }
+
+    private IEnumerator WillieDeath()
+    {
+        Debug.Log("AH");
+        // Wait for the current dialogue to finish, then play Willie's cutscene
+        yield return StartCoroutine(quadCutscenes.WillieDeath());
+
+        // Trigger Game Over after the cutscene and dialogue finish
+        GameOver();
+    }
+
 }
