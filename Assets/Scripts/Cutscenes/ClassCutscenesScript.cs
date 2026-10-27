@@ -95,6 +95,8 @@ public class ClassCutsceneScript : MonoBehaviour
         player.inCutscene = true;
 
         Transform characterPosition = character.transform;
+        Animator animator = character.GetComponent<Animator>();
+        SpriteRenderer sprite = character.GetComponent<SpriteRenderer>();
 
         cameraScript.SetTarget(characterPosition);
 
@@ -104,8 +106,19 @@ public class ClassCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        animator.SetBool("Moving", true);
+
         foreach (Transform point in path)
         {
+            if (point.position.x < characterPosition.position.x)
+            {
+                sprite.flipX = false;  
+            }
+            else if (point.position.x > characterPosition.position.x)
+            {
+                sprite.flipX = true; 
+            }
+
             while (Vector2.Distance(characterPosition.position, point.position) > 0.05f)
             {
                 characterPosition.position = Vector2.MoveTowards(
@@ -120,17 +133,28 @@ public class ClassCutsceneScript : MonoBehaviour
             characterPosition.position = point.position;
         }
 
+        animator.SetBool("Moving", false);
+
         yield return new WaitForSeconds(0.5f);
+
+
+        Debug.Log("TurnTeacher: " + turnTeacher);
+        Debug.Log("TeacherDistracted: " + manager.teacherDistracted);
+        Debug.Log("TeacherSeesPlayer: " + manager.teacherSeesPlayer);
 
         if (turnTeacher && !manager.teacherDistracted)
         {
-            TurnTeacher();  manager.teacherSeesPlayer = !manager.teacherSeesPlayer;
+            TurnTeacher();
+            manager.teacherSeesPlayer = !manager.teacherSeesPlayer;
+
+            Debug.Log("TEACHER TURNED!");
         }
 
+
         dialogueRunner.StartDialogue(dialogueNode);
+
  
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
-        
         yield return StartCoroutine(cameraScript.ReturnToPlayer());
 
         player.inCutscene = false;

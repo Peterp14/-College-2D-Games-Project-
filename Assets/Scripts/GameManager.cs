@@ -26,6 +26,7 @@ public class GameManagerScript : MonoBehaviour
     public TimePeriod currentPeriod = TimePeriod.Morning;
     private ClassCutsceneScript classCutscenes;
     private QuadCutsceneScript quadCutscenes;
+    private HallCutsceneScript hallCutscenes;
 
     private DialogueRunner dialogueRunner;
 
@@ -97,6 +98,11 @@ public class GameManagerScript : MonoBehaviour
         if (FindFirstObjectByType<QuadCutsceneScript>() != null)
             quadCutscenes = FindFirstObjectByType<QuadCutsceneScript>();
 
+        if (FindFirstObjectByType<HallCutsceneScript>() != null)
+            hallCutscenes = FindFirstObjectByType<HallCutsceneScript>();
+
+        EventChecks();
+
     }
 
     public void ChangeScene(string sceneName)
@@ -135,6 +141,12 @@ public class GameManagerScript : MonoBehaviour
 
     private void EventChecks()
     {
+        if (currentPeriod == TimePeriod.Morning && actionsRemaining == 4)
+        {
+            StartCoroutine(WaitForEvent(hallCutscenes.SamHello()));
+        }
+
+
         if (currentPeriod == TimePeriod.Class && actionsRemaining == 3)
         {
             StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.luca, classCutscenes.lucaPath, "LucaLate",true)));
