@@ -138,16 +138,12 @@ public class ClassCutsceneScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
 
-        Debug.Log("TurnTeacher: " + turnTeacher);
-        Debug.Log("TeacherDistracted: " + manager.teacherDistracted);
-        Debug.Log("TeacherSeesPlayer: " + manager.teacherSeesPlayer);
 
         if (turnTeacher && !manager.teacherDistracted)
         {
             TurnTeacher();
             manager.teacherSeesPlayer = !manager.teacherSeesPlayer;
 
-            Debug.Log("TEACHER TURNED!");
         }
 
 

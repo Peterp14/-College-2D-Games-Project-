@@ -28,6 +28,8 @@ public class GameManagerScript : MonoBehaviour
     private QuadCutsceneScript quadCutscenes;
     private HallCutsceneScript hallCutscenes;
 
+    private LunchCutsceneScript lunchCutscenes;
+
     private DialogueRunner dialogueRunner;
 
     public GameObject gameOver;
@@ -40,7 +42,9 @@ public class GameManagerScript : MonoBehaviour
     public int teacherDistractedAt = -1;
     private bool eventRunning = false;
     public bool teacherSeesPlayer = true;
-    public bool scheduledMeeting = false; 
+    public bool scheduledMeeting = false;
+
+    public bool guyhasLunch = false; 
 
     void Awake()
     {
@@ -86,6 +90,7 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("gameOver", GameOver);
             dialogueRunner.AddCommandHandler("scheduleMeeting", ScheduleMeeting);
             dialogueRunner.AddFunction("hasScheduledMeeting", HasScheduledMeeting);
+            dialogueRunner.AddFunction("GetGuyHasLunch", GetGuyHasLunch);
         }
       
 
@@ -100,6 +105,9 @@ public class GameManagerScript : MonoBehaviour
 
         if (FindFirstObjectByType<HallCutsceneScript>() != null)
             hallCutscenes = FindFirstObjectByType<HallCutsceneScript>();
+
+        if (FindFirstObjectByType<LunchCutsceneScript>() != null)
+            lunchCutscenes = FindFirstObjectByType<LunchCutsceneScript>();
 
         EventChecks();
 
@@ -116,6 +124,11 @@ public class GameManagerScript : MonoBehaviour
         {
             currentPeriod++;
             actionsRemaining = maxActions;
+
+            if (currentPeriod == TimePeriod.Lunch)
+            {
+                actionsRemaining = 5; 
+            }
         }
 
         Debug.Log("Current Period: " + currentPeriod);
@@ -166,6 +179,12 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod == TimePeriod.Chapel && !hasChapelPass && actionsRemaining == 3)
         {
             StartCoroutine(WaitForEvent(WillieDeath())); 
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 4)
+        {
+            StartCoroutine(WaitForEvent(lunchCutscenes.CharacterGotHisFood()));
+            guyhasLunch = true; 
         }
     }
 
@@ -254,6 +273,11 @@ public class GameManagerScript : MonoBehaviour
         return scheduledMeeting;
     }
 
+    public bool GetGuyHasLunch()
+    {
+        return guyhasLunch;
+    }
+
     public void GameOver()
     {
         gameOver.SetActive(true);
@@ -273,11 +297,9 @@ public class GameManagerScript : MonoBehaviour
 
     private IEnumerator WillieDeath()
     {
-        Debug.Log("AH");
-        // Wait for the current dialogue to finish, then play Willie's cutscene
+ 
         yield return StartCoroutine(quadCutscenes.WillieDeath());
 
-        // Trigger Game Over after the cutscene and dialogue finish
         GameOver();
     }
 

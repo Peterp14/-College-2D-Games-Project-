@@ -46,19 +46,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   player: {fileID: 0}
-  gameOverCanvas: {fileID: 2683750622578203741}
   hasChapelPass: 0
   hasItem1: 0
   hasItem2: 0
   maxActions: 4
   actionsRemaining: 4
   currentPeriod: 0
-  gameOverPanel: {fileID: 2683750622578203741}
+  gameOver: {fileID: 2683750622578203741}
+  reason: {fileID: 0}
   paper: {fileID: 0}
   hasPaper: 0
   teacherDistracted: 0
   teacherDistractedAt: -1
   teacherSeesPlayer: 1
+  scheduledMeeting: 0
 --- !u!1001 &4153204550970100361
 PrefabInstance:
   m_ObjectHideFlags: 0

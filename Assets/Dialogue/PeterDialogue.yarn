@@ -47,6 +47,38 @@ Peter is taking his notes, paying you no mind...
 
 
 
+title: PeterLunch
+---
+Peter: "Sniff" I'm so sad!
+-> What's wrong? 
+    <<jump helpPeterLunch>>
+-> Grown man btw. 
+    <<stop>>
+===
+title: helpPeterLunch
+---
+Peter: I got hacked and have no more swipes! Now I'm gonna starve! 
+Peter: Wait a minute... You need chapel credits right?
+Peter: If you get me some Cowfila I'll give you one of my credits! Whadda ya say?
+-> Fair trade, sure. <<if hasActions()>>
+    <<jump peterLunchThanks>>
+-> Nah I'm lowkey starving... 
+    <<jump peterDisapointed>>
+
+<<stop>>
+===
+title: peterLunchThanks
+---
+Peter: Thanks man! Get it to me before the hour ends! 
+<<useAction>>
+<<stop>>
+===
+title: peterDisapointed
+---
+Peter: Dang, whatever man. Good luck getting those credits... 
+<<stop>>
+===
+
 
 
 
