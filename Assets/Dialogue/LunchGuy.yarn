@@ -1,0 +1,18 @@
+﻿title: LunchGuy
+---
+<<if GetGuyHasLunch()>>
+    	Greg: Man oh man I sure do love me some Cowfila! 
+    	Greg: Oh hey, didn't see you standing there eye balling my food... Whats up??
+<<else>>
+	Greg: Hey man no shoving, wait in line. 
+<<endif>>
+
+-> Pump out an essay for Opitz. <<if isTeacherDistracted() and hasActions()>>
+    <<jump Essay>>
+-> Pay attention. <<if not isTeacherDistracted() and hasActions()>>
+    <<jump PayAttention>>
+-> Cause a distraction. <<if not isTeacherDistracted() and hasActions() and GetPaper() > 0>>
+    <<jump Distraction>>
+-> Back
+    <<stop>>
+===
