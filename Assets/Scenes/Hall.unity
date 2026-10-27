@@ -255,6 +255,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
   m_PrefabInstance: {fileID: 282700789}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &370422313
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 370422315}
+  - component: {fileID: 370422314}
+  m_Layer: 0
+  m_Name: HallCutsceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &370422314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370422313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be77a152afd789944aedad9052b4c548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HallCutsceneScript
+  dialogueRunner: {fileID: 1858696120}
+  cameraScript: {fileID: 519420033}
+  player: {fileID: 1913826921}
+  sam: {fileID: 2109188225}
+--- !u!4 &370422315
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370422313}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 9.72532, y: 0.04871, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &437575841
 GameObject:
   m_ObjectHideFlags: 0
@@ -1328,6 +1376,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
   m_PrefabInstance: {fileID: 1705486249}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1851121243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2683750622578203741, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+  m_PrefabInstance: {fileID: 2511573463024625848}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1858696120 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4518899997419094619, guid: 50ac61ab35c9ccf4cb10f4a5ec4cd483, type: 3}
@@ -1343,6 +1396,22 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6275426434081763558, guid: f9b9a2831e47cfb4ab300a0e0aeba257, type: 3}
   m_PrefabInstance: {fileID: 1188323355871498464}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1913826921 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3848233783001987709, guid: f9b9a2831e47cfb4ab300a0e0aeba257, type: 3}
+  m_PrefabInstance: {fileID: 1188323355871498464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1913826917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d98b88982429104294603916370097f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
+--- !u!1 &2109188225 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5281011260581593289, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+  m_PrefabInstance: {fileID: 7221322002084076879}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &697919987865201040
 PrefabInstance:
@@ -1539,6 +1608,14 @@ PrefabInstance:
       propertyPath: paper
       value: 
       objectReference: {fileID: 437575841}
+    - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: gameOver
+      value: 
+      objectReference: {fileID: 1851121243}
+    - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: teacherSeesPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_Name
       value: GameManger
@@ -1758,6 +1835,10 @@ PrefabInstance:
       propertyPath: dialogueRunner
       value: 
       objectReference: {fileID: 1858696120}
+    - target: {fileID: 1719988781325152533, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3455452145137962687, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.06
@@ -1963,3 +2044,4 @@ SceneRoots:
   - {fileID: 437575845}
   - {fileID: 502539053}
   - {fileID: 3319805124486755479}
+  - {fileID: 370422315}
