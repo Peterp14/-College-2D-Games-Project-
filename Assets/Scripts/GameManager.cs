@@ -1,9 +1,10 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
-using Yarn.Unity;
 using System.Collections;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using Yarn.Unity;
+using static GameManagerScript;
 public class GameManagerScript : MonoBehaviour
 {
     public static GameManagerScript instance;
@@ -34,6 +35,12 @@ public class GameManagerScript : MonoBehaviour
 
     public GameObject gameOver;
     public TMP_Text reason;
+
+    private PeriodCheckpoint checkpoint;
+    private bool checkpointPending = false;
+    private bool restartingPeriod = false;
+
+
 
     public GameObject paper;
     public int hasPaper = 0;
@@ -92,7 +99,7 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddFunction("GetPaper", GetPaper);
             dialogueRunner.AddFunction("isTeacherDistracted", IsTeacherDistracted);
             dialogueRunner.AddFunction("GetTeacherSeesYou", GetTeacherSeesYou);
-            dialogueRunner.AddCommandHandler("gameOver", GameOver);
+            dialogueRunner.AddCommandHandler<string>("gameOver", GameOver);
             dialogueRunner.AddCommandHandler("scheduleMeeting", ScheduleMeeting);
             dialogueRunner.AddFunction("hasScheduledMeeting", HasScheduledMeeting);
             dialogueRunner.AddFunction("GetGuyHasLunch", GetGuyHasLunch);
@@ -117,6 +124,23 @@ public class GameManagerScript : MonoBehaviour
         if (FindFirstObjectByType<LunchCutsceneScript>() != null)
             lunchCutscenes = FindFirstObjectByType<LunchCutsceneScript>();
 
+
+        if (restartingPeriod)
+        {
+            restartingPeriod = false;
+        }
+        // Save when entering the first scene of a new period
+        else if (checkpointPending)
+        {
+            SavePeriodCheckpoint();
+            checkpointPending = false;
+        }
+        // Create the initial Morning checkpoint
+        else if (checkpoint == null)
+        {
+            SavePeriodCheckpoint();
+        }
+
         EventChecks();
 
     }
@@ -138,6 +162,8 @@ public class GameManagerScript : MonoBehaviour
             {
                 actionsRemaining = 5;
             }
+
+            checkpointPending = true; 
         }
 
         Debug.Log("Current Period: " + currentPeriod);
@@ -314,8 +340,33 @@ public class GameManagerScript : MonoBehaviour
 
     public void GameOver()
     {
+        GameOver("You died!");
+    }
+
+    public void GameOver(string deathMessage)
+    {
+        reason.text = deathMessage;
         gameOver.SetActive(true);
         Time.timeScale = 0f;
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f;
+
+        Destroy(gameObject);
+
+        // Clear the singleton reference
+        instance = null;
+
+        SceneManager.LoadScene("Hall");
+    }
+
+    public void RestartRoom()
+    {
+        Time.timeScale = 1f;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private IEnumerator TimeChanges()
@@ -334,14 +385,106 @@ public class GameManagerScript : MonoBehaviour
 
         yield return StartCoroutine(quadCutscenes.WillieDeath());
 
-        GameOver();
+        GameOver("Willie caught you skipping chapel!");
     }
 
     private IEnumerator Starve()
     {
         yield return StartCoroutine(lunchCutscenes.PunchWithoutLuke());
 
-        GameOver();
+        GameOver("You forgot to eat lunch and starved to death!");
     }
 
+
+    public void SavePeriodCheckpoint()
+    {
+        checkpoint = new PeriodCheckpoint
+        {
+            startingScene = SceneManager.GetActiveScene().name,
+            period = currentPeriod,
+            actionsRemaining = actionsRemaining,
+
+            hasChapelPass = hasChapelPass,
+            hasItem1 = hasItem1,
+            hasItem2 = hasItem2,
+            hasPaper = hasPaper,
+
+            teacherDistracted = teacherDistracted,
+            teacherDistractedAt = teacherDistractedAt,
+            teacherSeesPlayer = teacherSeesPlayer,
+
+            scheduledMeeting = scheduledMeeting,
+            friendedLuke = friendedLuke,
+            guyhasLunch = guyhasLunch,
+            starving = starving
+        };
+
+        Debug.Log("Checkpoint saved for " + currentPeriod +
+                  " in scene " + checkpoint.startingScene);
+    }
+
+    public void RestorePeriodCheckpoint()
+    {
+        if (checkpoint == null)
+            return;
+
+        currentPeriod = checkpoint.period;
+        actionsRemaining = checkpoint.actionsRemaining;
+
+        hasChapelPass = checkpoint.hasChapelPass;
+        hasItem1 = checkpoint.hasItem1;
+        hasItem2 = checkpoint.hasItem2;
+        hasPaper = checkpoint.hasPaper;
+
+        teacherDistracted = checkpoint.teacherDistracted;
+        teacherDistractedAt = checkpoint.teacherDistractedAt;
+        teacherSeesPlayer = checkpoint.teacherSeesPlayer;
+
+        scheduledMeeting = checkpoint.scheduledMeeting;
+        friendedLuke = checkpoint.friendedLuke;
+        guyhasLunch = checkpoint.guyhasLunch;
+        starving = checkpoint.starving;
+    }
+
+    public void RestartPeriod()
+    {
+        if (checkpoint == null)
+        {
+            Debug.LogWarning("No checkpoint available!");
+            return;
+        }
+
+        Time.timeScale = 1f;
+
+        // Hide the Game Over screen
+        gameOver.SetActive(false);
+
+        restartingPeriod = true;
+
+        RestorePeriodCheckpoint();
+
+        SceneManager.LoadScene(checkpoint.startingScene);
+    }
+}
+
+[System.Serializable]
+public class PeriodCheckpoint
+{
+    public string startingScene;
+    public TimePeriod period;
+    public int actionsRemaining;
+
+    public bool hasChapelPass;
+    public bool hasItem1;
+    public bool hasItem2;
+    public int hasPaper;
+
+    public bool teacherDistracted;
+    public int teacherDistractedAt;
+    public bool teacherSeesPlayer;
+
+    public bool scheduledMeeting;
+    public bool friendedLuke;
+    public bool guyhasLunch;
+    public bool starving;
 }

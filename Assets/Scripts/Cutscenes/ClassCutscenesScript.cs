@@ -118,6 +118,10 @@ public class ClassCutsceneScript : MonoBehaviour
             {
                 sprite.flipX = true; 
             }
+            else if (point.position.y < characterPosition.position.y)
+            {
+                sprite.flipX = false; 
+            }
 
             while (Vector2.Distance(characterPosition.position, point.position) > 0.05f)
             {

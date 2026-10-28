@@ -62,7 +62,7 @@ title: LukeHatesWindows
 ---
 Luke: What an awful opinion, it is OBJECTIVELY worse!
 Luke: Can't have someone with your mindset going around campus...
-<<gameOver>>
+<<gameOver "Game Over! Luke REALLY hates Windows...>>
 
 <<stop>>
 ===

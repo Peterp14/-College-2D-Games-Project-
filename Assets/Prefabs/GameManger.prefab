@@ -53,13 +53,16 @@ MonoBehaviour:
   actionsRemaining: 4
   currentPeriod: 0
   gameOver: {fileID: 2683750622578203741}
-  reason: {fileID: 0}
+  reason: {fileID: 1195864440925996325}
   paper: {fileID: 0}
   hasPaper: 0
   teacherDistracted: 0
   teacherDistractedAt: -1
   teacherSeesPlayer: 1
   scheduledMeeting: 0
+  friendedLuke: 0
+  guyhasLunch: 0
+  starving: 1
 --- !u!1001 &4153204550970100361
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71,6 +74,62 @@ PrefabInstance:
     - target: {fileID: 2062012493283858132, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
       propertyPath: m_Name
       value: GameOver
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 328956637102792730}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManagerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4644851914288434570, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 328956637102792730}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartPeriod
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: GameManagerScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4756782666461331446, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 5852564721738863837, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
       propertyPath: m_Pivot.x
@@ -157,6 +216,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+--- !u!114 &1195864440925996325 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2971168315628687276, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
+  m_PrefabInstance: {fileID: 4153204550970100361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &2683750622578203741 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2062012493283858132, guid: 5a414b419182e2647870f1d03d2b2c7c, type: 3}
