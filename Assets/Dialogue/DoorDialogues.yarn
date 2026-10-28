@@ -76,6 +76,5 @@ Player: Guess I gotta head out. It's chapel hour anyways.
 title: EnterChapel
 ---
 <<changeScene "Chapel">>
-<<nextPeriod>>
 <<stop>>
 ===
