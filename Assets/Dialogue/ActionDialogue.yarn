@@ -100,3 +100,39 @@ You listen until chapel is over and are let out.
 <<changeScene "Lunch">>
 <<stop>>
 ===
+
+
+title: EnterLunch
+---
+There's gotta be a way to get a chapel credit here! Maybe I can bargin with someone...
+<<stop>>
+===
+
+title: Eat
+---
+<<if $boughtMeal or $gotGregsFood>>
+    You: Man, this Cowfila is looking GOOD!
+
+    -> Eat the meal.
+        <<jump EatingMeal>>
+    -> Save it for later.
+        <<stop>>
+<<else>>
+    You: I don't have any food to eat!
+    <<stop>>
+<<endif>>
+===
+
+title: EatingMeal
+---
+You: NOM NOM NOM! That was some GOOD Cowfila!
+
+<<EatMeal>>
+<<if $gotGregsFood>>
+    <<set $gotGregsFood = false>>
+<<else>>
+    <<set $boughtMeal = false>>
+<<endif>>
+
+<<stop>>
+===

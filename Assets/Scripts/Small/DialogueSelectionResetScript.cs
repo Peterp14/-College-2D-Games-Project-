@@ -6,15 +6,19 @@ public class DialogueSelectionReset : MonoBehaviour
 {
     public DialogueRunner dialogueRunner;
 
-    void Update()
+    void LateUpdate()
     {
-        if (dialogueRunner == null || EventSystem.current == null)
-            return;
+        var es = EventSystem.current;
+        if (dialogueRunner == null || es == null) return;
 
-        if (!dialogueRunner.IsDialogueRunning &&
-            EventSystem.current.currentSelectedGameObject != null)
+        var selected = es.currentSelectedGameObject;
+        if (selected == null) return;
+
+        // Clear if dialogue ended OR the selected button was hidden
+        // (e.g. between two sets of options)
+        if (!dialogueRunner.IsDialogueRunning || !selected.activeInHierarchy)
         {
-            EventSystem.current.SetSelectedGameObject(null);
+            es.SetSelectedGameObject(null);
         }
     }
 }

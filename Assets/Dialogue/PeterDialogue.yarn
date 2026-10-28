@@ -1,6 +1,8 @@
 ﻿title: Peter
 ---
 <<declare $helpedPeter = false>>
+<<declare $helpingPeter = false>>
+<<declare $gavePeterFood = false>>
 
 <<if $helpedPeter>>
     Peter: We can find him together!
@@ -19,25 +21,19 @@ title: InquirePeter
 ---
 Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
 
-
 -> Does this mean anything to you? <<if hasItem1() and hasActions() and hasItem2()>>
     <<jump helpPeter>>
 -> Sorry, good luck with that.
-
-<<stop>>
+    <<stop>>
 ===
+
 title: helpPeter
 ---
 <<useAction>>
 <<set $helpedPeter = true>>
 Peter: No way! This is proof that Stephen is here! Let's go!
-
 <<stop>>
 ===
-
-
-
-
 
 title: PeterClass
 ---
@@ -45,43 +41,75 @@ Peter is taking his notes, paying you no mind...
 <<stop>>
 ===
 
-
-
 title: PeterLunch
 ---
-Peter: "Sniff" I'm so sad!
--> What's wrong? 
-    <<jump helpPeterLunch>>
--> Grown man btw. 
+<<if $gavePeterFood>>
+    Peter: Thanks again for the Cowfila! You saved my life!
     <<stop>>
+<<endif>>
+
+<<if $helpingPeter>>
+    Peter: Hey man! Did you get that Cowfila for me yet?
+    -> Yep, I got some from Greg! <<if $gotGregsFood>>
+        <<jump GivePeterGregsFood>>
+    -> Yep, I bought you some! <<if $boughtMeal>>
+        <<jump GivePeterBoughtFood>>
+    -> Not yet.
+        Peter: Dang, alright. Please hurry, I'm starving!
+        <<stop>>
+<<else>>
+    Peter: "Sniff" I'm so sad!
+    -> What's wrong?
+        <<jump helpPeterLunch>>
+    -> Grown man btw.
+        <<stop>>
+<<endif>>
 ===
+
 title: helpPeterLunch
 ---
-Peter: I got hacked and have no more swipes! Now I'm gonna starve! 
+Peter: I got hacked and have no more swipes! Now I'm gonna starve!
 Peter: Wait a minute... You need chapel credits right?
 Peter: If you get me some Cowfila I'll give you one of my credits! Whadda ya say?
--> Fair trade, sure. <<if hasActions()>>
+-> Fair trade, sure.  <<if hasActions()>>
     <<jump peterLunchThanks>>
--> Nah I'm lowkey starving... 
+-> Nah I'm lowkey starving...
     <<jump peterDisapointed>>
-
-<<stop>>
 ===
+
 title: peterLunchThanks
 ---
-Peter: Thanks man! Get it to me before the hour ends! 
 <<useAction>>
+<<set $helpingPeter = true>>
+Peter: Thanks man! Get it to me before the hour ends!
 <<stop>>
 ===
+
+title: GivePeterGregsFood
+---
+<<set $gotGregsFood = false>>
+<<jump GivePeterFood>>
+===
+
+title: GivePeterBoughtFood
+---
+<<set $boughtMeal = false>>
+<<jump GivePeterFood>>
+===
+
+title: GivePeterFood
+---
+<<useAction>>
+Peter: NO WAY! YOU ACTUALLY GOT ME COWFILA?!
+Peter: Dude, you're actually the best!
+Peter: Here, take my chapel credit. A deal's a deal!
+
+<<set $gavePeterFood = true>>
+<<stop>>
+===
+
 title: peterDisapointed
 ---
-Peter: Dang, whatever man. Good luck getting those credits... 
+Peter: Dang, whatever man. Good luck getting those credits...
 <<stop>>
 ===
-
-
-
-
-
-
-

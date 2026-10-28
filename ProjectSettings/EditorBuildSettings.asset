@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Chapel.unity
     guid: 0d5beeb6c3d4717429024edee43e5986
+  - enabled: 1
+    path: Assets/Scenes/Lunch.unity
+    guid: d34b4f0b6074ecb4487ea20d974d333e
+  - enabled: 1
+    path: Assets/Scenes/Ketrec.unity
+    guid: 1505f6741116f7a4ab5a22cc1efc831f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -33,7 +33,7 @@ public class GameManagerScript : MonoBehaviour
     private DialogueRunner dialogueRunner;
 
     public GameObject gameOver;
-    public TMP_Text reason; 
+    public TMP_Text reason;
 
     public GameObject paper;
     public int hasPaper = 0;
@@ -42,9 +42,14 @@ public class GameManagerScript : MonoBehaviour
     public int teacherDistractedAt = -1;
     private bool eventRunning = false;
     public bool teacherSeesPlayer = true;
+
     public bool scheduledMeeting = false;
 
-    public bool guyhasLunch = false; 
+    public bool friendedLuke = false;
+    public bool guyhasLunch = false;
+
+    public bool starving = true;
+
 
     void Awake()
     {
@@ -91,8 +96,11 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("scheduleMeeting", ScheduleMeeting);
             dialogueRunner.AddFunction("hasScheduledMeeting", HasScheduledMeeting);
             dialogueRunner.AddFunction("GetGuyHasLunch", GetGuyHasLunch);
+            dialogueRunner.AddFunction("GetFriendedLuke", GetFriendedLuke);
+            dialogueRunner.AddCommandHandler("FriendedLuke", FriendedLuke);
+            dialogueRunner.AddCommandHandler("EatMeal", EatMeal);
         }
-      
+
 
         if (FindFirstObjectByType<ClassCutsceneScript>() != null)
             classCutscenes = FindFirstObjectByType<ClassCutsceneScript>();
@@ -125,9 +133,10 @@ public class GameManagerScript : MonoBehaviour
             currentPeriod++;
             actionsRemaining = maxActions;
 
+
             if (currentPeriod == TimePeriod.Lunch)
             {
-                actionsRemaining = 5; 
+                actionsRemaining = 5;
             }
         }
 
@@ -146,7 +155,7 @@ public class GameManagerScript : MonoBehaviour
 
         if (actionsRemaining == 0)
         {
-            StartCoroutine(WaitForEvent(TimeChanges())); 
+            StartCoroutine(WaitForEvent(TimeChanges()));
         }
 
         EventChecks();
@@ -162,36 +171,46 @@ public class GameManagerScript : MonoBehaviour
 
         if (currentPeriod == TimePeriod.Class && actionsRemaining == 3)
         {
-            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.luca, classCutscenes.lucaPath, "LucaLate",true)));
+            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.luca, classCutscenes.lucaPath, "LucaLate", true)));
 
         }
 
         if (currentPeriod == TimePeriod.Class && actionsRemaining == 2)
         {
-            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters( classCutscenes.sam,classCutscenes.samPath,"SamLate", !teacherSeesPlayer)));
+            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.sam, classCutscenes.samPath, "SamLate", !teacherSeesPlayer)));
         }
 
         if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt)
         {
-            StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns() ));
+            StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns()));
         }
 
-        if (currentPeriod == TimePeriod.Chapel && !hasChapelPass && actionsRemaining == 3)
+        if (currentPeriod == TimePeriod.Chapel && !hasChapelPass && actionsRemaining == 3 && SceneManager.GetActiveScene().name == "Quad")
         {
-            StartCoroutine(WaitForEvent(WillieDeath())); 
+            StartCoroutine(WaitForEvent(WillieDeath()));
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 5 && !hasChapelPass)
+        {
+            dialogueRunner.StartDialogue("EnterLunch");
         }
 
         if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 4)
         {
             StartCoroutine(WaitForEvent(lunchCutscenes.CharacterGotHisFood()));
-            guyhasLunch = true; 
+            guyhasLunch = true;
         }
+
+        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 0 && starving)
+        {
+            StartCoroutine(WaitForEvent(Starve()));
+        }
+
+
     }
 
     private IEnumerator WaitForEvent(IEnumerator nextEvent)
     {
-        DialogueRunner dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
         // Wait until no other event, dialogue, or cutscene is running
         yield return new WaitUntil(() =>
             !eventRunning && !dialogueRunner.IsDialogueRunning && !player.inCutscene
@@ -273,10 +292,25 @@ public class GameManagerScript : MonoBehaviour
         return scheduledMeeting;
     }
 
+
     public bool GetGuyHasLunch()
     {
         return guyhasLunch;
     }
+
+    public bool GetFriendedLuke()
+    {
+        return friendedLuke;
+    }
+    public void FriendedLuke()
+    {
+        friendedLuke = true;
+    }
+    public void EatMeal()
+    {
+        starving = false;
+    }
+
 
     public void GameOver()
     {
@@ -297,8 +331,15 @@ public class GameManagerScript : MonoBehaviour
 
     private IEnumerator WillieDeath()
     {
- 
+
         yield return StartCoroutine(quadCutscenes.WillieDeath());
+
+        GameOver();
+    }
+
+    private IEnumerator Starve()
+    {
+        yield return StartCoroutine(lunchCutscenes.PunchWithoutLuke());
 
         GameOver();
     }
