@@ -30,13 +30,13 @@ title: Distraction
 <<if GetTeacherSeesYou()>>
     Teacher: Dude... I can see you. 
     Teacher: Get out of my class.
-    <<gameOver>>
+    <<gameOver "Kicked out of class! The Prof is looking direclty at you...">>
 
 <<elseif GetPaper() == 1>>
     You pull out the normal piece of paper.
     Teacher: Bruh...
     Teacher: Get out of my class.
-    <<gameOver>>
+    <<gameOver "Kicked out of class! Distraction by throwing a normal piece of paper was not a smart idea...">>
 
 <<elseif GetPaper() == 2>>
     You pull out the crumpled paper.

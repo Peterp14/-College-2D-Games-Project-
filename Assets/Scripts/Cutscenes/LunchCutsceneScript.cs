@@ -115,7 +115,7 @@ public class LunchCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        GameManagerScript.instance.GameOver();
+        GameManagerScript.instance.GameOver("You picked a fight you couldn't win! Come next time with backup!");
     }
 
     public IEnumerator PunchWithLuke()
@@ -159,4 +159,5 @@ public class LunchCutsceneScript : MonoBehaviour
 
         player.inCutscene = false;
     }
+
 }

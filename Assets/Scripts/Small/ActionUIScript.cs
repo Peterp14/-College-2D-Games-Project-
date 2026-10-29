@@ -16,11 +16,18 @@ public class ActionUIScript : MonoBehaviour
 
     void UpdateActions()
     {
+        // GameManager may briefly be null during restart
+        if (GameManagerScript.instance == null)
+            return;
+
         int remaining = GameManagerScript.instance.actionsRemaining;
 
         for (int i = 0; i < actionIcons.Length; i++)
         {
-            actionIcons[i].SetActive(i < remaining);
+            if (actionIcons[i] != null)
+            {
+                actionIcons[i].SetActive(i < remaining);
+            }
         }
     }
 }
