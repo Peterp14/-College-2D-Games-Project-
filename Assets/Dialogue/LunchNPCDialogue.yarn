@@ -1,0 +1,139 @@
+﻿title: LunchGuy
+---
+<<declare $helpingLunchGuy = false>>
+<<declare $purpleGuyDefeated = false>>
+<<declare $gotGregsFood = false>>
+<<declare $boughtMeal = false>>
+
+<<if $gotGregsFood>>
+    Greg: Enjoy the food, man. You earned it!
+    <<stop>>
+<<endif>>
+
+<<if $purpleGuyDefeated>>
+    Greg: DUDE! YOU ACTUALLY DID IT?!
+    Greg: I honestly didn't think you'd go through with that!
+    Greg: Well, a deal's a deal. Here's my Cowfila!
+    <<jump GregGivesFood>>
+<<endif>>
+
+<<if GetGuyHasLunch()>>
+    Greg: Man oh man I sure do love me some Cowfila!
+    Greg: Oh hey, didn't see you standing there eye balling my food... Whats up??
+<<else>>
+    Greg: Hey man no shoving, wait in line.
+    -> Wait till he gets his food. <<if hasActions()>>
+        <<useAction>>
+        <<stop>>
+    -> Back. 
+      <<stop>>
+<<endif>>
+
+-> Whatcha doing with that food??? <<if GetGuyHasLunch()>>
+    <<jump GuyEating>>
+-> Nothin
+    <<stop>>
+===
+
+title: GuyEating
+---
+Greg: Gee, I wonder what I could possibly be doing with this food right now.
+Greg: What do you want?
+-> Can I have it?
+    <<if hasActions()>>
+        <<jump TakingFood>>
+    <<else>>
+        Greg: Sorry, you don't have enough time!
+        <<stop>>
+    <<endif>>
+-> Never mind
+    <<stop>>
+===
+
+title: TakingFood
+---
+<<useAction>>
+<<set $helpingLunchGuy = true>>
+Greg: Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.
+Greg: If you need the food I could give it to ya, but you gotta do something for me.
+Greg: See that guy over there in the purple? I need you to punch him.
+Greg: I have literally no reason for it and don't condone it, but would lowkey be funny.
+Greg: Do that and you can have the food, I'll wait before eating it.
+<<stop>>
+===
+
+title: GregGivesFood
+---
+<<set $gotGregsFood = true>>
+Greg: Here you go, one fresh Cowfila meal!
+Greg: Don't say I never did anything for ya!
+<<stop>>
+===
+
+
+title: PurpleGuy
+---
+PurpleGuy: Hey man, what's up?
+-> Not much, any fun facts about yourself? 
+    PurpleGuy: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's awesome! 
+    <<stop>>
+-> Punch him. <<if $helpingLunchGuy and hasActions() and not $purpleGuyDefeated>>
+    <<jump PunchPurpleGuy>>
+-> See ya.
+    <<stop>>
+===
+
+title: PunchPurpleGuy
+---
+<<useAction>>
+PurpleGuy: OW! OH YOU'RE DEAD!
+
+<<if $lukeWillHelp>>
+    <<jump PunchWithLuke>>
+<<else>>
+    <<jump PunchWithoutLuke>>
+<<endif>>
+===
+
+title: PunchWithLuke
+---
+Luke: IS THAT THE WINDOW'S LOVER?!
+<<PunchWithLuke>>
+<<set $purpleGuyDefeated = true>>
+<<stop>>
+===
+
+title: PunchWithoutLuke
+---
+<<PunchWithoutLuke>>
+<<stop>>
+===
+
+
+
+title: Worker
+---
+<<if $boughtMeal>>
+    Worker: Welcome back to Cowfila!
+    Worker: Sorry, we're limiting everyone to one meal today!
+    -> Alright, thanks!
+        Worker: Have a great day!
+        <<stop>>
+<<else>>
+    Worker: Welcome to Cowfila! What can I get for you?
+    -> Can I get a meal? <<if hasActions()>>
+        <<jump BuyMeal>>
+    -> Just looking, thanks!
+        Worker: No problem! Let me know if you need anything!
+        <<stop>>
+<<endif>>
+===
+
+title: BuyMeal
+---
+<<useAction>>
+<<set $boughtMeal = true>>
+Worker: Coming right up!
+Worker: Here's your Cowfila meal! Enjoy!
+<<stop>>
+===

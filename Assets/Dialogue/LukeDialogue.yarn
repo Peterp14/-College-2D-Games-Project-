@@ -1,6 +1,8 @@
 ﻿title: Luke
 ---
 <<declare $helpedLuke = false>>
+<<declare $lukeWillHelp = false>>
+
 
 <<if $helpedLuke>>
     Luke: Thanks again for helping me!
@@ -8,7 +10,6 @@
 <<endif>>
 
 Luke: Hey! You free today? I have something big planned...
-
 -> Yeah, I have time. <<if hasChapelPass() and hasActions()>>
     <<jump HelpLuke>>
 -> No, sorry.
@@ -20,7 +21,6 @@ title: HelpLuke
 <<useAction>>
 <<set $helpedLuke = true>>
 Luke: Bet! I'm throwing Grove's Perfect Party, and I need some help. You in?
-
 -> Absolutely!
     <<jump HelpLuke2>>
 -> No thanks.
@@ -41,40 +41,64 @@ Luke: No worries! I'll see you around.
 <<stop>>
 ===
 
-
-
-
-
-
 title: LukeClass
 ---
+<<if GetFriendedLuke()>>
+    Luke: What's up man! Good to see someone with some common sense around here!
+    <<stop>>
+<<endif>>
+
 Luke: Hey man, quick question...
 Luke: What's your opinion on Windows???
-
 -> It's fine.
     <<jump LukeHatesWindows>>
--> I hate it. 
+-> I hate it.
     <<jump LukeYaps>>
 
 <<stop>>
 ===
 
-
-
 title: LukeHatesWindows
 ---
 Luke: What an awful opinion, it is OBJECTIVELY worse!
-Luke: Can't have someone with your mindset going around campus... 
-<<gameOver>> 
+Luke: Can't have someone with your mindset going around campus...
+<<gameOver>>
 
 <<stop>>
 ===
 
 title: LukeYaps
 ---
+<<FriendedLuke>>
 Luke: RIGHT?! I'm litteraly doing two things that should not affect eachother AT ALL but the one says it can't run due to other programs!
+Luke: I LOVE that you agree. If you catch anyone who disagrees, Let. Me. Know...
+-> Understood.
 
--> That sucks man.  
+<<stop>>
+===
+
+title: LukeLunch
+---
+<<if $purpleGuyDefeated>>
+    Luke: That'll teach him to defend Windows!
+    Luke: Anyway, what's up?
+    -> Thanks for having my back!
+        Luke: Of course, bro! That's what Linux users are for!
+        <<stop>>
+<<else>>
+    Luke: What's up man?
+    -> That guy over just yapped to me about how he ADORES Windows. <<if GetFriendedLuke() and hasActions() and $helpingLunchGuy>>
+        <<jump LukeAngry>>
+    -> Nothing much.
+        <<stop>>
+<<endif>>
+===
+
+title: LukeAngry
+---
+Luke: WHAT?! OH HECK NAH!! If ANYTHING comes up with him again I'm right behind you!
+<<set $lukeWillHelp = true>>
+-> Thank's boss.
 
 <<stop>>
 ===
