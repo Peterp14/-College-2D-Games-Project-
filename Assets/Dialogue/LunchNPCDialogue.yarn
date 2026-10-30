@@ -17,7 +17,13 @@
     <<jump GregGivesFood>>
 <<endif>>
 
-<<if GetGuyHasLunch()>>
+// If the player already accepted the quest
+<<if $helpingLunchGuy>>
+    Greg: Well? Did you punch that guy in purple yet?
+    <<stop>>
+<<endif>>
+
+<<if getBool("guyhasLunch")>>
     Greg: Man oh man I sure do love me some Cowfila!
     Greg: Oh hey, didn't see you standing there eye balling my food... Whats up??
 <<else>>
@@ -25,11 +31,11 @@
     -> Wait till he gets his food. <<if hasActions()>>
         <<useAction>>
         <<stop>>
-    -> Back. 
-      <<stop>>
+    -> Back.
+        <<stop>>
 <<endif>>
 
--> Whatcha doing with that food??? <<if GetGuyHasLunch()>>
+-> Whatcha doing with that food??? <<if getBool("guyhasLunch")>>
     <<jump GuyEating>>
 -> Nothin
     <<stop>>
@@ -75,7 +81,7 @@ title: PurpleGuy
 ---
 PurpleGuy: Hey man, what's up?
 -> Not much, any fun facts about yourself? 
-    PurpleGuy: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's awesome! 
+    PurpleGuy: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's great! I sure do love my WINDOWS operating system!  
     <<stop>>
 -> Punch him. <<if $helpingLunchGuy and hasActions() and not $purpleGuyDefeated>>
     <<jump PunchPurpleGuy>>

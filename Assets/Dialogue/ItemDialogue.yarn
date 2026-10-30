@@ -29,3 +29,19 @@ You grab the paper and crumple it and stuff it into your pocket.
 
 ===
 
+
+title: Evidence
+---
+<<if getBool("hasEvidence")>>
+    Nothing else to see here.
+    <<stop>>
+<<else>>
+    Looking into the desk, you find a file named Opitz. Inside it shows he has 0 credits!
+
+    -> Take the files. <<if hasActions()>>
+        <<setBool "hasEvidence" true>>
+    -> Don't take it.
+        <<stop>>
+<<endif>>
+===
+

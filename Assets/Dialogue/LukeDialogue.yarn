@@ -10,7 +10,7 @@
 <<endif>>
 
 Luke: Hey! You free today? I have something big planned...
--> Yeah, I have time. <<if hasChapelPass() and hasActions()>>
+-> Yeah, I have time. <<if getBool("hasChapelPass") and hasActions()>>
     <<jump HelpLuke>>
 -> No, sorry.
     <<jump DeclineLuke>>
@@ -43,7 +43,7 @@ Luke: No worries! I'll see you around.
 
 title: LukeClass
 ---
-<<if GetFriendedLuke()>>
+<<if getBool("friendedLuke")>>
     Luke: What's up man! Good to see someone with some common sense around here!
     <<stop>>
 <<endif>>
@@ -62,14 +62,14 @@ title: LukeHatesWindows
 ---
 Luke: What an awful opinion, it is OBJECTIVELY worse!
 Luke: Can't have someone with your mindset going around campus...
-<<gameOver "Game Over! Luke REALLY hates Windows...>>
+<<gameOver "Game Over! Luke REALLY hates Windows...">>
 
 <<stop>>
 ===
 
 title: LukeYaps
 ---
-<<FriendedLuke>>
+<<setBool "friendedLuke" true>>
 Luke: RIGHT?! I'm litteraly doing two things that should not affect eachother AT ALL but the one says it can't run due to other programs!
 Luke: I LOVE that you agree. If you catch anyone who disagrees, Let. Me. Know...
 -> Understood.
@@ -87,7 +87,7 @@ title: LukeLunch
         <<stop>>
 <<else>>
     Luke: What's up man?
-    -> That guy over just yapped to me about how he ADORES Windows. <<if GetFriendedLuke() and hasActions() and $helpingLunchGuy>>
+    -> That guy over just yapped to me about how he ADORES Windows. <<if getBool("friendedLuke") and hasActions() and $helpingLunchGuy>>
         <<jump LukeAngry>>
     -> Nothing much.
         <<stop>>

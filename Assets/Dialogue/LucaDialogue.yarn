@@ -11,7 +11,7 @@ Luca: Hey! I am going to propose today and I need your help. Are you free today?
 
 -> No, sorry.
     <<jump DeclineLuca>>
--> Yeah, I have time. <<if hasChapelPass() and hasActions()>>
+-> Yeah, I have time. <<if getBool("hasChapelPass") and hasActions()>>
         <<jump HelpLuca>>
 ===
 
@@ -31,7 +31,7 @@ Luca: That's okay! I got this! Yea! All by myself! Hmmmm....
 
 title: LucaLate
 ---
-<<if isTeacherDistracted()>>
+<<if getBool("teacherDistracted")>>
     Luca: Ah Sweet! He didn't notice me coming in! 
 <<else>>
     Teacher: I see you slept in again...
@@ -43,5 +43,3 @@ title: LucaLate
 
 <<stop>>
 ===
-
-
