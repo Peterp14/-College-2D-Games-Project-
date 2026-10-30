@@ -11,7 +11,7 @@ Sam: Friendly reminder from your RA, make sure to get the rest of your chapel cr
 
 -> Sir yes sir! <<if hasActions()>>
     <<jump NoChapelCredits>>
--> Already done! <<if hasChapelPass() and hasActions()>>
+-> Already done! <<if getBool("hasChapelPass") and hasActions()>>
     <<jump HasChapelPass>>
 ===
 
@@ -31,7 +31,7 @@ Sam: Cheater.
 
 title: SamLate
 ---
-<<if isTeacherDistracted()>>
+<<if getBool("teacherDistracted")>>
     Sam: Another victory for the OG's! 
 <<else>>
     Teacher: Regularly scheduled entrance... 

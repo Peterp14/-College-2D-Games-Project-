@@ -1,14 +1,14 @@
 ﻿title: ClassDoor
 ---
-<<if isPeriod("Morning")>>
-    Do you want to go to Class and start your day?
+<<if isPeriod("Afternoon") and getBool("scheduledMeeting")>>
+    Do you want to go to the meeting you scheduled with the Prof?
 
     -> Yes
-        <<jump EnterClass>>
+        <<jump EnterClassAfternoon>>
     -> No
         <<jump StayHere>>
 <<else>>
-    You can't enter the classroom right now.
+    You try to go to the class, but the Prof is fully booked. You can probably only go if schedule with him early. 
     <<stop>>
 <<endif>>
 ===
@@ -77,6 +77,12 @@ title: EnterClass
 <<stop>>
 ===
 
+title: EnterClassAfternoon
+---
+<<changeScene "Class">>
+<<stop>>
+===
+
 title: EnterQuad
 ---
 <<changeScene "Quad">>
@@ -94,6 +100,13 @@ title: StayHere
 <<stop>>
 ===
 
+title: EnterChapel
+---
+<<changeScene "Chapel">>
+<<stop>>
+===
+
+
 title: ClassOver
 ---
 Teacher: Alright guys my time's over for today. There's a meeting in 10 so make sure you're outta here. 
@@ -104,9 +117,12 @@ Player: Guess I gotta head out. It's chapel hour anyways.
 <<stop>>
 ===
 
-
-title: EnterChapel
+title: LunchOver
 ---
-<<changeScene "Chapel">>
+Worker: Alright there's a big rush! If anyone's been here awhile get out! 
+Player: Guess I should head out and enjoy my afternoon. 
+
+<<changeScene "Quad">>
+<<nextPeriod>>
 <<stop>>
 ===

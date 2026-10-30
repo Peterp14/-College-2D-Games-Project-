@@ -1,61 +1,55 @@
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
+
 using static GameManagerScript;
 public class GameManagerScript : MonoBehaviour
 {
+    //Variables for functionality and game design 
     public static GameManagerScript instance;
-
     public PlayerScript player;
-    public bool hasChapelPass = false;
-    public bool hasItem1 = false;
-    public bool hasItem2 = false;
     public enum TimePeriod
     {
-        Morning,
-        Class,
-        Chapel,
-        Lunch,
-        Afternoon,
-        EndOfDay
+        Morning, Class, Chapel, Lunch, Afternoon, EndOfDay
     }
-    public int maxActions;
+    //public int maxActions;
     public int actionsRemaining;
     public TimePeriod currentPeriod = TimePeriod.Morning;
     private ClassCutsceneScript classCutscenes;
     private QuadCutsceneScript quadCutscenes;
     private HallCutsceneScript hallCutscenes;
-
     private LunchCutsceneScript lunchCutscenes;
-
     private DialogueRunner dialogueRunner;
 
     public GameObject gameOver;
     public TMP_Text reason;
-
     private PeriodCheckpoint checkpoint;
+    private bool eventRunning = false;
     private bool checkpointPending = false;
     private bool restartingPeriod = false;
 
-
-
+    //variables for flags, items, etc that change throughout the game
     public GameObject paper;
-    public int hasPaper = 0;
-
-    public bool teacherDistracted = false;
-    public int teacherDistractedAt = -1;
-    private bool eventRunning = false;
-    public bool teacherSeesPlayer = true;
-
-    public bool scheduledMeeting = false;
-
-    public bool friendedLuke = false;
-    public bool guyhasLunch = false;
-
-    public bool starving = true;
+    //flags in dictionary for organization
+    public Dictionary<string, object> flags = new Dictionary<string, object>
+    {
+        { "hasChapelPass", false },
+        { "hasItem1", false },
+        { "hasItem2", false },
+        { "hasPaper", 0 },
+        { "teacherDistracted", false },
+        { "teacherDistractedAt", -1 },
+        { "teacherSeesPlayer", true },
+        { "scheduledMeeting", true }, //should be false
+        { "friendedLuke", false },
+        { "guyhasLunch", false },
+        { "starving", true },
+        { "peterCredit", true }, //should be false 
+        { "hasEvidence", false } //should be false
+    };
 
 
     void Awake()
@@ -81,6 +75,23 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // Flag helpers
+    public bool GetBool(string key)
+    {
+        return flags.TryGetValue(key, out object value) && value is bool b && b;
+    }
+
+    public int GetInt(string key)
+    {
+        return flags.TryGetValue(key, out object value) && value is int i ? i : 0;
+    }
+
+    public void SetFlag(string key, object value)
+    {
+        flags[key] = value;
+    }
+
+    //Grab neccisary elements on a scene load, gives yarn spinner methods and vars to use
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (FindFirstObjectByType<DialogueRunner>() != null)
@@ -91,21 +102,13 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddFunction<string, bool>("isPeriod", IsPeriod);
             dialogueRunner.AddCommandHandler("useAction", UseAction);
             dialogueRunner.AddFunction("hasActions", HasActions);
-            dialogueRunner.AddFunction("hasChapelPass", HasChapelPass);
-            dialogueRunner.AddFunction("hasItem1", HasItem1);
-            dialogueRunner.AddFunction("hasItem2", HasItem2);
+            dialogueRunner.AddFunction<string, bool>("getBool", GetBool);
+            dialogueRunner.AddFunction<string, int>("getInt", GetInt);
+            dialogueRunner.AddCommandHandler<string, bool>("setBool", (key, value) => SetFlag(key, value));
+            dialogueRunner.AddCommandHandler<string, int>("setInt", (key, value) => SetFlag(key, value));
             dialogueRunner.AddCommandHandler("PaperTook", takenPaper);
             dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
-            dialogueRunner.AddFunction("GetPaper", GetPaper);
-            dialogueRunner.AddFunction("isTeacherDistracted", IsTeacherDistracted);
-            dialogueRunner.AddFunction("GetTeacherSeesYou", GetTeacherSeesYou);
             dialogueRunner.AddCommandHandler<string>("gameOver", GameOver);
-            dialogueRunner.AddCommandHandler("scheduleMeeting", ScheduleMeeting);
-            dialogueRunner.AddFunction("hasScheduledMeeting", HasScheduledMeeting);
-            dialogueRunner.AddFunction("GetGuyHasLunch", GetGuyHasLunch);
-            dialogueRunner.AddFunction("GetFriendedLuke", GetFriendedLuke);
-            dialogueRunner.AddCommandHandler("FriendedLuke", FriendedLuke);
-            dialogueRunner.AddCommandHandler("EatMeal", EatMeal);
         }
 
 
@@ -129,6 +132,7 @@ public class GameManagerScript : MonoBehaviour
         {
             restartingPeriod = false;
         }
+
         // Save when entering the first scene of a new period
         else if (checkpointPending)
         {
@@ -155,19 +159,17 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod < TimePeriod.EndOfDay)
         {
             currentPeriod++;
-            actionsRemaining = maxActions;
+            actionsRemaining = 4;
 
 
-            if (currentPeriod == TimePeriod.Lunch)
+            if (currentPeriod == TimePeriod.Lunch || currentPeriod == TimePeriod.Afternoon)
             {
                 actionsRemaining = 5;
             }
 
-            checkpointPending = true; 
+            checkpointPending = true;
         }
 
-        Debug.Log("Current Period: " + currentPeriod);
-        Debug.Log("Actions Remaining: " + actionsRemaining);
     }
 
     public void UseAction()
@@ -187,6 +189,7 @@ public class GameManagerScript : MonoBehaviour
         EventChecks();
     }
 
+    //conditions throughout the game that cause events to happen. Method is called at beginning of a scene or after an action was used
     private void EventChecks()
     {
         if (currentPeriod == TimePeriod.Morning && actionsRemaining == 4)
@@ -203,20 +206,20 @@ public class GameManagerScript : MonoBehaviour
 
         if (currentPeriod == TimePeriod.Class && actionsRemaining == 2)
         {
-            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.sam, classCutscenes.samPath, "SamLate", !teacherSeesPlayer)));
+            StartCoroutine(WaitForEvent(classCutscenes.CharacterEnters(classCutscenes.sam, classCutscenes.samPath, "SamLate", !GetBool("teacherSeesPlayer"))));
         }
 
-        if (currentPeriod == TimePeriod.Class && teacherDistracted && actionsRemaining < teacherDistractedAt)
+        if (currentPeriod == TimePeriod.Class && GetBool("teacherDistracted") && actionsRemaining < GetInt("teacherDistractedAt"))
         {
             StartCoroutine(WaitForEvent(classCutscenes.TeacherReturns()));
         }
 
-        if (currentPeriod == TimePeriod.Chapel && !hasChapelPass && actionsRemaining == 3 && SceneManager.GetActiveScene().name == "Quad")
+        if (currentPeriod == TimePeriod.Chapel && !GetBool("hasChapelPass") && actionsRemaining == 3 && SceneManager.GetActiveScene().name == "Quad")
         {
             StartCoroutine(WaitForEvent(WillieDeath()));
         }
 
-        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 5 && !hasChapelPass)
+        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 5 && !GetBool("hasChapelPass"))
         {
             dialogueRunner.StartDialogue("EnterLunch");
         }
@@ -224,36 +227,40 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 4)
         {
             StartCoroutine(WaitForEvent(lunchCutscenes.CharacterGotHisFood()));
-            guyhasLunch = true;
+            SetFlag("guyhasLunch", true);
         }
 
-        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 0 && starving)
+        if (currentPeriod == TimePeriod.Lunch && actionsRemaining == 0 && GetBool("starving"))
         {
             StartCoroutine(WaitForEvent(Starve()));
         }
 
+        if (currentPeriod == TimePeriod.Afternoon && !GetBool("hasChapelPass") && GetBool("peterCredit") && SceneManager.GetActiveScene().name == "Quad" && actionsRemaining == 5)
+        {
+            StartCoroutine(WaitForEvent(quadCutscenes.PeterCreditCutscene()));
+        }
 
     }
 
+    //waits for a current event to be finished before starting another
     private IEnumerator WaitForEvent(IEnumerator nextEvent)
     {
         // Wait until no other event, dialogue, or cutscene is running
-        yield return new WaitUntil(() =>
-            !eventRunning && !dialogueRunner.IsDialogueRunning && !player.inCutscene
-        );
+        yield return new WaitUntil(() => !eventRunning && !dialogueRunner.IsDialogueRunning && !player.inCutscene );
 
-        // Reserve the event slot
+        // Set true so the event that is waiting can then run with no interuptions 
         eventRunning = true;
 
-        // Play the cutscene and wait for it to finish
+        // Play the next event
         yield return StartCoroutine(nextEvent);
 
-        // Wait for any dialogue started by the cutscene
+        // Wait for any dialogue 
         if (dialogueRunner != null)
         {
             yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         }
 
+        //set false so other events can start 
         eventRunning = false;
     }
 
@@ -267,80 +274,18 @@ public class GameManagerScript : MonoBehaviour
         return actionsRemaining > 0;
     }
 
-    public bool HasChapelPass()
-    {
-        return hasChapelPass;
-    }
-
-    public bool HasItem1()
-    {
-        return hasItem1;
-    }
-    public bool HasItem2()
-    {
-        return hasItem2;
-    }
-
     public void takenPaper()
     {
         Destroy(paper);
-        hasPaper = 1;
-        //Debug.Log(hasPaper);
+        SetFlag("hasPaper", 1);
+        //Debug.Log(GetInt("hasPaper"));
     }
 
     public void takenPaperCrumple()
     {
         Destroy(paper);
-        hasPaper = 2;
-        //Debug.Log(hasPaper);
-    }
-    public int GetPaper()
-    {
-        return hasPaper;
-    }
-
-    public bool IsTeacherDistracted()
-    {
-        return teacherDistracted;
-    }
-
-    public bool GetTeacherSeesYou()
-    {
-        return teacherSeesPlayer;
-    }
-    public void ScheduleMeeting()
-    {
-        scheduledMeeting = true;
-    }
-
-    public bool HasScheduledMeeting()
-    {
-        return scheduledMeeting;
-    }
-
-
-    public bool GetGuyHasLunch()
-    {
-        return guyhasLunch;
-    }
-
-    public bool GetFriendedLuke()
-    {
-        return friendedLuke;
-    }
-    public void FriendedLuke()
-    {
-        friendedLuke = true;
-    }
-    public void EatMeal()
-    {
-        starving = false;
-    }
-
-
-    public void GameOver()
-    {
-        GameOver("You died!");
+        SetFlag("hasPaper", 2);
+        //Debug.Log(GetInt("hasPaper"));
     }
 
     public void GameOver(string deathMessage)
@@ -369,11 +314,19 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    //If specific events happen at a time change put conditions here
     private IEnumerator TimeChanges()
     {
         if (currentPeriod == TimePeriod.Class)
         {
             dialogueRunner.StartDialogue("ClassOver");
+
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && GetBool("starving") == false)
+        {
+            dialogueRunner.StartDialogue("LunchOver");
 
             yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         }
@@ -395,7 +348,7 @@ public class GameManagerScript : MonoBehaviour
         GameOver("You forgot to eat lunch and starved to death!");
     }
 
-
+    //Saves the current game state at the beginning of a time period
     public void SavePeriodCheckpoint()
     {
         checkpoint = new PeriodCheckpoint
@@ -404,25 +357,14 @@ public class GameManagerScript : MonoBehaviour
             period = currentPeriod,
             actionsRemaining = actionsRemaining,
 
-            hasChapelPass = hasChapelPass,
-            hasItem1 = hasItem1,
-            hasItem2 = hasItem2,
-            hasPaper = hasPaper,
-
-            teacherDistracted = teacherDistracted,
-            teacherDistractedAt = teacherDistractedAt,
-            teacherSeesPlayer = teacherSeesPlayer,
-
-            scheduledMeeting = scheduledMeeting,
-            friendedLuke = friendedLuke,
-            guyhasLunch = guyhasLunch,
-            starving = starving
+            //Make a copy of all flags so future changes do not affect the checkpoint
+            flags = new Dictionary<string, object>(flags)
         };
 
-        Debug.Log("Checkpoint saved for " + currentPeriod +
-                  " in scene " + checkpoint.startingScene);
+        //Debug.Log("Checkpoint saved for " + currentPeriod + " in scene " + checkpoint.startingScene);
     }
 
+    //restores the game to the last time SavePeriodCheckpoint was called 
     public void RestorePeriodCheckpoint()
     {
         if (checkpoint == null)
@@ -431,26 +373,17 @@ public class GameManagerScript : MonoBehaviour
         currentPeriod = checkpoint.period;
         actionsRemaining = checkpoint.actionsRemaining;
 
-        hasChapelPass = checkpoint.hasChapelPass;
-        hasItem1 = checkpoint.hasItem1;
-        hasItem2 = checkpoint.hasItem2;
-        hasPaper = checkpoint.hasPaper;
-
-        teacherDistracted = checkpoint.teacherDistracted;
-        teacherDistractedAt = checkpoint.teacherDistractedAt;
-        teacherSeesPlayer = checkpoint.teacherSeesPlayer;
-
-        scheduledMeeting = checkpoint.scheduledMeeting;
-        friendedLuke = checkpoint.friendedLuke;
-        guyhasLunch = checkpoint.guyhasLunch;
-        starving = checkpoint.starving;
+        //Restore a copy of the saved flags without changing the checkpoint itself
+        flags = new Dictionary<string, object>(checkpoint.flags);
     }
 
+    //Restarts the current time period using the saved checkpoint
     public void RestartPeriod()
     {
+        //checkpoint must exist
         if (checkpoint == null)
         {
-            Debug.LogWarning("No checkpoint available!");
+            //Debug.LogWarning("No checkpoint available!");
             return;
         }
 
@@ -459,6 +392,7 @@ public class GameManagerScript : MonoBehaviour
         // Hide the Game Over screen
         gameOver.SetActive(false);
 
+        //checkpoint isn't overwritten on the reload
         restartingPeriod = true;
 
         RestorePeriodCheckpoint();
@@ -467,6 +401,7 @@ public class GameManagerScript : MonoBehaviour
     }
 }
 
+//Stores the information needed to restart a time period
 [System.Serializable]
 public class PeriodCheckpoint
 {
@@ -474,17 +409,5 @@ public class PeriodCheckpoint
     public TimePeriod period;
     public int actionsRemaining;
 
-    public bool hasChapelPass;
-    public bool hasItem1;
-    public bool hasItem2;
-    public int hasPaper;
-
-    public bool teacherDistracted;
-    public int teacherDistractedAt;
-    public bool teacherSeesPlayer;
-
-    public bool scheduledMeeting;
-    public bool friendedLuke;
-    public bool guyhasLunch;
-    public bool starving;
+    public Dictionary<string, object> flags;
 }

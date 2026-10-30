@@ -36,7 +36,10 @@ public class PlayerScript : MonoBehaviour
     {
         bool isTalking = dialogueRunner != null && dialogueRunner.IsDialogueRunning;
 
-        _animator.SetBool("isMoving", !isTalking && moveDirection.sqrMagnitude > 0.01f);
+        if (!inCutscene)
+        {
+            _animator.SetBool("isMoving", !isTalking && moveDirection.sqrMagnitude > 0.01f);
+        }
 
         interactionIndicator.SetActive(!isTalking && nearbyInteractable != null);
     }

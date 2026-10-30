@@ -21,7 +21,7 @@ title: InquirePeter
 ---
 Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
 
--> Does this mean anything to you? <<if hasItem1() and hasActions() and hasItem2()>>
+-> Does this mean anything to you? <<if getBool("hasItem1") and hasActions() and getBool("hasItem2")>>
     <<jump helpPeter>>
 -> Sorry, good luck with that.
     <<stop>>
@@ -104,6 +104,7 @@ Peter: NO WAY! YOU ACTUALLY GOT ME COWFILA?!
 Peter: Dude, you're actually the best!
 Peter: Here, take my chapel credit. A deal's a deal!
 
+<<setBool "peterCredit" true>>
 <<set $gavePeterFood = true>>
 <<stop>>
 ===
@@ -111,5 +112,31 @@ Peter: Here, take my chapel credit. A deal's a deal!
 title: peterDisapointed
 ---
 Peter: Dang, whatever man. Good luck getting those credits...
+<<stop>>
+===
+
+
+title: PeterCallsPlayer
+---
+Peter: Hey! Come over here for a second!
+<<stop>>
+===
+
+
+title: PeterCredit
+---
+<<if getBool("peterCredit")>>
+    Peter: Hey man, I bet you still have one more chapel credit to get, right?
+    -> Yea.
+        Peter: So one thing that isn't well known is that a year ago they made it so staff members also need to attend chapel, and it turns out since Opitz is the one running chapel, he technically doesn't actually have any chapel credits! He's over a year in debt! 
+        -> So what?
+            Peter: Well, I've been looking into Willie lately, for my own reasons... But I think what I know so far may help you.
+            Peter: So you know how Willie "deals" with students who skip chapel without a chapel pass, right?
+            Peter: I saw him do the same to a prof last week! If you can get evidence of Opitz not having any credits, then Willie would "deal" with him. After that, you can probably just give yourself a credit!
+            -> How would I get the evidence?
+                Peter: Hmmmm. I'm not entirely sure. Maybe if you can get into the classroom alone, you can find dirt on him in the desk.
+                -> I'll try it, thanks.
+                    Peter: Good luck, man!
+<<endif>>
 <<stop>>
 ===

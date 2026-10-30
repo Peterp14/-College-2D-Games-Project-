@@ -1,20 +1,28 @@
-using UnityEngine;
 using System.Collections;
-using Yarn.Unity;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Yarn.Unity;
+using static GameManagerScript;
 
 public class ClassCutsceneScript : MonoBehaviour
 {
     public GameObject teacher;
     public Transform teacherCorner;
-    public Transform desk; 
+    public Transform teacherPath; 
+    public Transform desk;
+
+    public GameObject evidence;
 
     public GameObject luca;
     public Transform[] lucaPath;
     public GameObject sam;
     public Transform[] samPath;
+
+    public GameObject luke;
+    public GameObject peter;
+
     public DialogueRunner dialogueRunner;
-    private GameManagerScript manager; 
+    private GameManagerScript manager;
 
     public float moveSpeed = 2f;
     public CameraScript cameraScript;
@@ -27,6 +35,8 @@ public class ClassCutsceneScript : MonoBehaviour
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler("PaperDistraction", PaperDistraction);
+            dialogueRunner.AddCommandHandler("ProfLeaves", ProfLeaves);
+
         }
 
         if (FindFirstObjectByType<GameManagerScript>() != null)
@@ -34,31 +44,37 @@ public class ClassCutsceneScript : MonoBehaviour
             manager = FindFirstObjectByType<GameManagerScript>();
         }
 
+        if (manager.currentPeriod == TimePeriod.Afternoon)
+        {
+            peter.SetActive(false);
+            luke.SetActive(false);
+            //luca.SetActive(false);
+            //sam.SetActive(false);
+        }
     }
 
     public IEnumerator PaperDistraction()
     {
-        Transform teacherTransform = teacher.transform; 
+        Transform teacherTransform = teacher.transform;
         while (Vector2.Distance(teacherTransform.position, teacherCorner.position) > 0.05f)
         {
-            teacherTransform.position = Vector2.MoveTowards(teacherTransform.position,teacherCorner.position, moveSpeed * Time.deltaTime  );
+            teacherTransform.position = Vector2.MoveTowards(teacherTransform.position, teacherCorner.position, moveSpeed * Time.deltaTime);
 
             yield return null;
         }
 
         teacherTransform.position = teacherCorner.position;
 
-        manager.teacherDistracted = true;
-        manager.teacherDistractedAt =
-            manager.actionsRemaining;
+        manager.SetFlag("teacherDistracted", true);
+        manager.SetFlag("teacherDistractedAt", manager.actionsRemaining);
     }
 
     public IEnumerator TeacherReturns()
     {
         Transform teacherTransform = teacher.transform;
 
-        if (!manager.teacherSeesPlayer)
-            TurnTeacher(); 
+        if (!manager.GetBool("teacherSeesPlayer"))
+            TurnTeacher();
 
         player.inCutscene = true;
 
@@ -83,9 +99,9 @@ public class ClassCutsceneScript : MonoBehaviour
 
         cameraScript.SetTarget(player.transform);
 
-        manager.teacherDistracted = false;
-        manager.teacherDistractedAt = -1;
-        manager.teacherSeesPlayer = true;
+        manager.SetFlag("teacherDistracted", false);
+        manager.SetFlag("teacherDistractedAt", -1);
+        manager.SetFlag("teacherSeesPlayer", true);
 
         player.inCutscene = false;
     }
@@ -112,15 +128,15 @@ public class ClassCutsceneScript : MonoBehaviour
         {
             if (point.position.x < characterPosition.position.x)
             {
-                sprite.flipX = false;  
+                sprite.flipX = false;
             }
             else if (point.position.x > characterPosition.position.x)
             {
-                sprite.flipX = true; 
+                sprite.flipX = true;
             }
             else if (point.position.y < characterPosition.position.y)
             {
-                sprite.flipX = false; 
+                sprite.flipX = false;
             }
 
             while (Vector2.Distance(characterPosition.position, point.position) > 0.05f)
@@ -143,17 +159,17 @@ public class ClassCutsceneScript : MonoBehaviour
 
 
 
-        if (turnTeacher && !manager.teacherDistracted)
+        if (turnTeacher && !manager.GetBool("teacherDistracted"))
         {
             TurnTeacher();
-            manager.teacherSeesPlayer = !manager.teacherSeesPlayer;
+            manager.SetFlag("teacherSeesPlayer", !manager.GetBool("teacherSeesPlayer"));
 
         }
 
 
         dialogueRunner.StartDialogue(dialogueNode);
 
- 
+
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         yield return StartCoroutine(cameraScript.ReturnToPlayer());
 
@@ -163,7 +179,47 @@ public class ClassCutsceneScript : MonoBehaviour
     public void TurnTeacher()
     {
         SpriteRenderer _renderer = teacher.GetComponent<SpriteRenderer>();
-        
-        _renderer.flipX = !_renderer.flipX; 
+
+        _renderer.flipX = !_renderer.flipX;
+    }
+
+    public IEnumerator ProfLeaves()
+    {
+        player.inCutscene = true;
+
+        Transform teacherTransform = teacher.transform;
+
+        // Move to TeacherPath
+        while (Vector2.Distance(teacherTransform.position, teacherPath.position) > 0.05f)
+        {
+            teacherTransform.position = Vector2.MoveTowards(
+                teacherTransform.position,
+                teacherPath.position,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        teacherTransform.position = teacherPath.position;
+
+        // Move straight down to Y = -20
+        Vector3 destination = new Vector3(teacherTransform.position.x, -20f, teacherTransform.position.z);
+
+        while (Vector2.Distance(teacherTransform.position, destination) > 0.05f)
+        {
+            teacherTransform.position = Vector2.MoveTowards(
+                teacherTransform.position,
+                destination,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        teacherTransform.position = destination;
+        evidence.SetActive(true);
+        player.inCutscene = false;
+
     }
 }

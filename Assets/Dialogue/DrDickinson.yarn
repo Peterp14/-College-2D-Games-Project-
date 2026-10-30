@@ -1,11 +1,20 @@
 ﻿title: Prof
 ---
-<<if hasScheduledMeeting()>>
+<<if isPeriod("Afternoon")>>
+    Prof: Hey! You're the last student I'm talking to before leaving, what's up? 
+    -> When's the next homework due? 
+        <<jump annoyed>> 
+    -> Do you have your chapel credits? 
+        <<jump annoyed>>
+    -> I don't understand the topics from last class. 
+        <<jump leaves>>
+    -> Uhhhhh I don't have any questions...
+        <<jump annoyed>>
+<<elseif getBool("scheduledMeeting")>>
     Prof: Alright, go sit down now.
     <<stop>>
 <<else>>
     Prof: Oh? Do you have a question?
-
     -> I need something. <<if hasActions()>>
         <<jump OfficeHours>>
     -> No, sorry.
@@ -16,7 +25,23 @@
 title: OfficeHours
 ---
 Prof: Well if you need something, then come to my office hours later. They'll be in the classroom today after Chapel.
-<<scheduleMeeting>>
+<<setBool "scheduledMeeting" true>>
 <<useAction>>
+<<stop>>
+===
+
+title: annoyed
+---
+Prof: You seriouslly scheduled a meeting just for that? 
+<<gameOver "Don't ask the Prof a dump question.">>
+<<stop>>
+===
+
+title: leaves
+---
+Prof: Ah ok, so looking at slidesho...
+"LOUD WOLVERINE ROAR"
+Prof: OH JEEZ, sorry I gotta GO! 
+<<ProfLeaves>>
 <<stop>>
 ===

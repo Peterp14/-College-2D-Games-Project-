@@ -1,16 +1,16 @@
 ﻿title: Seat
 ---
-<<if isTeacherDistracted()>>
+<<if getBool("teacherDistracted")>>
     What do you want to do with the teacher distracted?
 <<else>>
     What do you want to do during class?
 <<endif>>
 
--> Pump out an essay for Opitz. <<if isTeacherDistracted() and hasActions()>>
+-> Pump out an essay for Opitz. <<if getBool("teacherDistracted") and hasActions()>>
     <<jump Essay>>
--> Pay attention. <<if not isTeacherDistracted() and hasActions()>>
+-> Pay attention. <<if not getBool("teacherDistracted") and hasActions()>>
     <<jump PayAttention>>
--> Cause a distraction. <<if not isTeacherDistracted() and hasActions() and GetPaper() > 0>>
+-> Cause a distraction. <<if not getBool("teacherDistracted") and hasActions() and getInt("hasPaper") > 0>>
     <<jump Distraction>>
 -> Back
     <<stop>>
@@ -27,18 +27,18 @@ title: Distraction
 ---
 <<useAction>>
 
-<<if GetTeacherSeesYou()>>
+<<if getBool("teacherSeesPlayer")>>
     Teacher: Dude... I can see you. 
     Teacher: Get out of my class.
     <<gameOver "Kicked out of class! The Prof is looking direclty at you...">>
 
-<<elseif GetPaper() == 1>>
+<<elseif getInt("hasPaper") == 1>>
     You pull out the normal piece of paper.
     Teacher: Bruh...
     Teacher: Get out of my class.
     <<gameOver "Kicked out of class! Distraction by throwing a normal piece of paper was not a smart idea...">>
 
-<<elseif GetPaper() == 2>>
+<<elseif getInt("hasPaper") == 2>>
     You pull out the crumpled paper.
     Teacher: WHO THREW THAT?!
     <<PaperDistraction>>
@@ -95,6 +95,7 @@ Opitz: Blah blah blah...
 <<cameraToPlayer>>
 
 You listen until chapel is over and are let out.
+From here you decide to go to lunch. 
 
 <<nextPeriod>>
 <<changeScene "Lunch">>
@@ -127,7 +128,7 @@ title: EatingMeal
 ---
 You: NOM NOM NOM! That was some GOOD Cowfila!
 
-<<EatMeal>>
+<<setBool "starving" false>>
 <<if $gotGregsFood>>
     <<set $gotGregsFood = false>>
 <<else>>
