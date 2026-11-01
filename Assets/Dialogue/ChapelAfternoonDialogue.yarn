@@ -1,0 +1,35 @@
+﻿title: ChapelSkipperQuad
+---
+<<if isPeriod("Chapel")>>
+    Chapel Skipper: Psst! Don't tell anyone, especially Willie, but I'm gonna hide in the bushes at the bottom of the Quad. I don't have my chapel credits and I need to secretly do my work without getting noticed by Willie. I'll have to hide all day!
+<<endif>>
+
+<<if isPeriod("Afternoon")>>
+    Chapel Skipper: Don't snitch please!
+    -> Snitch.
+        Chapel Skipper: How could you! It's joever!
+        <<Snitching>>
+    -> Leave him alone
+<<endif>>
+<<stop>>
+===
+
+title: WillieSnitch
+---
+Willie: ...
+-> I have something to tell you. <<if getBool("hasEvidence")>>
+    Willie: ...
+    <<setBool "willieSeenEvidence" true>>
+    <<useAction>>
+-> Leave.
+<<stop>>
+===
+
+title: WillieVOpitz
+---
+Opitz: Willie this is MADNESS! I litteraly RUN Chapel! 
+Willie: grrr... 
+Opitz: WILLIE!!!
+<<OpitzRemoved>> 
+<<stop>>
+===

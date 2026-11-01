@@ -40,6 +40,7 @@ title: Evidence
 
     -> Take the files. <<if hasActions()>>
         <<setBool "hasEvidence" true>>
+        <<useAction>>
     -> Don't take it.
         <<stop>>
 <<endif>>

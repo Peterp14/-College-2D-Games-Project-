@@ -11,6 +11,10 @@ public class ChapelCutsceneScript : MonoBehaviour
     public CameraScript cameraScript;
     public PlayerScript player;
 
+    public GameObject willie;
+    public GameObject opitz;
+    public GameObject conversationBox; 
+
 
     void Start()
     {
@@ -19,11 +23,20 @@ public class ChapelCutsceneScript : MonoBehaviour
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler("cameraToOpitz", CameraToOpitz);
             dialogueRunner.AddCommandHandler("cameraToPlayer", CameraToPlayer);
+            dialogueRunner.AddCommandHandler("OpitzRemoved", OpitzRemoved);
         }
 
         if (FindFirstObjectByType<GameManagerScript>() != null)
         {
             manager = FindFirstObjectByType<GameManagerScript>();
+        }
+
+        manager.UseAction();
+
+        if (!(manager.GetBool("willieSeenEvidence")))
+        {
+            conversationBox.SetActive(false);
+            willie.SetActive(false);
         }
 
     }
@@ -63,6 +76,76 @@ public class ChapelCutsceneScript : MonoBehaviour
     public IEnumerator CameraToPlayer()
     {
         yield return StartCoroutine(cameraScript.ReturnToPlayer());
+    }
+
+    public IEnumerator OpitzRemoved()
+    {
+        player.inCutscene = true;
+
+        Transform willieTransform = willie.transform;
+        Transform opitzTransform = opitz.transform;
+
+        // Disable colliders so they don't collide with the player
+        willie.GetComponent<BoxCollider2D>().enabled = false;
+        opitz.GetComponent<BoxCollider2D>().enabled = false;
+
+        yield return new WaitForSeconds(1f);
+
+        // Move Willie slightly left toward Opitz
+        Vector3 leftDestination = willieTransform.position + new Vector3(-0.75f, 0, 0);
+
+        while (Vector3.Distance(willieTransform.position, leftDestination) > 0.05f)
+        {
+            willieTransform.position = Vector3.MoveTowards(
+                willieTransform.position,
+                leftDestination,
+                2f * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        willieTransform.position = leftDestination;
+
+        yield return new WaitForSeconds(0.5f);
+
+        // Rotate Opitz sideways
+        opitzTransform.rotation = Quaternion.Euler(0, 0, 90);
+
+        // Make Opitz a child of Willie
+        opitzTransform.SetParent(willieTransform, true);
+
+        // Position Opitz in Willie's arms
+        opitzTransform.localPosition = new Vector3(-0.5f, 0.5f, 0);
+
+        yield return new WaitForSeconds(1f);
+
+        // Move Willie down the aisle
+        Vector3 destination = new Vector3(
+            willieTransform.position.x,
+            willieTransform.position.y - 15f,
+            willieTransform.position.z
+        );
+
+        while (Vector3.Distance(willieTransform.position, destination) > 0.05f)
+        {
+            willieTransform.position = Vector3.MoveTowards(
+                willieTransform.position,
+                destination,
+                4f * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        willieTransform.position = destination;
+
+        // Remove both characters after leaving the screen
+        opitzTransform.SetParent(null);
+        opitz.SetActive(false);
+        willie.SetActive(false);
+        conversationBox.SetActive(false);
+        player.inCutscene = false;
     }
 
 

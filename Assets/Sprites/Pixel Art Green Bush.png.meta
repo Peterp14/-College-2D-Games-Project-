@@ -1,0 +1,741 @@
+fileFormatVersion: 2
+guid: e5f4383ebdb69f14097309a5eb4349cc
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 410919493780050421
+    second: Pixel Art Green Bush_0
+  - first:
+      213: 3268823825917394478
+    second: Pixel Art Green Bush_1
+  - first:
+      213: 6119740998158974168
+    second: Pixel Art Green Bush_2
+  - first:
+      213: 5620430169594480238
+    second: Pixel Art Green Bush_3
+  - first:
+      213: -4093402302846536337
+    second: Pixel Art Green Bush_4
+  - first:
+      213: -6538795543588510956
+    second: Pixel Art Green Bush_5
+  - first:
+      213: -7680621979082421006
+    second: Pixel Art Green Bush_6
+  - first:
+      213: 1583645800512021575
+    second: Pixel Art Green Bush_7
+  - first:
+      213: -5437567083383552570
+    second: Pixel Art Green Bush_8
+  - first:
+      213: -6436118701347187080
+    second: Pixel Art Green Bush_9
+  - first:
+      213: 8166250974383696238
+    second: Pixel Art Green Bush_10
+  - first:
+      213: 4687253025740315510
+    second: Pixel Art Green Bush_11
+  - first:
+      213: -5347811037644700467
+    second: Pixel Art Green Bush_12
+  - first:
+      213: -1971717089828890212
+    second: Pixel Art Green Bush_13
+  - first:
+      213: -5924818638577491985
+    second: Pixel Art Green Bush_14
+  - first:
+      213: 313457675794065293
+    second: Pixel Art Green Bush_15
+  - first:
+      213: 8954923237519736961
+    second: Pixel Art Green Bush_16
+  - first:
+      213: -7577782028155265316
+    second: Pixel Art Green Bush_17
+  - first:
+      213: 6268815235260268529
+    second: Pixel Art Green Bush_18
+  - first:
+      213: -3908834792190556186
+    second: Pixel Art Green Bush_19
+  - first:
+      213: -3510647258969361124
+    second: Pixel Art Green Bush_20
+  - first:
+      213: -303891435148931001
+    second: Pixel Art Green Bush_21
+  - first:
+      213: 3213355263441586134
+    second: Pixel Art Green Bush_22
+  - first:
+      213: 5333584171885526455
+    second: Pixel Art Green Bush_23
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_0
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 0
+        width: 1471
+        height: 972
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f11b0a3a11e3b500800000000000000
+      internalID: 410919493780050421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_1
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 947
+        width: 85
+        height: 75
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2eb32163f13d5d20800000000000000
+      internalID: 3268823825917394478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_2
+      rect:
+        serializedVersion: 2
+        x: 856
+        y: 929
+        width: 35
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8dcf8a89300bde450800000000000000
+      internalID: 6119740998158974168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_3
+      rect:
+        serializedVersion: 2
+        x: 577
+        y: 915
+        width: 10
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e66419ff577cffd40800000000000000
+      internalID: 5620430169594480238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_4
+      rect:
+        serializedVersion: 2
+        x: 807
+        y: 921
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f65f0181b405137c0800000000000000
+      internalID: -4093402302846536337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_5
+      rect:
+        serializedVersion: 2
+        x: 904
+        y: 921
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 413ef7dd8188145a0800000000000000
+      internalID: -6538795543588510956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_6
+      rect:
+        serializedVersion: 2
+        x: 910
+        y: 919
+        width: 7
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2fc0cb2f003f86590800000000000000
+      internalID: -7680621979082421006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_7
+      rect:
+        serializedVersion: 2
+        x: 958
+        y: 903
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 744ee8d077d3af510800000000000000
+      internalID: 1583645800512021575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_8
+      rect:
+        serializedVersion: 2
+        x: 998
+        y: 874
+        width: 6
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c501901c81e984b0800000000000000
+      internalID: -5437567083383552570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_9
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 377
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 876d3f124205ea6a0800000000000000
+      internalID: -6436118701347187080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_10
+      rect:
+        serializedVersion: 2
+        x: 1346
+        y: 267
+        width: 19
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e69e3da9ef9545170800000000000000
+      internalID: 8166250974383696238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_11
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 96
+        width: 59
+        height: 60
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67b50a3fac77c0140800000000000000
+      internalID: 4687253025740315510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_12
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 99
+        width: 7
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dc44647f132c8c5b0800000000000000
+      internalID: -5347811037644700467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_13
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 98
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c999e2fd0cd03a4e0800000000000000
+      internalID: -1971717089828890212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_14
+      rect:
+        serializedVersion: 2
+        x: 574
+        y: 87
+        width: 19
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fef99f8d6d0d6cda0800000000000000
+      internalID: -5924818638577491985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_15
+      rect:
+        serializedVersion: 2
+        x: 626
+        y: 97
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8723d96810a95400800000000000000
+      internalID: 313457675794065293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_16
+      rect:
+        serializedVersion: 2
+        x: 872
+        y: 87
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18041434d37464c70800000000000000
+      internalID: 8954923237519736961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_17
+      rect:
+        serializedVersion: 2
+        x: 948
+        y: 81
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cde577ae46f46d690800000000000000
+      internalID: -7577782028155265316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_18
+      rect:
+        serializedVersion: 2
+        x: 1064
+        y: 95
+        width: 7
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ffbe3c2e3e4ff650800000000000000
+      internalID: 6268815235260268529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_19
+      rect:
+        serializedVersion: 2
+        x: 1110
+        y: 91
+        width: 13
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e74bc5677701c9c0800000000000000
+      internalID: -3908834792190556186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_20
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 80
+        width: 7
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c15be6d0beca74fc0800000000000000
+      internalID: -3510647258969361124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_21
+      rect:
+        serializedVersion: 2
+        x: 536
+        y: 65
+        width: 7
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7401aad895c58cbf0800000000000000
+      internalID: -303891435148931001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_22
+      rect:
+        serializedVersion: 2
+        x: 542
+        y: 63
+        width: 13
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6d741964691289c20800000000000000
+      internalID: 3213355263441586134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Pixel Art Green Bush_23
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 47
+        width: 9
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bdf1e8bb82b40a40800000000000000
+      internalID: 5333584171885526455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Pixel Art Green Bush_0: 410919493780050421
+      Pixel Art Green Bush_1: 3268823825917394478
+      Pixel Art Green Bush_10: 8166250974383696238
+      Pixel Art Green Bush_11: 4687253025740315510
+      Pixel Art Green Bush_12: -5347811037644700467
+      Pixel Art Green Bush_13: -1971717089828890212
+      Pixel Art Green Bush_14: -5924818638577491985
+      Pixel Art Green Bush_15: 313457675794065293
+      Pixel Art Green Bush_16: 8954923237519736961
+      Pixel Art Green Bush_17: -7577782028155265316
+      Pixel Art Green Bush_18: 6268815235260268529
+      Pixel Art Green Bush_19: -3908834792190556186
+      Pixel Art Green Bush_2: 6119740998158974168
+      Pixel Art Green Bush_20: -3510647258969361124
+      Pixel Art Green Bush_21: -303891435148931001
+      Pixel Art Green Bush_22: 3213355263441586134
+      Pixel Art Green Bush_23: 5333584171885526455
+      Pixel Art Green Bush_3: 5620430169594480238
+      Pixel Art Green Bush_4: -4093402302846536337
+      Pixel Art Green Bush_5: -6538795543588510956
+      Pixel Art Green Bush_6: -7680621979082421006
+      Pixel Art Green Bush_7: 1583645800512021575
+      Pixel Art Green Bush_8: -5437567083383552570
+      Pixel Art Green Bush_9: -6436118701347187080
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

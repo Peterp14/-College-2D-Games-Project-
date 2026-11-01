@@ -17,8 +17,31 @@ public class QuadCutsceneScript : MonoBehaviour
 
     public Transform playerLunchSpawn;
 
+    public GameObject ChapelSkipper;
+
+    public GameObject ParticleObject;
+
+    private ParticleSystem ChapelSkipperParticles;
+
+    private BoxCollider2D willieBox;
+
+    public Transform[] williePath;
+
+    public float moveSpeed = 10f;
+
     void Start()
     {
+
+        if (FindFirstObjectByType<DialogueRunner>() != null)
+        {
+            dialogueRunner = FindFirstObjectByType<DialogueRunner>();
+            dialogueRunner.AddCommandHandler("Snitching", Snitching);
+        }
+
+        ChapelSkipperParticles = ParticleObject.GetComponent<ParticleSystem>();
+
+        willieBox = willie.GetComponent<BoxCollider2D>();
+
         bool peterEvent = GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon
             && !GameManagerScript.instance.GetBool("hasChapelPass");
 
@@ -29,6 +52,15 @@ public class QuadCutsceneScript : MonoBehaviour
         if (peterEvent)
         {
             player.transform.position = playerLunchSpawn.position;
+        }
+
+        if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Chapel)
+        {
+            ChapelSkipper.transform.position = new Vector2(3.42f, 1.19f);
+        }
+        if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon)
+        {
+            ChapelSkipper.transform.position = new Vector2(4.77f, -16.31f);
         }
     }
 
@@ -127,6 +159,116 @@ public class QuadCutsceneScript : MonoBehaviour
 
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
 
+        player.inCutscene = false;
+    }
+
+    public IEnumerator Snitching()
+    {
+        player.inCutscene = true;
+
+        willie.transform.position = new Vector3(
+            ChapelSkipper.transform.position.x,
+            willie.transform.position.y,
+            willie.transform.position.z
+        );
+
+        willie.SetActive(true);
+        willieBox.enabled = false;
+
+        // Move Willie to just below the Chapel Skipper
+        Vector3 destination = new Vector3(
+            ChapelSkipper.transform.position.x,
+            ChapelSkipper.transform.position.y + 2.25f,
+            willie.transform.position.z
+        );
+
+        while (Vector3.Distance(willie.transform.position, destination) > 0.05f)
+        {
+            willie.transform.position = Vector3.MoveTowards(
+                willie.transform.position,
+                destination,
+                10f * Time.deltaTime
+            );
+            if (ChapelSkipper.activeSelf && willie.transform.position.y > ChapelSkipper.transform.position.y - 0.5f)
+            {
+                if (ChapelSkipper.activeSelf)
+                {
+                    ChapelSkipperParticles.Play();
+                }
+
+                ChapelSkipper.SetActive(false);
+            }
+
+            yield return null;
+        }
+
+        willie.transform.position = destination;
+        //yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        willieBox.enabled = true;
+        player.inCutscene = false;
+    }
+
+    public IEnumerator WillieToChapel()
+    {
+        player.inCutscene = true;
+        willieBox.enabled = false;
+
+        Transform characterPosition = willie.transform;
+        Animator animator = willie.GetComponent<Animator>();
+        SpriteRenderer sprite = willie.GetComponent<SpriteRenderer>();
+
+        cameraScript.SetTarget(characterPosition);
+
+        yield return new WaitForSeconds(0.5f);
+
+        willie.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        //animator.SetBool("Moving", true);
+
+        sprite.flipX = true;
+
+        foreach (Transform point in williePath)
+        {
+            //if (point.position.x < characterPosition.position.x)
+            //{
+            //    sprite.flipX = false;
+            //}
+            //else if (point.position.x > characterPosition.position.x)
+            //{
+            //    sprite.flipX = true;
+            //}
+            //else if (point.position.y < characterPosition.position.y)
+            //{
+            //    sprite.flipX = false;
+            //}
+
+            while (Vector2.Distance(characterPosition.position, point.position) > 0.05f)
+            {
+                characterPosition.position = Vector2.MoveTowards(
+                    characterPosition.position,
+                    point.position,
+                    moveSpeed * Time.deltaTime
+                );
+
+                yield return null;
+            }
+
+            characterPosition.position = point.position;
+        }
+
+        //animator.SetBool("Moving", false);
+
+        yield return new WaitForSeconds(0.5f);
+
+        //dialogueRunner.StartDialogue(dialogueNode);
+
+
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+        willie.SetActive(false);
+        yield return StartCoroutine(cameraScript.ReturnToPlayer());
+        willieBox.enabled = true;
         player.inCutscene = false;
     }
 }

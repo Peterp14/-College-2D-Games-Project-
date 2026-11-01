@@ -48,7 +48,8 @@ public class GameManagerScript : MonoBehaviour
         { "guyhasLunch", false },
         { "starving", true },
         { "peterCredit", true }, //should be false 
-        { "hasEvidence", false } //should be false
+        { "hasEvidence", true }, //should be false
+        { "willieSeenEvidence", true } //should be false
     };
 
 
@@ -238,6 +239,11 @@ public class GameManagerScript : MonoBehaviour
         if (currentPeriod == TimePeriod.Afternoon && !GetBool("hasChapelPass") && GetBool("peterCredit") && SceneManager.GetActiveScene().name == "Quad" && actionsRemaining == 5)
         {
             StartCoroutine(WaitForEvent(quadCutscenes.PeterCreditCutscene()));
+        }
+
+        if (currentPeriod == TimePeriod.Afternoon && GetBool("willieSeenEvidence") && SceneManager.GetActiveScene().name == "Quad")
+        {
+            StartCoroutine(WaitForEvent(quadCutscenes.WillieToChapel()));
         }
 
     }
