@@ -104,6 +104,7 @@ Peter: NO WAY! YOU ACTUALLY GOT ME COWFILA?!
 Peter: Dude, you're actually the best!
 Peter: Here, take my chapel credit. A deal's a deal!
 
+<<GotCredit>>
 <<setBool "peterCredit" true>>
 <<set $gavePeterFood = true>>
 <<stop>>

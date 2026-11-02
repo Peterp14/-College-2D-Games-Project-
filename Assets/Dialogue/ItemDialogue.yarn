@@ -26,7 +26,6 @@ title: PaperCrumple
 <<set $takenPaper = true>>
 You grab the paper and crumple it and stuff it into your pocket.
 <<stop>>
-
 ===
 
 
@@ -44,5 +43,18 @@ title: Evidence
     -> Don't take it.
         <<stop>>
 <<endif>>
+===
+
+title: LastCredit
+---
+Looks like Willie dropped a credit, probably one he got from a skipper.
+
+-> Take the credit. <<if hasActions()>>
+    <<CreditTaken>>
+    <<GotCredit>>
+    <<useAction>>
+    <<stop>>
+-> Don't take it.
+    <<stop>>
 ===
 

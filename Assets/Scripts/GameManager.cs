@@ -49,7 +49,8 @@ public class GameManagerScript : MonoBehaviour
         { "starving", true },
         { "peterCredit", true }, //should be false 
         { "hasEvidence", true }, //should be false
-        { "willieSeenEvidence", true } //should be false
+        { "willieSeenEvidence", true }, //should be false
+        { "currentCredits", 0 }
     };
 
 
@@ -110,6 +111,7 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("PaperTook", takenPaper);
             dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
             dialogueRunner.AddCommandHandler<string>("gameOver", GameOver);
+            dialogueRunner.AddCommandHandler("GotCredit", GotCredit);
         }
 
 
@@ -292,6 +294,11 @@ public class GameManagerScript : MonoBehaviour
         Destroy(paper);
         SetFlag("hasPaper", 2);
         //Debug.Log(GetInt("hasPaper"));
+    }
+
+    public void GotCredit()
+    {
+        SetFlag("currentCredits", GetInt("currentCredits") + 1);
     }
 
     public void GameOver(string deathMessage)
