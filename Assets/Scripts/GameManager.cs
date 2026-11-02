@@ -22,6 +22,7 @@ public class GameManagerScript : MonoBehaviour
     private QuadCutsceneScript quadCutscenes;
     private HallCutsceneScript hallCutscenes;
     private LunchCutsceneScript lunchCutscenes;
+    private HallEndOfDayCutsceneScript hallEndOfDayCutscenes;
     private DialogueRunner dialogueRunner;
 
     public GameObject gameOver;
@@ -129,6 +130,9 @@ public class GameManagerScript : MonoBehaviour
 
         if (FindFirstObjectByType<LunchCutsceneScript>() != null)
             lunchCutscenes = FindFirstObjectByType<LunchCutsceneScript>();
+
+        if (FindFirstObjectByType<HallEndOfDayCutsceneScript>() != null)
+            hallEndOfDayCutscenes = FindFirstObjectByType<HallEndOfDayCutsceneScript>();
 
 
         if (restartingPeriod)
@@ -248,6 +252,10 @@ public class GameManagerScript : MonoBehaviour
             StartCoroutine(WaitForEvent(quadCutscenes.WillieToChapel()));
         }
 
+        if (currentPeriod == TimePeriod.EndOfDay && actionsRemaining == 4)
+        {
+            StartCoroutine(WaitForEvent(hallEndOfDayCutscenes.SamHello()));
+        }
     }
 
     //waits for a current event to be finished before starting another

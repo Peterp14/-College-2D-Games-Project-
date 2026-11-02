@@ -733,13 +733,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: currentPeriod
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_Name
       value: GameManger
       objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8352188796942282008, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1301,6 +1305,10 @@ MonoBehaviour:
   dialogueRunner: {fileID: 235016604}
   cameraScript: {fileID: 1478566869}
   player: {fileID: 1168141785}
+  willie: {fileID: 0}
+  opitz: {fileID: 0}
+  conversationBox: {fileID: 0}
+  lastCredit: {fileID: 0}
 --- !u!4 &993238835
 Transform:
   m_ObjectHideFlags: 0

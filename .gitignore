@@ -111,3 +111,5 @@ InitTestScene*.unity*
 #VSCode settings
 /.vscode/
 
+# Yarn Spinner generated language-server definitions
+/ProjectSettings/Packages/dev.yarnspinner/*-generated.ysls.json
