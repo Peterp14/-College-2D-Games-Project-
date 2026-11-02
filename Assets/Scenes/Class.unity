@@ -1193,7 +1193,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1906840038}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
       propertyPath: m_LocalScale.x
@@ -1201,11 +1201,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.66039
+      value: -0.055899978
       objectReference: {fileID: 0}
     - target: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.74033
+      value: -7.84
       objectReference: {fileID: 0}
     - target: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1241,12 +1241,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4582869780229453048, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
       propertyPath: m_Name
-      value: Invisible wall (12)
+      value: ClassDoor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4582869780229453048, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1809653116}
   m_SourcePrefab: {fileID: 100100000, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
 --- !u!1 &534672897
 GameObject:
@@ -3971,11 +3974,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ad7623f352ec6f409f2efbe5c8380cd, type: 3}
---- !u!4 &1536697256 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
-  m_PrefabInstance: {fileID: 522433988}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1578784180
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4405,6 +4403,25 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
+--- !u!1 &1809653115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4582869780229453048, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
+  m_PrefabInstance: {fileID: 522433988}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1809653116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809653115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6516aa35c69ad408f293d3742c3b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionScript
+  dialogueNode: LeaveClass
+  dialogueRunner: {fileID: 428309557}
 --- !u!1 &1821473930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4990,7 +5007,6 @@ Transform:
   - {fileID: 1713046996}
   - {fileID: 361457782}
   - {fileID: 644406370}
-  - {fileID: 1536697256}
   - {fileID: 968282036}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5325,4 +5341,5 @@ SceneRoots:
   - {fileID: 1906840038}
   - {fileID: 1590929082}
   - {fileID: 779376543}
+  - {fileID: 522433988}
   - {fileID: 1823325009}

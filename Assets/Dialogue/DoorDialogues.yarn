@@ -16,7 +16,7 @@
 title: ChapelDoor
 ---
 <<if isPeriod("Chapel")>>
-    Do you want to go to Chapel and get a credit? 
+    Do you want to attend Chapel? 
 
     -> Yes
         <<jump EnterChapel>>
@@ -24,6 +24,21 @@ title: ChapelDoor
         <<jump StayHere>>
 <<else>>
     You can't enter the Chapel right now.
+    <<stop>>
+<<endif>>
+===
+
+title: LeaveClass
+---
+<<if isPeriod("Afternoon")>>
+    Do you want to leave class? 
+
+    -> Yes
+        <<jump EnterQuad>>
+    -> No
+        <<jump StayHere>>
+<<else>>
+    You can't leave class right now. 
     <<stop>>
 <<endif>>
 ===
@@ -102,7 +117,11 @@ title: StayHere
 
 title: EnterChapel
 ---
-<<changeScene "Chapel">>
+<<if isPeriod("Chapel")>>
+    <<changeScene "Chapel">>
+<<elseif isPeriod("Afternoon")>>
+    <<changeScene "ChapelAfternoon">>
+<<endif>>
 <<stop>>
 ===
 
