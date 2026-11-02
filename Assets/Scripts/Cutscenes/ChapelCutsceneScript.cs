@@ -13,7 +13,8 @@ public class ChapelCutsceneScript : MonoBehaviour
 
     public GameObject willie;
     public GameObject opitz;
-    public GameObject conversationBox; 
+    public GameObject conversationBox;
+    public GameObject lastCredit; 
 
 
     void Start()
@@ -24,6 +25,7 @@ public class ChapelCutsceneScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("cameraToOpitz", CameraToOpitz);
             dialogueRunner.AddCommandHandler("cameraToPlayer", CameraToPlayer);
             dialogueRunner.AddCommandHandler("OpitzRemoved", OpitzRemoved);
+            dialogueRunner.AddCommandHandler("CreditTaken", CreditTaken);
         }
 
         if (FindFirstObjectByType<GameManagerScript>() != null)
@@ -85,7 +87,6 @@ public class ChapelCutsceneScript : MonoBehaviour
         Transform willieTransform = willie.transform;
         Transform opitzTransform = opitz.transform;
 
-        // Disable colliders so they don't collide with the player
         willie.GetComponent<BoxCollider2D>().enabled = false;
         opitz.GetComponent<BoxCollider2D>().enabled = false;
 
@@ -96,11 +97,7 @@ public class ChapelCutsceneScript : MonoBehaviour
 
         while (Vector3.Distance(willieTransform.position, leftDestination) > 0.05f)
         {
-            willieTransform.position = Vector3.MoveTowards(
-                willieTransform.position,
-                leftDestination,
-                2f * Time.deltaTime
-            );
+            willieTransform.position = Vector3.MoveTowards( willieTransform.position, leftDestination, 2f * Time.deltaTime );
 
             yield return null;
         }
@@ -109,10 +106,8 @@ public class ChapelCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        // Rotate Opitz sideways
         opitzTransform.rotation = Quaternion.Euler(0, 0, 90);
 
-        // Make Opitz a child of Willie
         opitzTransform.SetParent(willieTransform, true);
 
         // Position Opitz in Willie's arms
@@ -121,31 +116,31 @@ public class ChapelCutsceneScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         // Move Willie down the aisle
-        Vector3 destination = new Vector3(
-            willieTransform.position.x,
-            willieTransform.position.y - 15f,
-            willieTransform.position.z
-        );
+        Vector3 destination = new Vector3(  willieTransform.position.x,willieTransform.position.y - 15f,  willieTransform.position.z);
 
         while (Vector3.Distance(willieTransform.position, destination) > 0.05f)
         {
-            willieTransform.position = Vector3.MoveTowards(
-                willieTransform.position,
-                destination,
-                4f * Time.deltaTime
-            );
+            willieTransform.position = Vector3.MoveTowards(willieTransform.position, destination, 4f * Time.deltaTime );
+
+            if (willieTransform.position.y <= -1f && !lastCredit.activeSelf)
+                lastCredit.SetActive(true);
 
             yield return null;
         }
 
         willieTransform.position = destination;
 
-        // Remove both characters after leaving the screen
         opitzTransform.SetParent(null);
         opitz.SetActive(false);
         willie.SetActive(false);
         conversationBox.SetActive(false);
         player.inCutscene = false;
+    }
+
+
+    public void CreditTaken()
+    {
+        Destroy(lastCredit); 
     }
 
 

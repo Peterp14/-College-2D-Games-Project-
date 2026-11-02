@@ -1,8 +1,7 @@
 ﻿title: ClassDoor
 ---
-<<if isPeriod("Afternoon") and getBool("scheduledMeeting")>>
+<<if (isPeriod("Afternoon") or isPeriod("Morning")) and getBool("scheduledMeeting")>>
     Do you want to go to the meeting you scheduled with the Prof?
-
     -> Yes
         <<jump EnterClassAfternoon>>
     -> No

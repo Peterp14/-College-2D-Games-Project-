@@ -52,7 +52,7 @@ title: Essay
 <<useAction>>
 You write up an essay to turn into Opitz in exchange for a chapel credit.
 That's your first credit gained!
-
+<<GotCredit>>
 <<stop>>
 ===
 
@@ -84,6 +84,7 @@ Sit down for chapel?
 
 title: Chapel
 ---
+<<GotCredit>>
 <<useAction>>
 You gain a chapel credit for listening!
 
