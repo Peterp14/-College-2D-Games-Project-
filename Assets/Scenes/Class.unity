@@ -1342,7 +1342,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -3769690271869878597, guid: 06cfd4d0ec95076448ba55c66bc792ba, type: 3}
+  m_Sprite: {fileID: 7115298409223147631, guid: 51dbb363a30660c45b1207dd77ab5fee, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1362,7 +1362,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.03, y: 7.27, z: 0}
-  m_LocalScale: {x: 1.22, y: 1.2, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1415,17 +1415,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.07913709, y: 0.08639139}
+  m_Offset: {x: 0.07913709, y: -0.6045675}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.56, y: 2.56}
+    oldSize: {x: 5.12, y: 5.12}
     newSize: {x: 0.94, y: 2.14}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.668282, y: 2.043892}
+  m_Size: {x: 2.668282, y: 3.4258099}
   m_EdgeRadius: 0
 --- !u!4 &546485894 stripped
 Transform:
@@ -4077,7 +4077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: currentPeriod
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_Name
@@ -4085,7 +4085,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8352188796942282008, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_LocalPosition.x

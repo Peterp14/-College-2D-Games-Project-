@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 7c8522f9030e10942b19c0fd4e455680
+guid: 5c3a5de1712f89942a78ddf51cc4a7ba
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7692595344971605953
-    second: Willie_0
+      213: -1973304580707427927
+    second: WillieWalking_0
+  - first:
+      213: -597455621929488133
+    second: WillieWalking_1
+  - first:
+      213: 3824122751382127986
+    second: WillieWalking_2
+  - first:
+      213: 1724988441537257213
+    second: WillieWalking_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Willie_0
+      name: WillieWalking_0
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 199
-        height: 278
+        x: 0
+        y: 6888
+        width: 1632
+        height: 2296
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f38d4267a496e3590800000000000000
-      internalID: -7692595344971605953
+      spriteID: 9a9584950f96d94e0800000000000000
+      internalID: -1973304580707427927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WillieWalking_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4592
+        width: 1632
+        height: 2296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf035ddf64965b7f0800000000000000
+      internalID: -597455621929488133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WillieWalking_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2296
+        width: 1632
+        height: 2296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2750f9d9163021530800000000000000
+      internalID: 3824122751382127986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: WillieWalking_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 1632
+        height: 2296
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfe9b7329d360f710800000000000000
+      internalID: 1724988441537257213
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: d918706598860c845a9cceac41fca139
     internalID: 0
     vertices: []
     indices: 
@@ -133,9 +208,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":4.0},"gridSpriteSize":{"x":1632.0,"y":2296.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Willie_0: -7692595344971605953
+      WillieWalking_0: -1973304580707427927
+      WillieWalking_1: -597455621929488133
+      WillieWalking_2: 3824122751382127986
+      WillieWalking_3: 1724988441537257213
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

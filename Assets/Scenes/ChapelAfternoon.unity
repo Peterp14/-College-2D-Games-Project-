@@ -501,6 +501,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManger
       objectReference: {fileID: 0}
+    - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8352188796942282008, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.23855
@@ -1493,17 +1497,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1035219224777336866, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
+      propertyPath: dialogueRunner
+      value: 
+      objectReference: {fileID: 803243566}
     - target: {fileID: 1578565268622503632, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
       propertyPath: m_Name
       value: Willie
-      objectReference: {fileID: 0}
-    - target: {fileID: 3563565306998808276, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3563565306998808276, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
-      propertyPath: m_FlipY
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6106721360137808410, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1548,79 +1548,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1578565268622503632, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1018830800}
-    - targetCorrespondingSourceObject: {fileID: 1578565268622503632, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1018830799}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
 --- !u!1 &1018830798 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1578565268622503632, guid: 8c41726d0260861448e17f0cc53e48de, type: 3}
   m_PrefabInstance: {fileID: 1018830797}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1018830799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018830798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a6516aa35c69ad408f293d3742c3b88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractionScript
-  dialogueNode: 
-  dialogueRunner: {fileID: 803243566}
---- !u!61 &1018830800
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1018830798}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.99, y: 2.78}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1.99, y: 2.78}
-  m_EdgeRadius: 0
 --- !u!1001 &1109491177
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2388,6 +2322,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4458243329361289488, guid: 9f7c4f515b5c1ed4ab23dd6f608550e1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2048426092}
+    - targetCorrespondingSourceObject: {fileID: 4458243329361289488, guid: 9f7c4f515b5c1ed4ab23dd6f608550e1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2048426093}
   m_SourcePrefab: {fileID: 100100000, guid: 9f7c4f515b5c1ed4ab23dd6f608550e1, type: 3}
 --- !u!1001 &1557316336
 PrefabInstance:
@@ -2696,6 +2633,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 7.42, y: 19.31}
   m_EdgeRadius: 0
+--- !u!114 &2048426093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048426089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a6516aa35c69ad408f293d3742c3b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionScript
+  dialogueNode: OpitzAfternoon
+  dialogueRunner: {fileID: 803243566}
 --- !u!1 &2049018627
 GameObject:
   m_ObjectHideFlags: 0

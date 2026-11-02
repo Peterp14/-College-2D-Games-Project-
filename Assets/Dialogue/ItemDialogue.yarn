@@ -53,8 +53,10 @@ Looks like Willie dropped a credit, probably one he got from a skipper.
     <<CreditTaken>>
     <<GotCredit>>
     <<useAction>>
-    <<stop>>
+    <<jump EndOfDay>>
 -> Don't take it.
     <<stop>>
 ===
+
+
 

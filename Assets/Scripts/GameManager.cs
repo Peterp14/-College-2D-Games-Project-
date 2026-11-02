@@ -32,6 +32,8 @@ public class GameManagerScript : MonoBehaviour
     private bool checkpointPending = false;
     private bool restartingPeriod = false;
 
+    public string previousScene = "";
+
     //variables for flags, items, etc that change throughout the game
     public GameObject paper;
     //flags in dictionary for organization
@@ -44,12 +46,12 @@ public class GameManagerScript : MonoBehaviour
         { "teacherDistracted", false },
         { "teacherDistractedAt", -1 },
         { "teacherSeesPlayer", true },
-        { "scheduledMeeting", true }, //should be false
+        { "scheduledMeeting", false }, //should be false
         { "friendedLuke", false },
         { "guyhasLunch", false },
         { "starving", true },
-        { "peterCredit", true }, //should be false 
-        { "hasEvidence", true }, //should be false
+        { "peterCredit", false }, //should be false 
+        { "hasEvidence", false }, //should be false
         { "willieSeenEvidence", true }, //should be false
         { "currentCredits", 0 }
     };
@@ -158,6 +160,7 @@ public class GameManagerScript : MonoBehaviour
 
     public void ChangeScene(string sceneName)
     {
+        previousScene = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
     }
 

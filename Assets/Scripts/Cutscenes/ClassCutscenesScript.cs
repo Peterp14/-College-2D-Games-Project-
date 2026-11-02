@@ -56,6 +56,10 @@ public class ClassCutsceneScript : MonoBehaviour
     public IEnumerator PaperDistraction()
     {
         Transform teacherTransform = teacher.transform;
+
+        Animator animator = teacher.GetComponent<Animator>();
+        animator.SetBool("Moving", true);
+
         while (Vector2.Distance(teacherTransform.position, teacherCorner.position) > 0.05f)
         {
             teacherTransform.position = Vector2.MoveTowards(teacherTransform.position, teacherCorner.position, moveSpeed * Time.deltaTime);
@@ -64,6 +68,7 @@ public class ClassCutsceneScript : MonoBehaviour
         }
 
         teacherTransform.position = teacherCorner.position;
+        animator.SetBool("Moving", false);
 
         manager.SetFlag("teacherDistracted", true);
         manager.SetFlag("teacherDistractedAt", manager.actionsRemaining);
@@ -82,6 +87,9 @@ public class ClassCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        Animator animator = teacher.GetComponent<Animator>();
+        animator.SetBool("Moving", true);
+
         while (Vector2.Distance(teacherTransform.position, desk.position) > 0.05f)
         {
             teacherTransform.position = Vector2.MoveTowards(
@@ -98,6 +106,8 @@ public class ClassCutsceneScript : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         cameraScript.SetTarget(player.transform);
+
+        animator.SetBool("Moving", false);
 
         manager.SetFlag("teacherDistracted", false);
         manager.SetFlag("teacherDistractedAt", -1);
@@ -188,6 +198,9 @@ public class ClassCutsceneScript : MonoBehaviour
         player.inCutscene = true;
 
         Transform teacherTransform = teacher.transform;
+
+        Animator animator = teacher.GetComponent<Animator>();
+        animator.SetBool("Moving", true);
 
         // Move to TeacherPath
         while (Vector2.Distance(teacherTransform.position, teacherPath.position) > 0.05f)

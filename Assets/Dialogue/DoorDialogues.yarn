@@ -1,9 +1,15 @@
 ﻿title: ClassDoor
 ---
-<<if (isPeriod("Afternoon") or isPeriod("Morning")) and getBool("scheduledMeeting")>>
+<<if isPeriod("Afternoon") and getBool("scheduledMeeting")>>
     Do you want to go to the meeting you scheduled with the Prof?
     -> Yes
         <<jump EnterClassAfternoon>>
+    -> No
+        <<jump StayHere>>
+<<elseif isPeriod("Morning") >>
+    Do you want to go to class and start the day?
+    -> Yes
+        <<jump EnterClass>>
     -> No
         <<jump StayHere>>
 <<else>>
@@ -14,13 +20,13 @@
 
 title: ChapelDoor
 ---
-<<if isPeriod("Chapel")>>
+<<if isPeriod("Chapel") or isPeriod("Afternoon")>>
     Do you want to attend Chapel? 
-
     -> Yes
         <<jump EnterChapel>>
     -> No
         <<jump StayHere>>
+
 <<else>>
     You can't enter the Chapel right now.
     <<stop>>
@@ -141,6 +147,24 @@ Worker: Alright there's a big rush! If anyone's been here awhile get out!
 Player: Guess I should head out and enjoy my afternoon. 
 
 <<changeScene "Quad">>
+<<nextPeriod>>
+<<stop>>
+===
+
+title: LeaveChapel
+---
+Do you want to leave the chapel? 
+-> Yes
+    <<jump EnterQuad>>
+-> No
+    <<jump StayHere>>
+
+===
+
+title: EndOfDay
+---
+Looks like it's getting late, time to head back to the hall. 
+<<changeScene "HallAfternoon">>
 <<nextPeriod>>
 <<stop>>
 ===

@@ -1,7 +1,8 @@
-using UnityEngine;
 using System.Collections;
-using Yarn.Unity;
+using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UIElements;
+using Yarn.Unity;
 
 public class ChapelCutsceneScript : MonoBehaviour
 {
@@ -86,6 +87,8 @@ public class ChapelCutsceneScript : MonoBehaviour
 
         Transform willieTransform = willie.transform;
         Transform opitzTransform = opitz.transform;
+        Animator animator = willie.GetComponent<Animator>();
+
 
         willie.GetComponent<BoxCollider2D>().enabled = false;
         opitz.GetComponent<BoxCollider2D>().enabled = false;
@@ -118,6 +121,8 @@ public class ChapelCutsceneScript : MonoBehaviour
         // Move Willie down the aisle
         Vector3 destination = new Vector3(  willieTransform.position.x,willieTransform.position.y - 15f,  willieTransform.position.z);
 
+        animator.SetBool("Moving", true);
+
         while (Vector3.Distance(willieTransform.position, destination) > 0.05f)
         {
             willieTransform.position = Vector3.MoveTowards(willieTransform.position, destination, 4f * Time.deltaTime );
@@ -129,6 +134,7 @@ public class ChapelCutsceneScript : MonoBehaviour
         }
 
         willieTransform.position = destination;
+        animator.SetBool("Moving", false);
 
         opitzTransform.SetParent(null);
         opitz.SetActive(false);
