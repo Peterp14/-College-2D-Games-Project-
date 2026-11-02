@@ -16,6 +16,7 @@ public class QuadCutsceneScript : MonoBehaviour
     public GameObject peter;
 
     public Transform playerLunchSpawn;
+    public Transform playerChapelSpawn;
 
     public GameObject ChapelSkipper;
 
@@ -45,27 +46,36 @@ public class QuadCutsceneScript : MonoBehaviour
         bool peterEvent = GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon
             && !GameManagerScript.instance.GetBool("hasChapelPass");
 
-        // Only show Peter during his Afternoon event
-        peter.SetActive(peterEvent);
+        //// Only show Peter during his Afternoon event
+        //peter.SetActive(peterEvent);
 
-        // Move the player to the new starting position for Peter's event
-        if (peterEvent)
-        {
-            player.transform.position = playerLunchSpawn.position;
-        }
+        //// Move the player to the new starting position for Peter's event
+        //if (peterEvent)
+        //{
+        //    player.transform.position = playerLunchSpawn.position;
+        //}
 
         if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Chapel)
         {
             ChapelSkipper.transform.position = new Vector2(3.42f, 1.19f);
         }
+
         if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon)
         {
             ChapelSkipper.transform.position = new Vector2(4.77f, -16.31f);
+            player.transform.position = playerLunchSpawn.position;
+        }
+        else if (GameManagerScript.instance.previousScene == "Chapel")
+        {
+            player.transform.position = playerChapelSpawn.position;
+
         }
     }
 
     public IEnumerator WillieDeath()
     {
+        Animator animator = willie.GetComponent<Animator>();
+        animator.SetBool("Moving", true);
 
         player.inCutscene = true;
         // Match the player's X position, keeping Willie's current Y
@@ -174,6 +184,8 @@ public class QuadCutsceneScript : MonoBehaviour
 
         willie.SetActive(true);
         willieBox.enabled = false;
+        Animator animator = willie.GetComponent<Animator>();
+        animator.SetBool("Moving", true);
 
         // Move Willie to just below the Chapel Skipper
         Vector3 destination = new Vector3(
@@ -203,6 +215,8 @@ public class QuadCutsceneScript : MonoBehaviour
         }
 
         willie.transform.position = destination;
+        animator.SetBool("Moving", false);
+
         //yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         willieBox.enabled = true;
         player.inCutscene = false;
@@ -212,6 +226,7 @@ public class QuadCutsceneScript : MonoBehaviour
     {
         player.inCutscene = true;
         willieBox.enabled = false;
+
 
         Transform characterPosition = willie.transform;
         Animator animator = willie.GetComponent<Animator>();
@@ -225,7 +240,7 @@ public class QuadCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        //animator.SetBool("Moving", true);
+        animator.SetBool("Moving", true);
 
         sprite.flipX = true;
 
