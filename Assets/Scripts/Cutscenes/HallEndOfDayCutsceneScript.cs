@@ -10,7 +10,15 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
     public CameraScript cameraScript;
     public PlayerScript player;
 
-    public GameObject sam; 
+    public GameObject sam;
+
+    public GameObject willie;
+    public ParticleSystem playerDeathParticles;
+
+    public Transform playerDespawn;
+
+    public GameObject completeScreen; 
+
 
 
 
@@ -19,7 +27,6 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
         if (FindFirstObjectByType<DialogueRunner>() != null)
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
-
         }
 
         if (FindFirstObjectByType<GameManagerScript>() != null)
@@ -55,7 +62,7 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
             characterPosition.position = Vector3.MoveTowards(
                 characterPosition.position,
                 destination,
-                4f * Time.deltaTime
+                7f * Time.deltaTime
             );
 
             yield return null;
@@ -79,7 +86,7 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
             characterPosition.position = Vector3.MoveTowards(
                 characterPosition.position,
                 originalPosition,
-                3f * Time.deltaTime
+                7f * Time.deltaTime
             );
 
             yield return null;
@@ -89,5 +96,94 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
         animator.SetBool("Moving", false);
 
         player.inCutscene = false;
+    }
+
+    public IEnumerator EndWillieDeath()
+    {
+        player.inCutscene = true;
+
+        Transform playerTransform = player.transform;
+        Animator playerAnimator = player.GetComponent<Animator>();
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+
+        Animator willieAnimator = willie.GetComponent<Animator>();
+        SpriteRenderer willieSprite = willie.GetComponent<SpriteRenderer>();
+
+        playerSprite.flipX = true;
+        willieSprite.flipX = false;
+
+        playerAnimator.SetBool("isMoving", true);
+        willieAnimator.SetBool("Moving", true);
+
+        float playerSpeed = 8f;
+        float willieSpeed = 10f;
+
+        // Both move until Willie catches the player
+        while (Vector2.Distance(willie.transform.position, playerTransform.position) > 3f)
+        {
+            // Player walks left
+            playerTransform.position += Vector3.left * playerSpeed * Time.deltaTime;
+
+            // Willie chases the player
+            willie.transform.position = Vector3.MoveTowards(
+                willie.transform.position,
+                playerTransform.position,
+                willieSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        willieAnimator.SetBool("Moving", false);
+        playerAnimator.SetBool("isMoving", false);
+
+        if (playerDeathParticles != null)
+        {
+            playerDeathParticles.transform.position = playerTransform.position;
+            playerDeathParticles.Play();
+        }
+
+        player.gameObject.SetActive(false);
+
+        yield return new WaitForSeconds(1f);
+    }
+
+    public IEnumerator EndOfDayComplete()
+    {
+        player.inCutscene = true;
+
+
+        Transform playerTransform = player.transform;
+        Animator playerAnimator = player.GetComponent<Animator>();
+        SpriteRenderer playerSprite = player.GetComponent<SpriteRenderer>();
+
+        playerSprite.flipX = true;
+
+        playerAnimator.SetBool("isMoving", true);
+
+        float playerSpeed = 4f;
+        completeScreen.SetActive(true);
+
+        while (Vector2.Distance(playerDespawn.position, playerTransform.position) > 1f)
+        {
+            // Player walks left
+            playerTransform.position += Vector3.left * playerSpeed * Time.deltaTime;
+
+            yield return null;
+        }
+
+        playerAnimator.SetBool("isMoving", false);
+
+
+        yield return new WaitForSeconds(1f);
+
+        player.gameObject.SetActive(false);
+        yield return new WaitForSeconds(1f);
+
+    }
+
+    public void End()
+    {
+        manager.BackToMainMenu();
     }
 }

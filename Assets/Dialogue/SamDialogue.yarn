@@ -48,5 +48,23 @@ title: SamLate
 
 title: SamEndOfDay
 ---
-Sam: placeholder text
+Sam: As your RA, I get to chat with you! I hope you had a wonderful day today!
+
+<<if !getBool("hasChapelPass")>>
+    Sam: Did you get your chapel credits in today?
+
+    -> Yes! <<if getInt("currentCredits") == 4>>
+        Sam: Nice! That's impressive work! Here's a reward: a chapel pass, so Willie knows to not mess with you anymore!
+        Sam: Go enjoy your extra time during the chapel hour! Just don't do anything crazy, like throw a party or be involved in a creeking...
+        New Permanent Item: Chapel Pass!
+        <<setBool "hasChapelPass" true>>
+        <<EndOfDayComplete>>
+        <<stop>>
+    -> No. <<if getInt("currentCredits") != 4>>
+        Sam: Darn! Well, get those credits done, Willie is cracking down on chapel slackers as of late...
+        <<EndWillieDeath>>
+        <<stop>>
+<<endif>>
+
+Sam: Well, I'll see you tomorrow! Stay out of trouble!
 ===
