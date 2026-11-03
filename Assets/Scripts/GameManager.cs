@@ -52,11 +52,19 @@ public class GameManagerScript : MonoBehaviour
         { "starving", true },
         { "peterCredit", false }, //should be false 
         { "hasEvidence", false }, //should be false
-        { "willieSeenEvidence", true }, //should be false
-        { "currentCredits", 0 }
+        { "willieSeenEvidence", false }, //should be false
+        { "willieInChapel", true },
+        { "currentCredits", 4 }
     };
 
 
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("usingChapelPass") && PlayerPrefs.GetInt("usingChapelPass") == 1)
+        {
+            SetFlag("chapelPass", true);
+        }
+    }
     void Awake()
     {
         if (instance == null)
@@ -99,6 +107,8 @@ public class GameManagerScript : MonoBehaviour
     //Grab neccisary elements on a scene load, gives yarn spinner methods and vars to use
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        
+
         if (FindFirstObjectByType<DialogueRunner>() != null)
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
@@ -115,6 +125,9 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddCommandHandler("PaperCrumpleTook", takenPaperCrumple);
             dialogueRunner.AddCommandHandler<string>("gameOver", GameOver);
             dialogueRunner.AddCommandHandler("GotCredit", GotCredit);
+            dialogueRunner.AddCommandHandler("EndWillieDeath", EndWillieDeath);
+            dialogueRunner.AddCommandHandler("EndOfDayComplete", EndOfDayComplete);
+
         }
 
 
@@ -250,9 +263,10 @@ public class GameManagerScript : MonoBehaviour
             StartCoroutine(WaitForEvent(quadCutscenes.PeterCreditCutscene()));
         }
 
-        if (currentPeriod == TimePeriod.Afternoon && GetBool("willieSeenEvidence") && SceneManager.GetActiveScene().name == "Quad")
+        if (currentPeriod == TimePeriod.Afternoon && GetBool("willieSeenEvidence") && SceneManager.GetActiveScene().name == "Quad" && !GetBool("willieInChapel"))
         {
             StartCoroutine(WaitForEvent(quadCutscenes.WillieToChapel()));
+            SetFlag("willieInChapel", true); 
         }
 
         if (currentPeriod == TimePeriod.EndOfDay && actionsRemaining == 4)
@@ -364,6 +378,25 @@ public class GameManagerScript : MonoBehaviour
 
         GameOver("Willie caught you skipping chapel!");
     }
+    private void EndWillieDeath()
+    {
+        StartCoroutine(WaitForEvent(EndWillieDeathCall()));
+    }
+
+    private IEnumerator EndWillieDeathCall()
+    {
+        yield return StartCoroutine(hallEndOfDayCutscenes.EndWillieDeath());
+        GameOver("You didn't get your chapel credits in time...");
+    }
+    private void EndOfDayComplete()
+    {
+        StartCoroutine(WaitForEvent(EndOfDayCompleteCall()));
+    }
+
+    private IEnumerator EndOfDayCompleteCall()
+    {
+        yield return StartCoroutine(hallEndOfDayCutscenes.EndOfDayComplete());
+    }
 
     private IEnumerator Starve()
     {
@@ -422,6 +455,17 @@ public class GameManagerScript : MonoBehaviour
         RestorePeriodCheckpoint();
 
         SceneManager.LoadScene(checkpoint.startingScene);
+    }
+
+    public void BackToMainMenu()
+    {
+        if (GetBool("hasChapelPass"))
+        {           
+            PlayerPrefs.SetInt("ChapelPass",1);            
+        }
+
+
+        SceneManager.LoadScene("MainMenu");
     }
 }
 
