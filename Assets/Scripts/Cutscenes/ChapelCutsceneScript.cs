@@ -36,7 +36,7 @@ public class ChapelCutsceneScript : MonoBehaviour
 
         manager.UseAction();
 
-        if (!(manager.GetBool("willieSeenEvidence")))
+        if (manager.currentPeriod == GameManagerScript.TimePeriod.Afternoon && !(manager.GetBool("willieSeenEvidence")))
         {
             conversationBox.SetActive(false);
             willie.SetActive(false);
