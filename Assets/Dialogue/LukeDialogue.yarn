@@ -12,7 +12,7 @@
 Luke: Hey! You free today? I have something big planned...
 -> Yeah, I have time. <<if getBool("hasChapelPass") and hasActions()>>
     <<jump HelpLuke>>
--> No, sorry.
+-> No, I don't have time, sorry.
     <<jump DeclineLuke>>
 ===
 
@@ -31,7 +31,8 @@ Luke: Bet! I'm throwing Grove's Perfect Party, and I need some help. You in?
 
 title: HelpLuke2
 ---
-Luke: Sweet! We need a few things, first, we need posters to spread the word. Meet me at class for more.
+Luke: Sweet! We need a few things, first, we need posters to spread the word. Grab some paper, and then meet me at class for more.
+<<setBool "lukePath" true>>
 <<stop>>
 ===
 
@@ -43,6 +44,10 @@ Luke: No worries! I'll see you around.
 
 title: LukeClass
 ---
+<<if getBool("lukePath")>>
+    <<jump LukePathClass>>
+<<endif>>
+
 <<if getBool("friendedLuke")>>
     Luke: What's up man! Good to see someone with some common sense around here!
     <<stop>>
@@ -101,4 +106,17 @@ Luke: WHAT?! OH HECK NAH!! If ANYTHING comes up with him again I'm right behind 
 -> Thank's boss.
 
 <<stop>>
+===
+
+title: LukePathClass
+---
+<<if getInt("hasPaper") == 1>>
+    Luke: Perfect, you brought the paper, too.
+<<else>>
+    Luke: Dang, you don't have a clean piece of paper.
+    Luke: You can't even follow simple instructions, probably prefer Windows over Linux!
+    <<jump LukeHatesWindows>>
+
+<<endif>>
+
 ===
