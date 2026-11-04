@@ -127,8 +127,8 @@ title: Eat
 
 title: EatingMeal
 ---
-You: NOM NOM NOM! That was some GOOD Cowfila!
-
+You eat the Cowfila, it filled you up!
+<<useAction>>
 <<setBool "starving" false>>
 <<if $gotGregsFood>>
     <<set $gotGregsFood = false>>

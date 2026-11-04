@@ -61,7 +61,7 @@ public class GameManagerScript : MonoBehaviour
         { "lukePath", false }, //should be false
         { "willieInChapel", false }, //should be false
         { "skipperDead",false},
-        { "currentCredits", 0 }
+        { "currentCredits", 4 }
     };
 
 
@@ -69,7 +69,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("usingChapelPass") && PlayerPrefs.GetInt("usingChapelPass") == 1)
         {
-            SetFlag("chapelPass", true);
+            SetFlag("hasChapelPass", true);
         }
     }
 
@@ -364,15 +364,22 @@ public class GameManagerScript : MonoBehaviour
         SceneManager.LoadScene("Hall");
     }
 
-    public void RestartRoom()
-    {
-        // Stop all active cutscenes and events
-        StopAllCoroutines();
-        eventRunning = false;
+    //public void RestartRoom()
+    //{
 
-        // Reload the current room
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
+    //    // Stop the current dialogue before destroying the scene
+    //    if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+    //    {
+    //        dialogueRunner.Stop();
+    //    }
+
+    //    // Stop all active cutscenes and events
+    //    StopAllCoroutines();
+    //    eventRunning = false;
+
+    //    // Reload the current room
+    //    SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    //}
 
     //If specific events happen at a time change put conditions here
     private IEnumerator TimeChanges()
@@ -469,7 +476,12 @@ public class GameManagerScript : MonoBehaviour
             return;
         }
 
-        Time.timeScale = 1f;
+        if (dialogueRunner != null && dialogueRunner.IsDialogueRunning)
+                {
+                    dialogueRunner.Stop();
+                }
+
+            Time.timeScale = 1f;
 
         // Hide the Game Over screen
         gameOver.SetActive(false);
@@ -487,7 +499,7 @@ public class GameManagerScript : MonoBehaviour
     {
         if (GetBool("hasChapelPass"))
         {
-            PlayerPrefs.SetInt("ChapelPass", 1);
+            PlayerPrefs.SetInt("hasChapelPass", 1);
             PlayerPrefs.Save();
         }
 
