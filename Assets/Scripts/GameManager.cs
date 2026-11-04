@@ -51,21 +51,22 @@ public class GameManagerScript : MonoBehaviour
         { "hasChapelPass", false }, //should be false
         { "hasItem1", false },
         { "hasItem2", false },
-        { "hasPaper", 1 },
+        { "hasPaper", 0 },
         { "teacherDistracted", false },
         { "teacherDistractedAt", -1 },
         { "teacherSeesPlayer", true },
         { "scheduledMeeting", false }, //should be false
-        { "friendedLuke", true },
+        { "friendedLuke", false }, //should be false 
         { "guyhasLunch", false },
         { "starving", true },
         { "peterCredit", false }, //should be false 
         { "hasEvidence", false }, //should be false
+        { "profRan", false },
         { "willieSeenEvidence", false }, //should be false
         { "lukePath", false }, //should be false
         { "willieInChapel", false }, //should be false
         { "skipperDead",false},
-        { "currentCredits", 4 },
+        { "currentCredits", 0 },
         { "lukeHasPaper", false }, //should be false
         { "samBus", false }, //should be false
         { "lucaSamBus", false }, //should be false

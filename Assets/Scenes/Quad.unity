@@ -743,7 +743,7 @@ PrefabInstance:
       objectReference: {fileID: 23451993}
     - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: currentPeriod
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: actionsRemaining

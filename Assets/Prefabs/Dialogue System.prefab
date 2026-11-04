@@ -1417,7 +1417,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8677295200867362403}
   - component: {fileID: 8677295200867362400}
-  - component: {fileID: 3603087253216992669}
+  - component: {fileID: 324681032479312121}
   m_Layer: 0
   m_Name: Line Advancer
   m_TagString: Untagged
@@ -1457,7 +1457,7 @@ MonoBehaviour:
   separateHurryUpAndAdvanceControls: 0
   multiAdvanceIsCancel: 1
   advanceRequestsBeforeCancellingLine: 2
-  inputMode: 1
+  inputMode: 0
   hasTransferredLegacyMapping: 1
   legacyHurryUpLineAction: {fileID: 0}
   legacyNextLineAction: {fileID: 0}
@@ -1472,7 +1472,7 @@ MonoBehaviour:
   legacyNextLineKeyCode: 27
   legacyHurryUpOptionsKeyCode: 32
   legacyCancelDialogueKeyCode: 0
---- !u!114 &3603087253216992669
+--- !u!114 &324681032479312121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1481,11 +1481,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 8677295200867362401}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad15240c88dde41159620e5f27277386, type: 3}
+  m_Script: {fileID: 11500000, guid: f86c840d98d44410792d746cc2ceaa66, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: YarnSpinner.Unity::Yarn.Unity.LineAdvancerInput.KeyCodes
+  m_EditorClassIdentifier: YarnSpinner.Unity::Yarn.Unity.LineAdvancerInput.InputActions
   lineAdvancer: {fileID: 8677295200867362400}
-  hurryUpLineKeyCode: 32
-  nextLineKeyCode: 27
-  hurryUpOptionsKeyCode: 32
-  cancelDialogueKeyCode: 0
+  hurryUpLineAction: {fileID: 2288964891268254923, guid: 8a5f4a882d0433b4eb12aeed4154c467, type: 3}
+  nextLineAction: {fileID: 0}
+  hurryUpOptionsAction: {fileID: 2288964891268254923, guid: 8a5f4a882d0433b4eb12aeed4154c467, type: 3}
+  cancelDialogueAction: {fileID: 0}
+  enableActions: 1

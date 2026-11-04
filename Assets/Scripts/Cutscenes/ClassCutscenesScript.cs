@@ -28,6 +28,22 @@ public class ClassCutsceneScript : MonoBehaviour
     public CameraScript cameraScript;
     public PlayerScript player;
 
+    public GameObject normalPaper;
+    public GameObject crumpledPaper;
+    public GameObject yourSeat; 
+
+    public Transform paperSpawn;
+    public Transform paperTarget;
+
+    public Transform paperTargetFloating; 
+
+    public float throwDuration = 0.6f;
+    public float throwHeight = 1.5f;
+
+    public float floatDuration = 2f;
+    public float swayAmount = 0.4f;
+    public float swaySpeed = 4f;
+    public float rockAngle = 25f;
 
     void Start()
     {
@@ -36,6 +52,8 @@ public class ClassCutsceneScript : MonoBehaviour
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler("PaperDistraction", PaperDistraction);
             dialogueRunner.AddCommandHandler("ProfLeaves", ProfLeaves);
+            dialogueRunner.AddCommandHandler("ThrowCrumpledPaper", ThrowCrumpledPaper);
+            dialogueRunner.AddCommandHandler("ThrowNormalPaper", ThrowNormalPaper);
 
         }
 
@@ -48,12 +66,89 @@ public class ClassCutsceneScript : MonoBehaviour
         {
             peter.SetActive(false);
             luke.SetActive(false);
+            yourSeat.SetActive(false);
             //luca.SetActive(false);
             //sam.SetActive(false);
+
+            if (manager.GetBool("profRan"))
+            {
+                teacher.SetActive(false);
+
+                if (!manager.GetBool("hasEvidence"))
+                    evidence.SetActive(true);
+            }
         }
 
     }
 
+    public IEnumerator ThrowCrumpledPaper()
+    {
+        crumpledPaper.transform.position = paperSpawn.position;
+        crumpledPaper.transform.rotation = Quaternion.identity;
+        crumpledPaper.SetActive(true);
+
+        Vector3 start = paperSpawn.position;
+        Vector3 end = paperTarget.position;
+
+        float elapsed = 0f;
+
+        while (elapsed < throwDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = Mathf.Clamp01(elapsed / throwDuration);
+
+            Vector3 position = Vector3.Lerp(start, end, t);
+
+            // Creates an arc above the normal path
+            position.y += Mathf.Sin(t * Mathf.PI) * throwHeight;
+
+            crumpledPaper.transform.position = position;
+
+            // Spin while flying
+            crumpledPaper.transform.Rotate(0, 0, 360f * Time.deltaTime);
+
+            yield return null;
+        }
+
+        crumpledPaper.transform.position = end;
+    }
+
+    public IEnumerator ThrowNormalPaper()
+    {
+        normalPaper.transform.position = paperSpawn.position;
+        normalPaper.transform.rotation = Quaternion.identity;
+        normalPaper.SetActive(true);
+
+        Vector3 start = paperSpawn.position;
+        Vector3 end = paperTargetFloating.position;
+
+        float elapsed = 0f;
+
+        while (elapsed < floatDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            float t = Mathf.Clamp01(elapsed / floatDuration);
+
+            // Slowly move toward the floor
+            Vector3 position = Vector3.Lerp(start, end, t);
+
+            // Sway left and right
+            position.x += Mathf.Sin(elapsed * swaySpeed) * swayAmount;
+
+            normalPaper.transform.position = position;
+
+            // Rock back and forth
+            float angle = Mathf.Sin(elapsed * swaySpeed) * rockAngle;
+            normalPaper.transform.rotation = Quaternion.Euler(0, 0, angle);
+
+            yield return null;
+        }
+
+        normalPaper.transform.position = end;
+        normalPaper.transform.rotation = Quaternion.identity;
+    }
     public IEnumerator PaperDistraction()
     {
         Transform teacherTransform = teacher.transform;
@@ -88,6 +183,7 @@ public class ClassCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
+        crumpledPaper.SetActive(false);
         Animator animator = teacher.GetComponent<Animator>();
         animator.SetBool("Moving", true);
 
@@ -206,6 +302,10 @@ public class ClassCutsceneScript : MonoBehaviour
 
         Transform teacherTransform = teacher.transform;
 
+        SpriteRenderer sr = teacher.GetComponent<SpriteRenderer>();
+
+        sr.flipX = true;
+
         Animator animator = teacher.GetComponent<Animator>();
         animator.SetBool("Moving", true);
 
@@ -223,8 +323,8 @@ public class ClassCutsceneScript : MonoBehaviour
 
         teacherTransform.position = teacherPath.position;
 
-        // Move straight down to Y = -20
-        Vector3 destination = new Vector3(teacherTransform.position.x, -20f, teacherTransform.position.z);
+        
+        Vector3 destination = new Vector3(teacherTransform.position.x, -8f, teacherTransform.position.z);
 
         while (Vector2.Distance(teacherTransform.position, destination) > 0.05f)
         {
@@ -239,7 +339,9 @@ public class ClassCutsceneScript : MonoBehaviour
 
         teacherTransform.position = destination;
         evidence.SetActive(true);
+        teacher.SetActive(false);
         player.inCutscene = false;
+        manager.SetFlag("profRan", true);
 
     }
 }
