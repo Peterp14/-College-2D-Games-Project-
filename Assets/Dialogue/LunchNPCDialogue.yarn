@@ -4,6 +4,7 @@
 <<declare $purpleGuyDefeated = false>>
 <<declare $gotGregsFood = false>>
 <<declare $boughtMeal = false>>
+<<declare $seenWindowsGuy = false>>
 
 <<if $gotGregsFood>>
     Greg: Enjoy the food, man. You earned it!
@@ -24,7 +25,6 @@
 <<endif>>
 
 <<if getBool("guyhasLunch")>>
-    Greg: Man oh man I sure do love me some Cowfila!
     Greg: Oh hey, didn't see you standing there eye balling my food... Whats up??
 <<else>>
     Greg: Hey man no shoving, wait in line.
@@ -46,25 +46,19 @@ title: GuyEating
 Greg: Gee, I wonder what I could possibly be doing with this food right now.
 Greg: What do you want?
 -> Can I have it?
-    <<if hasActions()>>
-        <<jump TakingFood>>
-    <<else>>
-        Greg: Sorry, you don't have enough time!
-        <<stop>>
-    <<endif>>
+    <<jump TakingFood>>
+    <<stop>>
 -> Never mind
     <<stop>>
 ===
 
 title: TakingFood
 ---
-<<useAction>>
 <<set $helpingLunchGuy = true>>
 Greg: Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.
 Greg: If you need the food I could give it to ya, but you gotta do something for me.
-Greg: See that guy over there in the purple? I need you to punch him.
-Greg: I have literally no reason for it and don't condone it, but would lowkey be funny.
-Greg: Do that and you can have the food, I'll wait before eating it.
+Greg: See that guy over there in the purple? I need you to punch him. He's had it coming...
+Greg: Do that and you can do whatever you want with it, I'll wait before eating it.
 <<stop>>
 ===
 
@@ -82,6 +76,7 @@ title: PurpleGuy
 PurpleGuy: Hey man, what's up?
 -> Not much, any fun facts about yourself? 
     PurpleGuy: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's great! I sure do love my WINDOWS operating system!  
+    <<set $seenWindowsGuy = true>>
     <<stop>>
 -> Punch him. <<if $helpingLunchGuy and hasActions() and not $purpleGuyDefeated>>
     <<jump PunchPurpleGuy>>

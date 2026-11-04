@@ -81,7 +81,7 @@ title: peterLunchThanks
 ---
 <<useAction>>
 <<set $helpingPeter = true>>
-Peter: Thanks man! Get it to me before the hour ends!
+Peter: Thanks man! I'm not picky, I'll take it wherever you can get it from! 
 <<stop>>
 ===
 
@@ -129,15 +129,11 @@ title: PeterCredit
 <<if getBool("peterCredit")>>
     Peter: Hey man, I bet you still have one more chapel credit to get, right?
     -> Yea.
-        Peter: So one thing that isn't well known is that a year ago they made it so staff members also need to attend chapel, and it turns out since Opitz is the one running chapel, he technically doesn't actually have any chapel credits! He's over a year in debt! 
+        Peter: So I heard a rumor going around that the teacher's desk has The Opitz Files in it.
         -> So what?
             Peter: Well, I've been looking into Willie lately, for my own reasons... But I think what I know so far may help you.
-            Peter: So you know how Willie "deals" with students who skip chapel without a chapel pass, right?
-            Peter: I saw him do the same to a prof last week! If you can get evidence of Opitz not having any credits, then Willie would "deal" with him. After that, you can probably just give yourself a credit!
-            -> How would I get the evidence?
-                Peter: Hmmmm. I'm not entirely sure. Maybe if you can get into the classroom alone, you can find dirt on him in the desk.
-                -> I'll try it, thanks.
-                    Peter: Good luck, man!
+            Peter: So you know how Willie "deals" with students who skip chapel without a chapel pass, right? Well the same applies for the staff! If the file has any info on his chapel credits, Willie could "deal" with him.
+            -> I see, I'll try to get it. 
 <<endif>>
 <<stop>>
 ===

@@ -15,7 +15,7 @@
     <<stop>>
 <<else>>
     Prof: Oh? Do you have a question?
-    -> I need something. <<if hasActions()>>
+    -> Can I talk to you during office hours? <<if hasActions()>>
         <<jump OfficeHours>>
     -> No, sorry.
         <<stop>>
@@ -24,7 +24,7 @@
 
 title: OfficeHours
 ---
-Prof: Well if you need something, then come to my office hours later. They'll be in the classroom today after Chapel.
+Prof: Yea sure, I'll write you in for my last scheduled time. They'll be in the classroom today after Lunch hour.
 <<setBool "scheduledMeeting" true>>
 <<useAction>>
 <<stop>>

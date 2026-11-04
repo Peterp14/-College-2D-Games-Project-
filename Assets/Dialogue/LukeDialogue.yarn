@@ -53,7 +53,7 @@ title: LukeClass
     <<stop>>
 <<endif>>
 
-Luke: Hey man, quick question...
+Luke: Hey man, quick question. Very important for our friendship...
 Luke: What's your opinion on Windows???
 -> It's fine.
     <<jump LukeHatesWindows>>
@@ -76,7 +76,7 @@ title: LukeYaps
 ---
 <<setBool "friendedLuke" true>>
 Luke: RIGHT?! I'm litteraly doing two things that should not affect eachother AT ALL but the one says it can't run due to other programs!
-Luke: I LOVE that you agree. If you catch anyone who disagrees, Let. Me. Know...
+Luke: I LOVE that you agree. If you catch anyone who disagrees, LET. ME. KNOW...
 -> Understood.
 
 <<stop>>
@@ -92,7 +92,7 @@ title: LukeLunch
         <<stop>>
 <<else>>
     Luke: What's up man?
-    -> That guy over just yapped to me about how he ADORES Windows. <<if getBool("friendedLuke") and hasActions() and $helpingLunchGuy>>
+    -> That guy over just yapped to me about how he ADORES Windows. <<if getBool("friendedLuke") and hasActions() and $seenWindowsGuy and !$lukeWillHelp>>
         <<jump LukeAngry>>
     -> Nothing much.
         <<stop>>

@@ -8,6 +8,7 @@
     Chapel Skipper: Don't snitch please!
     -> Snitch.
         Chapel Skipper: How could you! It's joever!
+        <<useAction>>
         <<Snitching>>
     -> Leave him alone
 <<endif>>
@@ -17,7 +18,7 @@
 title: WillieSnitch
 ---
 Willie: ...
--> I have something to tell you. <<if getBool("hasEvidence")>>
+-> Take a look at this file... <<if getBool("hasEvidence")>>
     Willie: ...
     <<setBool "willieSeenEvidence" true>>
     <<useAction>>

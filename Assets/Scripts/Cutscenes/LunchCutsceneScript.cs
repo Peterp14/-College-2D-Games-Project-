@@ -41,7 +41,7 @@ public class LunchCutsceneScript : MonoBehaviour
         player.inCutscene = true;
 
         Transform characterPosition = guyGettingFood.transform;
-        Animator animator = guyGettingFood.GetComponent<Animator>();
+        //Animator animator = guyGettingFood.GetComponent<Animator>();
         SpriteRenderer sprite = guyGettingFood.GetComponent<SpriteRenderer>();
 
         cameraScript.SetTarget(characterPosition);
@@ -51,7 +51,7 @@ public class LunchCutsceneScript : MonoBehaviour
 
         yield return new WaitForSeconds(0.5f);
 
-        animator.SetBool("Moving", true);
+        //animator.SetBool("Moving", true);
 
         foreach (Transform point in guyGettingFoodPath)
         {
@@ -78,7 +78,7 @@ public class LunchCutsceneScript : MonoBehaviour
             characterPosition.position = point.position;
         }
 
-        animator.SetBool("Moving", false);
+        //animator.SetBool("Moving", false);
 
         yield return new WaitForSeconds(0.5f);
 
