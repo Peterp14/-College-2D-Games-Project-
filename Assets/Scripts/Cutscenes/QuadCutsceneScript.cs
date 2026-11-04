@@ -17,10 +17,13 @@ public class QuadCutsceneScript : MonoBehaviour
 
     public Transform playerLunchSpawn;
     public Transform playerChapelSpawn;
+    public Transform playerKetRecSpawn;
+
 
     public GameObject ChapelSkipper;
 
     public GameObject ParticleObject;
+
 
     private ParticleSystem ChapelSkipperParticles;
 
@@ -37,6 +40,12 @@ public class QuadCutsceneScript : MonoBehaviour
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler("Snitching", Snitching);
+        }
+
+        if (FindAnyObjectByType<GameManagerScript>() != null)
+        {
+            manager = FindFirstObjectByType<GameManagerScript>();
+
         }
 
         ChapelSkipperParticles = ParticleObject.GetComponent<ParticleSystem>();
@@ -63,12 +72,20 @@ public class QuadCutsceneScript : MonoBehaviour
         if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon)
         {
             ChapelSkipper.transform.position = new Vector2(4.77f, -16.31f);
-            player.transform.position = playerLunchSpawn.position;
+
+            if (manager.GetBool("skipperDead"))
+                ChapelSkipper.SetActive(false); 
+           // player.transform.position = playerLunchSpawn.position;
         }
-        else if (GameManagerScript.instance.previousScene == "Chapel")
+
+        if (GameManagerScript.instance.previousScene == "Chapel")
         {
             player.transform.position = playerChapelSpawn.position;
 
+        }
+        else if (GameManagerScript.instance.previousScene == "Ketrec")
+        {
+            player.transform.position = playerKetRecSpawn.position; 
         }
     }
 
@@ -220,6 +237,7 @@ public class QuadCutsceneScript : MonoBehaviour
         //yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         willieBox.enabled = true;
         player.inCutscene = false;
+        manager.SetFlag("skipperDead",true);
     }
 
     public IEnumerator WillieToChapel()
