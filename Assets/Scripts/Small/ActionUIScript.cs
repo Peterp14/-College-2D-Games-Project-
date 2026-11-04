@@ -1,8 +1,11 @@
+using TMPro;
+using TMPro.EditorUtilities;
 using UnityEngine;
 
 public class ActionUIScript : MonoBehaviour
 {
     public GameObject[] actionIcons;
+    public TMP_Text time; 
 
     void Start()
     {
@@ -20,6 +23,7 @@ public class ActionUIScript : MonoBehaviour
         if (GameManagerScript.instance == null)
             return;
 
+
         int remaining = GameManagerScript.instance.actionsRemaining;
 
         for (int i = 0; i < actionIcons.Length; i++)
@@ -29,5 +33,9 @@ public class ActionUIScript : MonoBehaviour
                 actionIcons[i].SetActive(i < remaining);
             }
         }
+
+        time.text = GameManagerScript.instance.currentPeriod.ToString();
+
+
     }
 }

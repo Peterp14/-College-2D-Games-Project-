@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
@@ -32,6 +33,9 @@ public class GameManagerScript : MonoBehaviour
 
     public GameObject pause;
 
+    AudioSource aSource;
+    public AudioClip actionSound; 
+
     private bool paused = false; 
     private bool eventRunning = false;
     private bool checkpointPending = false;
@@ -52,7 +56,7 @@ public class GameManagerScript : MonoBehaviour
         { "teacherDistractedAt", -1 },
         { "teacherSeesPlayer", true },
         { "scheduledMeeting", false }, //should be false
-        { "friendedLuke", false },
+        { "friendedLuke", true },
         { "guyhasLunch", false },
         { "starving", true },
         { "peterCredit", false }, //should be false 
@@ -95,6 +99,8 @@ public class GameManagerScript : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        aSource = GetComponent<AudioSource>();
     }
 
     void OnEnable()
@@ -169,6 +175,8 @@ public class GameManagerScript : MonoBehaviour
             hallEndOfDayCutscenes = FindFirstObjectByType<HallEndOfDayCutsceneScript>();
 
 
+
+
         if (restartingPeriod)
         {
             restartingPeriod = false;
@@ -227,6 +235,8 @@ public class GameManagerScript : MonoBehaviour
         {
             StartCoroutine(WaitForEvent(TimeChanges()));
         }
+
+        aSource.PlayOneShot(actionSound);
 
         EventChecks();
     }

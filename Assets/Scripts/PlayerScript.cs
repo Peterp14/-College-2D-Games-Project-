@@ -21,16 +21,16 @@ public class PlayerScript : MonoBehaviour
         _renderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
 
-        MeshRenderer textRenderer = interactionIndicator.GetComponent<MeshRenderer>();
+        SpriteRenderer indicatorRenderer = interactionIndicator.GetComponent<SpriteRenderer>();
 
-        textRenderer.sortingLayerID = _renderer.sortingLayerID;
-        textRenderer.sortingOrder = _renderer.sortingOrder + 100;
+        indicatorRenderer.sortingLayerID = _renderer.sortingLayerID;
+        indicatorRenderer.sortingOrder = _renderer.sortingOrder + 100;
 
         if (FindFirstObjectByType<DialogueRunner>() != null)
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
         }
-    }
+    }  
 
     void Update()
     {
