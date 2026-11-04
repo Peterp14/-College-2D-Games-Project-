@@ -84,7 +84,7 @@ Luke: I LOVE that you agree. If you catch anyone who disagrees, LET. ME. KNOW...
 
 title: LukeLunch
 ---
-<<if $purpleGuyDefeated>>
+<<if $gingerDefeated>>
     Luke: That'll teach him to defend Windows!
     Luke: Anyway, what's up?
     -> Thanks for having my back!

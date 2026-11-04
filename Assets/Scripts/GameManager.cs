@@ -44,7 +44,7 @@ public class GameManagerScript : MonoBehaviour
     //flags in dictionary for organization
     public Dictionary<string, object> flags = new Dictionary<string, object>
     {
-        { "hasChapelPass", true }, //should be false
+        { "hasChapelPass", false }, //should be false
         { "hasItem1", false },
         { "hasItem2", false },
         { "hasPaper", 1 },
@@ -58,7 +58,7 @@ public class GameManagerScript : MonoBehaviour
         { "peterCredit", false }, //should be false 
         { "hasEvidence", false }, //should be false
         { "willieSeenEvidence", false }, //should be false
-        { "lukePath", true }, //should be false
+        { "lukePath", false }, //should be false
         { "willieInChapel", false }, //should be false
         { "skipperDead",false},
         { "currentCredits", 4 },
@@ -67,7 +67,8 @@ public class GameManagerScript : MonoBehaviour
         { "lucaSamBus", false }, //should be false
         { "posters", false }, //should be false
         { "handedPosters", false }, //should be false
-        { "failedPosters", false } //should be false
+        { "failedPosters", false }, //should be false
+        { "postersHung", false } //should be false
     };
 
 

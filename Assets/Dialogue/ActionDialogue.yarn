@@ -156,7 +156,8 @@ title: PosterLeft
     Do you want to put up a poster?
     -> Yes.
         <<useAction>>
-        Luke: Just in time! Our advertising is sure to work! Insert next instructions here!
+        Luke: Just in time! Our advertising is sure to work!
+        <<setBool "postersHung" true>>
     -> No.
         <<stop>>
 <<else>>
