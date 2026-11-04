@@ -87,6 +87,10 @@ public class QuadCutsceneScript : MonoBehaviour
         {
             player.transform.position = playerKetRecSpawn.position; 
         }
+        else if (GameManagerScript.instance.previousScene == "Lunch")
+        {
+            player.transform.position = playerLunchSpawn.position;
+        }
     }
 
     public IEnumerator WillieDeath()
