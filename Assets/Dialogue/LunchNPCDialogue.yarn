@@ -1,7 +1,7 @@
 ﻿title: LunchGuy
 ---
 <<declare $helpingLunchGuy = false>>
-<<declare $purpleGuyDefeated = false>>
+<<declare $gingerDefeated = false>>
 <<declare $gotGregsFood = false>>
 <<declare $boughtMeal = false>>
 <<declare $seenWindowsGuy = false>>
@@ -11,7 +11,7 @@
     <<stop>>
 <<endif>>
 
-<<if $purpleGuyDefeated>>
+<<if $gingerDefeated>>
     Greg: DUDE! YOU ACTUALLY DID IT?!
     Greg: I honestly didn't think you'd go through with that!
     Greg: Well, a deal's a deal. Here's my Cowfila!
@@ -20,7 +20,7 @@
 
 // If the player already accepted the quest
 <<if $helpingLunchGuy>>
-    Greg: Well? Did you punch that guy in purple yet?
+    Greg: Well? Did you punch that ginger?
     <<stop>>
 <<endif>>
 
@@ -57,7 +57,7 @@ title: TakingFood
 <<set $helpingLunchGuy = true>>
 Greg: Hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm.
 Greg: If you need the food I could give it to ya, but you gotta do something for me.
-Greg: See that guy over there in the purple? I need you to punch him. He's had it coming...
+Greg: See that ginger over ther? I need you to punch him. He's had it coming...
 Greg: Do that and you can do whatever you want with it, I'll wait before eating it.
 <<stop>>
 ===
@@ -71,23 +71,26 @@ Greg: Don't say I never did anything for ya!
 ===
 
 
-title: PurpleGuy
+title: Ginger
 ---
-PurpleGuy: Hey man, what's up?
--> Not much, any fun facts about yourself? 
-    PurpleGuy: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's great! I sure do love my WINDOWS operating system!  
-    <<set $seenWindowsGuy = true>>
-    <<stop>>
--> Punch him. <<if $helpingLunchGuy and hasActions() and not $purpleGuyDefeated>>
-    <<jump PunchPurpleGuy>>
--> See ya.
-    <<stop>>
+<<if !$gingerDefeated>>
+    Ginger: Oh hey! What's up?  
+    -> Not much, any fun facts about yourself? 
+       Ginger: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's great! I sure do love my WINDOWS operating system!  
+       <<set $seenWindowsGuy = true>>
+       <<stop>>
+   -> Punch him. <<if $helpingLunchGuy and hasActions() and not $gingerDefeated>>
+       <<jump PunchGinger>>
+   -> See ya.
+       <<stop>>
+<<endif>>
+<<stop>>
 ===
 
-title: PunchPurpleGuy
+title: PunchGinger
 ---
 <<useAction>>
-PurpleGuy: OW! OH YOU'RE DEAD!
+Ginger: OW! OH YOU'RE DEAD!
 
 <<if $lukeWillHelp>>
     <<jump PunchWithLuke>>
@@ -100,7 +103,7 @@ title: PunchWithLuke
 ---
 Luke: IS THAT THE WINDOW'S LOVER?!
 <<PunchWithLuke>>
-<<set $purpleGuyDefeated = true>>
+<<set $gingerDefeated = true>>
 <<stop>>
 ===
 

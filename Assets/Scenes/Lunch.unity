@@ -648,7 +648,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 404095181825730971, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: dialogueNode
-      value: PurpleGuy
+      value: Ginger
       objectReference: {fileID: 0}
     - target: {fileID: 404095181825730971, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: dialogueRunner
@@ -752,7 +752,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5281011260581593289, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: m_Name
-      value: PurpleGuy
+      value: Ginger
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 480684546815832272, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}

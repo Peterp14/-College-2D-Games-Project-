@@ -128,13 +128,12 @@ title: Eat
 title: EatingMeal
 ---
 You eat the Cowfila, it filled you up!
-<<useAction>>
 <<setBool "starving" false>>
 <<if $gotGregsFood>>
     <<set $gotGregsFood = false>>
 <<else>>
     <<set $boughtMeal = false>>
 <<endif>>
-
+<<useAction>>
 <<stop>>
 ===
