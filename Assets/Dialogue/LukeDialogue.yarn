@@ -19,7 +19,6 @@ Luke: Hey! You free today? I have something big planned...
 title: HelpLuke
 ---
 <<useAction>>
-<<set $helpedLuke = true>>
 Luke: Bet! I'm throwing Grove's Perfect Party, and I need some help. You in?
 -> Absolutely!
     <<jump HelpLuke2>>
@@ -32,6 +31,7 @@ Luke: Bet! I'm throwing Grove's Perfect Party, and I need some help. You in?
 title: HelpLuke2
 ---
 Luke: Sweet! We need a few things, first, we need posters to spread the word. Grab some paper, and then meet me at class for more.
+<<set $helpedLuke = true>>
 <<setBool "lukePath" true>>
 <<stop>>
 ===
@@ -112,6 +112,8 @@ title: LukePathClass
 ---
 <<if getInt("hasPaper") == 1>>
     Luke: Perfect, you brought the paper, too.
+    Luke: I'll sketch some poster designs to help advertise this big party.
+    
 <<else>>
     Luke: Dang, you don't have a clean piece of paper.
     Luke: You can't even follow simple instructions, probably prefer Windows over Linux!

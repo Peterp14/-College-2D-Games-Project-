@@ -53,7 +53,7 @@ public class GameManagerScript : MonoBehaviour
         { "peterCredit", false }, //should be false 
         { "hasEvidence", false }, //should be false
         { "willieSeenEvidence", false }, //should be false
-        { "lukePath", false } //should be false
+        { "lukePath", false }, //should be false
         { "willieInChapel", false }, //should be false
         { "skipperDead",false},
         { "currentCredits", 0 }
