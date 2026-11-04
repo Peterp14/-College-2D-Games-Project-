@@ -1780,6 +1780,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6909897606306854167, guid: 9051e67e5f34cbf47a1e3ff9000cbd30, type: 3}
+      propertyPath: dialogueNode
+      value: Luca
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909897606306854167, guid: 9051e67e5f34cbf47a1e3ff9000cbd30, type: 3}
       propertyPath: dialogueRunner
       value: 
       objectReference: {fileID: 1858696120}

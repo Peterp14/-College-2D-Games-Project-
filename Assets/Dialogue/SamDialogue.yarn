@@ -31,6 +31,11 @@ title: SamLate
 <<if getBool("teacherDistracted")>>
     Sam: Another victory for the OG's! 
 <<else>>
+    <<if getBool("samBus")>>
+        <<jump OnlySamNarc>>
+    <<else>>
+        <<jump SamLucaNarc>>
+    <<endif>>
     Teacher: Regularly scheduled entrance... 
 	
     Sam: I'm not late that often!
@@ -43,6 +48,22 @@ title: SamLate
 <<stop>>
 ===
 
+title: OnlySamNarc
+---
+Teacher: Sam, get your act together.
+Teacher: See me during office hours later.
+Sam: Daw...
+Luca: Yes!
+<<setBool "samBus" true>>
+===
+
+title: SamLucaNarc
+---
+Teacher: ...and you're late, too. Both of you, see me during office hours later.
+Sam: Daw...
+Luca: Daw...
+<<setBool "lucaSamBus" true>>
+===
 title: SamEndOfDay
 ---
 Sam: As your RA, I get to chat with you! I hope you had a wonderful day today!

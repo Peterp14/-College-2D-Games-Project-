@@ -133,7 +133,13 @@ title: EnterChapel
 
 title: ClassOver
 ---
-Teacher: Alright guys my time's over for today. There's a meeting in 10 so make sure you're outta here. 
+Teacher: Alright guys my time's over for today. There's a meeting in 10 so make sure you're outta here.
+
+<<if getBool("failedPosters")>>
+    Player: Uh oh, I forgot to hang up the posters...
+    <<gameOver "Game Over! No one knows about the party and class ended!">>
+<<endif>>
+
 Player: Guess I gotta head out. It's chapel hour anyways. 
 
 <<changeScene "Quad">>

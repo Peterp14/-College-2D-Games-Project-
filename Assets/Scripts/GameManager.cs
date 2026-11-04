@@ -44,10 +44,10 @@ public class GameManagerScript : MonoBehaviour
     //flags in dictionary for organization
     public Dictionary<string, object> flags = new Dictionary<string, object>
     {
-        { "hasChapelPass", false }, //should be false
+        { "hasChapelPass", true }, //should be false
         { "hasItem1", false },
         { "hasItem2", false },
-        { "hasPaper", 0 },
+        { "hasPaper", 1 },
         { "teacherDistracted", false },
         { "teacherDistractedAt", -1 },
         { "teacherSeesPlayer", true },
@@ -58,10 +58,16 @@ public class GameManagerScript : MonoBehaviour
         { "peterCredit", false }, //should be false 
         { "hasEvidence", false }, //should be false
         { "willieSeenEvidence", false }, //should be false
-        { "lukePath", false }, //should be false
+        { "lukePath", true }, //should be false
         { "willieInChapel", false }, //should be false
         { "skipperDead",false},
-        { "currentCredits", 4 }
+        { "currentCredits", 4 },
+        { "lukeHasPaper", false }, //should be false
+        { "samBus", false }, //should be false
+        { "lucaSamBus", false }, //should be false
+        { "posters", false }, //should be false
+        { "handedPosters", false }, //should be false
+        { "failedPosters", false } //should be false
     };
 
 
@@ -136,6 +142,7 @@ public class GameManagerScript : MonoBehaviour
             dialogueRunner.AddFunction<string, bool>("isPeriod", IsPeriod);
             dialogueRunner.AddCommandHandler("useAction", UseAction);
             dialogueRunner.AddFunction("hasActions", HasActions);
+            dialogueRunner.AddFunction("numActions", NumActions);
             dialogueRunner.AddFunction<string, bool>("getBool", GetBool);
             dialogueRunner.AddFunction<string, int>("getInt", GetInt);
             dialogueRunner.AddCommandHandler<string, bool>("setBool", (key, value) => SetFlag(key, value));
@@ -324,6 +331,11 @@ public class GameManagerScript : MonoBehaviour
     public bool HasActions()
     {
         return actionsRemaining > 0;
+    }
+
+    public int NumActions()
+    {
+        return actionsRemaining;
     }
 
     public void takenPaper()

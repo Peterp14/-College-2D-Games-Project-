@@ -51,6 +51,7 @@ public class ClassCutsceneScript : MonoBehaviour
             //luca.SetActive(false);
             //sam.SetActive(false);
         }
+
     }
 
     public IEnumerator PaperDistraction()
@@ -120,6 +121,10 @@ public class ClassCutsceneScript : MonoBehaviour
     {
         player.inCutscene = true;
 
+        BoxCollider2D characterbox = character.GetComponent<BoxCollider2D>();
+
+        characterbox.enabled = false;
+
         Transform characterPosition = character.transform;
         Animator animator = character.GetComponent<Animator>();
         SpriteRenderer sprite = character.GetComponent<SpriteRenderer>();
@@ -183,6 +188,8 @@ public class ClassCutsceneScript : MonoBehaviour
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         yield return StartCoroutine(cameraScript.ReturnToPlayer());
 
+
+        characterbox.enabled = true;
         player.inCutscene = false;
     }
 
