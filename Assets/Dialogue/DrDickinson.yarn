@@ -14,11 +14,20 @@
     Prof: Alright, go sit down now.
     <<stop>>
 <<else>>
-    Prof: Oh? Do you have a question?
-    -> Can I talk to you during office hours? <<if hasActions()>>
-        <<jump OfficeHours>>
-    -> No, sorry.
+    <<if getBool("lukeHasPaper") && !getBool("samBus") && !getBool("lucaSamBus")>>
+        Player: I should get Luca to distract the teacher first.
         <<stop>>
+    <<else>>
+        <<if !getBool("teacherDistracted")>>
+            Prof: Oh? Do you have a question?
+            -> Can I talk to you during office hours? <<if hasActions()>>
+                <<jump OfficeHours>>
+            -> No, sorry.
+                <<stop>>
+        <<else>>
+            Prof: Alright, go sit down now.
+        <<endif>>
+    <<endif>>
 <<endif>>
 ===
 
@@ -27,6 +36,10 @@ title: OfficeHours
 Prof: Yea sure, I'll write you in for my last scheduled time. They'll be in the classroom today after Lunch hour.
 <<setBool "scheduledMeeting" true>>
 <<useAction>>
+<<if (getBool("samBus") || getBool("lucaSamBus"))>>
+    <<setBool "posters" true>>
+<<endif>>
+
 <<stop>>
 ===
 

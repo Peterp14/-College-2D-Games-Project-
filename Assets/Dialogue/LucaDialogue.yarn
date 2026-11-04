@@ -41,5 +41,60 @@ title: LucaLate
     Teacher: We know...
 <<endif>>
 
+<<if getBool("lukeHasPaper")>>
+    Luke: Sweet! Luca being late bought me some time. See if he can keep the professor occupied, he can probably handle it.
+<<endif>>
+
 <<stop>>
+===
+
+title: LucaClass
+---
+<<if !getBool("teacherDistracted")>>
+    <<if getBool("samBus")>>
+        <<jump LucaClearClass>>
+    <<endif>>
+    <<if getBool("lucaSamBus")>>
+        <<jump LucaNarcClass>>
+    <<endif>>
+    Luca: Dang it, he noticed I was late. I need to get back in his good graces, or I'll have to see him in office hours later.
+    Luca: What do I do?
+    -> Throw Sam under the bus for being even later.
+        <<jump LucaThrowSam>>
+    -> Tell the Professor a joke.
+        <<jump Joke>>
+    -> Go back.
+        <<stop>>
+<<else>>
+    Luca: Phew! I snuck in! What a relief!
+    <<stop>>
+<<endif>>
+===
+
+title: Joke
+---
+<<setBool "lucaSamBus" true>>
+<<useAction>>
+Luca: What's brown and sticky?
+Teacher: A stick?
+Luca: ...
+Teacher: That was lame.
+===
+
+title: LucaThrowSam
+---
+<<setBool "samBus" true>>
+<<useAction>>
+Luca: Excuse me, Teach, Sam still isn't here, right?
+
+===
+
+title: LucaClearClass
+---
+Luca: Let's go! Glad that worked.
+===
+
+title: LucaNarcClass
+---
+Luca: Ugh. Office hours again.
 ===

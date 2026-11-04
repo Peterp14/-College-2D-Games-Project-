@@ -10,7 +10,7 @@
     <<jump Essay>>
 -> Pay attention. <<if not getBool("teacherDistracted") and hasActions()>>
     <<jump PayAttention>>
--> Cause a distraction. <<if not getBool("teacherDistracted") and hasActions() and getInt("hasPaper") > 0>>
+-> Cause a distraction. <<if not getBool("teacherDistracted") and hasActions() and getInt("hasPaper") > 0 and not getBool("lukeHasPaper")>>
     <<jump Distraction>>
 -> Back
     <<stop>>
@@ -18,6 +18,17 @@
 
 title: PayAttention
 ---
+<<if getBool("lukeHasPaper") and not getBool("handedPosters")>>
+    Prof: Luke! I see you not focused. And you, you were yapping with him earlier. Both of you, out of my class!
+    <<gameOver "Game Over! Don't let the professor catch Luke preparing posters!">>
+<<endif>>
+
+<<if getBool("handedPosters")>>
+    <<setBool "failedPosters" true>>
+<<endif>>
+
+
+
 You pay attention to the lecture, for about 12 minutes...
 <<useAction>>
 <<stop>>
@@ -136,4 +147,34 @@ You eat the Cowfila, it filled you up!
 <<endif>>
 <<useAction>>
 <<stop>>
+===
+
+title: PosterLeft
+---
+<<if getBool("handedPosters")>>
+    Do you want to put up a poster?
+    -> Yes.
+        <<useAction>>
+        Luke: Just in time! Our advertising is sure to work!
+        <<setBool "postersHung" true>>
+    -> No.
+        <<stop>>
+<<else>>
+    You have nothing to put up on the wall.
+<<endif>>
+===
+
+title: PosterRight
+---
+<<if getBool("handedPosters")>>
+    Do you want to put up a poster?
+    -> Yes.
+        <<useAction>>
+        Teacher: Why are you hanging up a poster in class? I can clearly see you.
+        <<gameOver "Kicked out of class! The Prof is looking direclty at you...">>
+    -> No.
+        <<stop>>
+<<else>>
+    You have nothing to put up on the wall.
+<<endif>>
 ===

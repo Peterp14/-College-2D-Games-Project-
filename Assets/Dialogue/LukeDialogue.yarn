@@ -84,7 +84,7 @@ Luke: I LOVE that you agree. If you catch anyone who disagrees, LET. ME. KNOW...
 
 title: LukeLunch
 ---
-<<if $purpleGuyDefeated>>
+<<if $gingerDefeated>>
     Luke: That'll teach him to defend Windows!
     Luke: Anyway, what's up?
     -> Thanks for having my back!
@@ -110,15 +110,62 @@ Luke: WHAT?! OH HECK NAH!! If ANYTHING comes up with him again I'm right behind 
 
 title: LukePathClass
 ---
-<<if getInt("hasPaper") == 1>>
-    Luke: Perfect, you brought the paper, too.
-    Luke: I'll sketch some poster designs to help advertise this big party.
-    
-<<else>>
-    Luke: Dang, you don't have a clean piece of paper.
-    Luke: You can't even follow simple instructions, probably prefer Windows over Linux!
-    <<jump LukeHatesWindows>>
-
+<<if getBool("posters")>>
+    <<jump LukeHangPosters>>
 <<endif>>
 
+<<if getBool("samBus") || getBool("lucaSamBus")>>
+    <<jump LukePrinter>>
+<<endif>>
+
+<<if getBool("lukeHasPaper")>>
+    Luke: As long as the professor is distracted for the majority of class, I can get this done.
+    <<stop>>
+<<endif>>
+
+Luke: Do you have the clean sheet of paper?
+-> Yes. <<if getInt("hasPaper") == 1>>
+    <<jump LukePathClassYes>>
+-> No.
+    <<jump LukePathClassNo>>
+-> Go back.
+    <<stop>>
+
+
+===
+
+title: LukePathClassYes
+---
+<<if getInt("hasPaper") == 1 && numActions() == 4>>
+    <<useAction>>
+    Luke: Perfect, I can get started.
+    Luke: I'll sketch some poster designs to help advertise this big party.
+    Luke: As long as the professor is distracted for the majority of class, I can get this done.
+    <<setBool "lukeHasPaper" true>>
+<<else>>
+    Luke: Dang, I don't think I have enough time to make the posters during class.
+    Luke: Guess I can try this a different day.
+<<endif>>
+
+===
+
+title: LukePathClassNo
+---
+Luke: Dang, you don't have a clean piece of paper.
+Luke: You can't even follow simple instructions, probably prefer Windows over Linux!
+<<jump LukeHatesWindows>>
+===
+
+title: LukePrinter
+---
+Luke: Perfect! The design for the poster is done.
+Luke: I need to print these without the teacher noticing. 
+Luke: Distract the teacher one more time, maybe this time talk to him, and the posters will be made!
+===
+
+title: LukeHangPosters
+---
+Luke: Phew! Here they are, in all their glory!
+Luke: Hang one up on the wall without being caught, and I'll take care of the rest of campus!
+<<setBool "handedPosters" true>>
 ===
