@@ -564,7 +564,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 328956637102792730, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: actionsRemaining
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_Name
@@ -572,7 +572,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8352188796942282008, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -914,6 +914,37 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6850665874912664750, guid: e1f98793343f3ee4b91298024a476db6, type: 3}
   m_PrefabInstance: {fileID: 332641525}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &406347937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 406347938}
+  m_Layer: 0
+  m_Name: KetRecSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &406347938
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 406347937}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 11, y: -12, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1512397911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &458100147 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4582869780229453048, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
@@ -6963,6 +6994,7 @@ MonoBehaviour:
   peter: {fileID: 356605147}
   playerLunchSpawn: {fileID: 528669418}
   playerChapelSpawn: {fileID: 1187750270}
+  playerKetRecSpawn: {fileID: 406347938}
   ChapelSkipper: {fileID: 214182310}
   ParticleObject: {fileID: 1383274802}
   williePath:
@@ -7021,6 +7053,7 @@ Transform:
   - {fileID: 1192874059}
   - {fileID: 528669418}
   - {fileID: 1187750270}
+  - {fileID: 406347938}
   - {fileID: 1259522196}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
