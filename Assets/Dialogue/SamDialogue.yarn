@@ -7,12 +7,15 @@
     <<stop>>
 <<endif>>
 
-Sam: Friendly reminder from your RA, make sure to get the rest of your chapel credits done today! Wouldn't want to get behind!
-
--> Sir yes sir! <<if hasActions()>>
-    <<jump NoChapelCredits>>
--> Already done! <<if getBool("hasChapelPass") and hasActions()>>
-    <<jump HasChapelPass>>
+<<if getBool("hasChapelPass")>>
+    Sam: Sweet! You got your chapel pass!
+    Sam: Friendly reminder to not get into any trouble! Since more people have free time, I'll be doing checks at the end of day.
+    Sam: Don't have anything you shouldn't have! Anywho, chat with others, and have fun!
+<<else>>
+    Sam: Friendly reminder from your RA, make sure to get the rest of your chapel credits done today! Wouldn't want to get behind!
+    -> Sir yes sir! <<if hasActions()>>
+        <<jump NoChapelCredits>>
+<<endif>>
 ===
 
 title: NoChapelCredits
@@ -20,12 +23,6 @@ title: NoChapelCredits
 <<useAction>>
 <<set $talkedToSam = true>>
 I can grind one out during class, but Dr. Dickinson wouldn't be too happy if he saw me. I need a way to distract him...
-<<stop>>
-===
-
-title: HasChapelPass
----
-Sam: Cheater.
 <<stop>>
 ===
 
