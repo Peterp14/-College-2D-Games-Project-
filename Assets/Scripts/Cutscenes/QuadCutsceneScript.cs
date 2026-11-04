@@ -59,10 +59,10 @@ public class QuadCutsceneScript : MonoBehaviour
         //peter.SetActive(peterEvent);
 
         //// Move the player to the new starting position for Peter's event
-        //if (peterEvent)
-        //{
-        //    player.transform.position = playerLunchSpawn.position;
-        //}
+        if (peterEvent)
+        {
+            peter.SetActive(true);
+        }
 
         if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Chapel)
         {

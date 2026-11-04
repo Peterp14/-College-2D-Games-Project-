@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using Yarn.Unity;
 
@@ -28,6 +29,10 @@ public class GameManagerScript : MonoBehaviour
     public GameObject gameOver;
     public TMP_Text reason;
     private PeriodCheckpoint checkpoint;
+
+    public GameObject pause;
+
+    private bool paused = false; 
     private bool eventRunning = false;
     private bool checkpointPending = false;
     private bool restartingPeriod = false;
@@ -39,7 +44,7 @@ public class GameManagerScript : MonoBehaviour
     //flags in dictionary for organization
     public Dictionary<string, object> flags = new Dictionary<string, object>
     {
-        { "hasChapelPass", true }, //should be false
+        { "hasChapelPass", false }, //should be false
         { "hasItem1", false },
         { "hasItem2", false },
         { "hasPaper", 0 },
@@ -65,6 +70,18 @@ public class GameManagerScript : MonoBehaviour
         if (PlayerPrefs.HasKey("usingChapelPass") && PlayerPrefs.GetInt("usingChapelPass") == 1)
         {
             SetFlag("chapelPass", true);
+        }
+    }
+
+    public void Update()
+    {
+        if (Keyboard.current.escapeKey.wasPressedThisFrame && !paused)
+        {
+            Pause();
+        }
+        else if (Keyboard.current.escapeKey.wasPressedThisFrame && paused)
+        {
+            UnPause();
         }
     }
     void Awake()
@@ -287,7 +304,7 @@ public class GameManagerScript : MonoBehaviour
         eventRunning = true;
 
         // Play the next event
-        yield return StartCoroutine(nextEvent);
+        yield return nextEvent;
 
         // Wait for any dialogue 
         if (dialogueRunner != null)
@@ -349,8 +366,11 @@ public class GameManagerScript : MonoBehaviour
 
     public void RestartRoom()
     {
-        Time.timeScale = 1f;
+        // Stop all active cutscenes and events
+        StopAllCoroutines();
+        eventRunning = false;
 
+        // Reload the current room
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -439,6 +459,9 @@ public class GameManagerScript : MonoBehaviour
     //Restarts the current time period using the saved checkpoint
     public void RestartPeriod()
     {
+        StopAllCoroutines();
+        eventRunning = false;
+
         //checkpoint must exist
         if (checkpoint == null)
         {
@@ -450,6 +473,7 @@ public class GameManagerScript : MonoBehaviour
 
         // Hide the Game Over screen
         gameOver.SetActive(false);
+        pause.SetActive(false);
 
         //checkpoint isn't overwritten on the reload
         restartingPeriod = true;
@@ -462,13 +486,34 @@ public class GameManagerScript : MonoBehaviour
     public void BackToMainMenu()
     {
         if (GetBool("hasChapelPass"))
-        {           
-            PlayerPrefs.SetInt("ChapelPass",1);            
+        {
+            PlayerPrefs.SetInt("ChapelPass", 1);
+            PlayerPrefs.Save();
         }
 
+        Time.timeScale = 1f;
+
+        Destroy(gameObject);
+        instance = null;
 
         SceneManager.LoadScene("MainMenu");
     }
+
+    public void Pause()
+    {
+        Time.timeScale = 0f;
+        pause.SetActive(true);
+        paused = true; 
+    }
+
+    public void UnPause()
+    {
+        Time.timeScale = 1f;
+        pause.SetActive(false);
+        paused = false; 
+    }
+
+  
 }
 
 //Stores the information needed to restart a time period
