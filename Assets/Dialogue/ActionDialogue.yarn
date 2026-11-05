@@ -6,11 +6,11 @@
     What do you want to do during class?
 <<endif>>
 
--> Pump out an essay for Opitz. <<if getBool("teacherDistracted") and hasActions()>>
+-> \[ACTION\] Pump out a chapel essay for a credit? <<if getBool("teacherDistracted")>>
     <<jump Essay>>
--> Pay attention. <<if not getBool("teacherDistracted") and hasActions()>>
+-> \[ACTION\] Pay attention. <<if not getBool("teacherDistracted")>>
     <<jump PayAttention>>
--> Cause a distraction. <<if not getBool("teacherDistracted") and hasActions() and getInt("hasPaper") > 0 and not getBool("lukeHasPaper")>>
+-> \[ACTION\] Cause a distraction. <<if not getBool("teacherDistracted") and getInt("hasPaper") > 0 and not getBool("lukeHasPaper")>>
     <<jump Distraction>>
 -> Back
     <<stop>>
@@ -39,31 +39,32 @@ title: Distraction
 <<useAction>>
 
 <<if getBool("teacherSeesPlayer")>>
-    Teacher: Dude... I can see you.
-    Teacher: Get out of my class.
+    Prof: Dude... I can see you.
+    Prof: Get out of my class.
     <<gameOver "Kicked out of class! The Prof is looking directly at you...">>
 
 <<elseif getInt("hasPaper") == 1>>
     You pull out the normal piece of paper.
     <<ThrowNormalPaper>>
-    Teacher: Bruh...
-    Teacher: Get out of my class.
+    Prof: Bruh...
+    Prof: Get out of my class.
     <<gameOver "Kicked out of class! Distraction by throwing a normal piece of paper was not a smart idea...">>
 
 <<elseif getInt("hasPaper") == 2>>
     You pull out the crumpled paper.
     <<ThrowCrumpledPaper>>
-    Teacher: WHO THREW THAT?!
+    Prof: WHO THREW THAT?!
     <<PaperDistraction>>
 <<endif>>
 
+<<setFlag("hasPaper", 0)>>
 <<stop>>
 ===
 
 title: Essay
 ---
 <<useAction>>
-You write up an essay to turn into Opitz in exchange for a chapel credit.
+You write up an essay that instantly gets exchanged for a chapel credit!
 That's your first credit gained!
 <<GotCredit>>
 <<stop>>
@@ -72,7 +73,7 @@ That's your first credit gained!
 title: Bench
 ---
 Take a quick rest?
--> Yes!
+-> \[ACTION\] Yes!
     <<jump Resting>>
 -> Nah.
     <<stop>>
@@ -80,7 +81,7 @@ Take a quick rest?
 
 title: Resting
 ---
-You rest for a while and can no longer enter chapel in time...
+You rest for about 10 minutes. 
 <<useAction>>
 <<stop>>
 ===
@@ -89,7 +90,7 @@ title: ChapelSeat
 ---
 Sit down for chapel?
 
--> Yes.
+-> \[ACTION\] Yes.
     <<jump Chapel>>
 -> Not yet.
     <<stop>>
@@ -103,8 +104,8 @@ You gain a chapel credit for listening!
 
 <<cameraToOpitz>>
 
-Opitz: Welcome to chapel, everyone!
-Opitz: Blah blah blah...
+Chaplain : Welcome to chapel, everyone!
+Chaplain : Blah blah blah...
 
 <<cameraToPlayer>>
 
@@ -128,7 +129,7 @@ title: Eat
 <<if $boughtMeal or $gotGregsFood>>
     You: Man, this Cowfila is looking GOOD!
 
-    -> Eat the meal.
+    -> \[ACTION\] Eat the meal.
         <<jump EatingMeal>>
     -> Save it for later.
         <<stop>>
@@ -155,7 +156,7 @@ title: PosterLeft
 ---
 <<if getBool("handedPosters")>>
     Do you want to put up a poster?
-    -> Yes.
+    -> \[ACTION\] Yes.
         <<useAction>>
         Luke: Just in time! Our advertising is sure to work!
         <<setBool "postersHung" true>>
@@ -170,7 +171,7 @@ title: PosterRight
 ---
 <<if getBool("handedPosters")>>
     Do you want to put up a poster?
-    -> Yes.
+    -> \[ACTION\] Yes.
         <<useAction>>
         Teacher: Why are you hanging up a poster in class? I can clearly see you.
         <<gameOver "Kicked out of class! The Prof is looking direclty at you...">>

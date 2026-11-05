@@ -28,16 +28,16 @@ Willie: ...
 
 title: WillieVOpitz
 ---
-Opitz: Willie this is MADNESS! I litteraly RUN Chapel! 
+Chaplain: Willie this is MADNESS! I litteraly RUN Chapel! 
 Willie: grrr... 
-Opitz: WILLIE!!!
+Chaplain: WILLIE!!!
 <<OpitzRemoved>> 
 <<stop>>
 ===
 
 title: OpitzAfternoon
 ---
-Opitz: What are you doing in here? Get out!
+Chaplain: What are you doing in here? Get out!
 -> My B.
    <<jump EnterQuad>>
 <<stop>>

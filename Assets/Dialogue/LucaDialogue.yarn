@@ -1,4 +1,5 @@
-﻿title: Luca
+﻿
+title: Luca
 ---
 <<declare $helpedLuca = false>>
 
@@ -11,7 +12,7 @@ Luca: Hey! I am going to propose today and I need your help. Are you free today?
 
 -> No, sorry.
     <<jump DeclineLuca>>
--> Yeah, I have time. <<if getBool("hasChapelPass") and hasActions()>>
+-> \[ACTION\] Yeah, I have time. <<if getBool("hasChapelPass")>>
         <<jump HelpLuca>>
 ===
 
@@ -34,15 +35,15 @@ title: LucaLate
 <<if getBool("teacherDistracted")>>
     Luca: Ah Sweet! He didn't notice me coming in! 
 <<else>>
-    Teacher: I see you slept in again...
+    Prof: I see you slept in again...
 
     Luca: Sorry, I'm a chud.
 
-    Teacher: We know...
+    Prof: We know...
 <<endif>>
 
 <<if getBool("lukeHasPaper")>>
-    Luke: Sweet! Luca being late bought me some time. See if he can keep the professor occupied, he can probably handle it.
+    Luke: Sweet! Luca being late bought me some time. See if he can keep the Prof occupied, he can probably handle it.
 <<endif>>
 
 <<stop>>
@@ -59,9 +60,9 @@ title: LucaClass
     <<endif>>
     Luca: Dang it, he noticed I was late. I need to get back in his good graces, or I'll have to see him in office hours later.
     Luca: What do I do?
-    -> Throw Sam under the bus for being even later.
+    -> \[ACTION\] Throw Sam under the bus for being even later.
         <<jump LucaThrowSam>>
-    -> Tell the Professor a joke.
+    -> \[ACTION\] Tell the Prof a joke.
         <<jump Joke>>
     -> Go back.
         <<stop>>
@@ -76,16 +77,16 @@ title: Joke
 <<setBool "lucaSamBus" true>>
 <<useAction>>
 Luca: What's brown and sticky?
-Teacher: A stick?
+Prof: A stick?
 Luca: ...
-Teacher: That was lame.
+Prof: That was lame.
 ===
 
 title: LucaThrowSam
 ---
 <<setBool "samBus" true>>
 <<useAction>>
-Luca: Excuse me, Teach, Sam still isn't here, right?
+Luca: Excuse me, Prof, Sam still isn't here, right?
 
 ===
 

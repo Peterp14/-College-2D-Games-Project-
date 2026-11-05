@@ -1,12 +1,13 @@
-﻿title: Paper
+﻿
+title: Paper
 ---
 <<declare $takenPaper = false>>
 
 There's a piece of paper on the floor. Do you take it?
 
--> Take it. <<if hasActions()>>
+-> \[ACTION\] Take it.
     <<jump PaperTaken>>
--> Crumple it up and take it. <<if hasActions()>>
+-> \[ACTION\] Crumple it up and take it.
     <<jump PaperCrumple>>
 -> Leave
     <<stop>>
@@ -35,9 +36,9 @@ title: Evidence
     Nothing else to see here.
     <<stop>>
 <<else>>
-    Looking into the desk, you find a file named Opitz. Inside it shows he has 0 credits!
+    Looking into the desk, you find a file named Chaplain. Inside it shows he has 0 credits!
 
-    -> Take the files. <<if hasActions()>>
+    -> \[ACTION\] Take the files.
         <<setBool "hasEvidence" true>>
         <<useAction>>
     -> Don't take it.
@@ -49,7 +50,7 @@ title: LastCredit
 ---
 Looks like Willie dropped a credit, probably one he got from a skipper.
 
--> Take the credit. <<if hasActions()>>
+-> \[ACTION\] Take the credit.
     <<CreditTaken>>
     <<GotCredit>>
     <<useAction>>
@@ -57,6 +58,3 @@ Looks like Willie dropped a credit, probably one he got from a skipper.
 -> Don't take it.
     <<stop>>
 ===
-
-
-

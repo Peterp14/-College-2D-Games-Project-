@@ -1,4 +1,5 @@
-﻿title: Prof
+﻿
+title: Prof
 ---
 <<if isPeriod("Afternoon")>>
     Prof: Hey! You're the last student I'm talking to before leaving, what's up? 
@@ -15,12 +16,12 @@
     <<stop>>
 <<else>>
     <<if getBool("lukeHasPaper") && !getBool("samBus") && !getBool("lucaSamBus")>>
-        Player: I should get Luca to distract the teacher first.
+        Player: I should get Luca to distract the Prof first.
         <<stop>>
     <<else>>
         <<if !getBool("teacherDistracted")>>
             Prof: Oh? Do you have a question?
-            -> Can I talk to you during office hours? <<if hasActions()>>
+            -> \[ACTION\] Can I talk to you during office hours?
                 <<jump OfficeHours>>
             -> No, sorry.
                 <<stop>>

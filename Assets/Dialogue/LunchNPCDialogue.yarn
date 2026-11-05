@@ -1,4 +1,5 @@
-﻿title: LunchGuy
+﻿
+title: LunchGuy
 ---
 <<declare $helpingLunchGuy = false>>
 <<declare $gingerDefeated = false>>
@@ -28,7 +29,7 @@
     Greg: Oh hey, didn't see you standing there eye balling my food... Whats up??
 <<else>>
     Greg: Hey man no shoving, wait in line.
-    -> Wait till he gets his food. <<if hasActions()>>
+    -> \[ACTION\] Wait till he gets his food.
         <<useAction>>
         <<stop>>
     -> Back.
@@ -79,7 +80,7 @@ title: Ginger
        Ginger: Oh, well not much off the top of my head. I did just buy a new Windows computer, it's great! I sure do love my WINDOWS operating system!  
        <<set $seenWindowsGuy = true>>
        <<stop>>
-   -> Punch him. <<if $helpingLunchGuy and hasActions() and not $gingerDefeated>>
+   -> \[ACTION\] Punch him. <<if $helpingLunchGuy and not $gingerDefeated>>
        <<jump PunchGinger>>
    -> See ya.
        <<stop>>
@@ -125,7 +126,7 @@ title: Worker
         <<stop>>
 <<else>>
     Worker: Welcome to Cowfila! What can I get for you?
-    -> Can I get a meal? <<if hasActions()>>
+    -> \[ACTION\] Can I get a meal?
         <<jump BuyMeal>>
     -> Just looking, thanks!
         Worker: No problem! Let me know if you need anything!

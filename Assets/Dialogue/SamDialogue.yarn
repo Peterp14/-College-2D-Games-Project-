@@ -1,4 +1,5 @@
-﻿title: Sam
+﻿
+title: Sam
 ---
 <<declare $talkedToSam = false>>
 
@@ -13,7 +14,7 @@
     Sam: Don't have anything you shouldn't have! Anywho, chat with others, and have fun!
 <<else>>
     Sam: Friendly reminder from your RA, make sure to get the rest of your chapel credits done today! Wouldn't want to get behind!
-    -> Sir yes sir! <<if hasActions()>>
+    -> \[ACTION\] Sir yes sir!
         <<jump NoChapelCredits>>
 <<endif>>
 ===
@@ -22,7 +23,7 @@ title: NoChapelCredits
 ---
 <<useAction>>
 <<set $talkedToSam = true>>
-I can grind one out during class, but Dr. Dickinson wouldn't be too happy if he saw me. I need a way to distract him...
+I can grind one out during class, but the Prof wouldn't be too happy if he saw me. I need a way to distract him...
 <<stop>>
 ===
 
@@ -36,11 +37,11 @@ title: SamLate
     <<else>>
         <<jump SamLucaNarc>>
     <<endif>>
-    Teacher: Regularly scheduled entrance... 
+    Prof: Regularly scheduled entrance... 
 	
     Sam: I'm not late that often!
 
-    Teacher: Yes, yes you are.
+    Prof: Yes, yes you are.
 
     Luke: CHUD!
 <<endif>>
@@ -50,8 +51,8 @@ title: SamLate
 
 title: OnlySamNarc
 ---
-Teacher: Sam, get your act together.
-Teacher: See me during office hours later.
+Prof: Sam, get your act together.
+Prof: See me during office hours later.
 Sam: Daw...
 Luca: Yes!
 <<setBool "samBus" true>>
@@ -59,7 +60,7 @@ Luca: Yes!
 
 title: SamLucaNarc
 ---
-Teacher: ...and you're late, too. Both of you, see me during office hours later.
+Prof: ...and you're late, too. Both of you, see me during office hours later.
 Sam: Daw...
 Luca: Daw...
 <<setBool "lucaSamBus" true>>
