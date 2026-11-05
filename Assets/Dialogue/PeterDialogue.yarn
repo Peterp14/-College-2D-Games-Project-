@@ -21,7 +21,7 @@ title: InquirePeter
 ---
 Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
 
--> [ACTION] Does this mean anything to you? <<if getBool("hasItem1") and hasActions() and getBool("hasItem2")>>
+-> \[ACTION\] Does this mean anything to you? <<if getBool("hasItem1") and hasActions() and getBool("hasItem2")>>
     <<jump helpPeter>>
 -> Sorry, good luck with that.
     <<stop>>
@@ -50,9 +50,9 @@ title: PeterLunch
 
 <<if $helpingPeter>>
     Peter: Hey man! Did you get that Cowfila for me yet?
-    -> [ACTION] Yep, I got some from Greg! <<if $gotGregsFood and hasActions()>>
+    -> \[ACTION\] Yep, I got some from Greg! <<if $gotGregsFood and hasActions()>>
         <<jump GivePeterGregsFood>>
-    -> [ACTION] Yep, I bought you some! <<if $boughtMeal and  hasActions()>>
+    -> \[ACTION\] Yep, I bought you some! <<if $boughtMeal and  hasActions()>>
         <<jump GivePeterBoughtFood>>
     -> Not yet.
         Peter: Dang, alright. Please hurry, I'm starving!
@@ -71,7 +71,7 @@ title: helpPeterLunch
 Peter: I got hacked and have no more swipes! Now I'm gonna starve!
 Peter: Wait a minute... You need chapel credits right?
 Peter: If you get me some Cowfila I'll give you one of my credits! Whadda ya say?
--> [ACTION] Fair trade, sure.  <<if hasActions()>>
+-> \[ACTION\] Fair trade, sure.  <<if hasActions()>>
     <<jump peterLunchThanks>>
 -> Nah I'm lowkey starving...
     <<jump peterDisapointed>>
