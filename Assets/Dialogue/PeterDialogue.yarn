@@ -1,8 +1,10 @@
-﻿title: Peter
+﻿
+title: Peter
 ---
 <<declare $helpedPeter = false>>
 <<declare $helpingPeter = false>>
 <<declare $gavePeterFood = false>>
+<<declare $PeterYapped = false>>
 
 <<if $helpedPeter>>
     Peter: We can find him together!
@@ -21,7 +23,7 @@ title: InquirePeter
 ---
 Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
 
--> \[ACTION\] Does this mean anything to you? <<if getBool("hasItem1") and hasActions() and getBool("hasItem2")>>
+-> \[ACTION\] Does this mean anything to you? <<if getBool("hasItem1") and getBool("hasItem2")>>
     <<jump helpPeter>>
 -> Sorry, good luck with that.
     <<stop>>
@@ -50,9 +52,9 @@ title: PeterLunch
 
 <<if $helpingPeter>>
     Peter: Hey man! Did you get that Cowfila for me yet?
-    -> \[ACTION\] Yep, I got some from Greg! <<if $gotGregsFood and hasActions()>>
+    -> \[ACTION\] Yep, I got some from Greg! <<if $gotGregsFood>>
         <<jump GivePeterGregsFood>>
-    -> \[ACTION\] Yep, I bought you some! <<if $boughtMeal and  hasActions()>>
+    -> \[ACTION\] Yep, I bought you some! <<if $boughtMeal>>
         <<jump GivePeterBoughtFood>>
     -> Not yet.
         Peter: Dang, alright. Please hurry, I'm starving!
@@ -71,11 +73,12 @@ title: helpPeterLunch
 Peter: I got hacked and have no more swipes! Now I'm gonna starve!
 Peter: Wait a minute... You need chapel credits right?
 Peter: If you get me some Cowfila I'll give you one of my credits! Whadda ya say?
--> \[ACTION\] Fair trade, sure.  <<if hasActions()>>
+-> \[ACTION\] Fair trade, sure.  
     <<jump peterLunchThanks>>
 -> Nah I'm lowkey starving...
     <<jump peterDisapointed>>
 ===
+
 
 title: peterLunchThanks
 ---
@@ -126,7 +129,7 @@ Peter: Hey! Come over here for a second!
 
 title: PeterCredit
 ---
-<<if getBool("peterCredit")>>
+<<if getBool("peterCredit") and !$PeterYapped>>
     Peter: Hey man, I bet you still have one more chapel credit to get, right?
     -> Yea.
         Peter: So I heard a rumor going around that the teacher's desk has The Opitz Files in it.
@@ -134,6 +137,8 @@ title: PeterCredit
             Peter: Well, I've been looking into Willie lately, for my own reasons... But I think what I know so far may help you.
             Peter: So you know how Willie "deals" with students who skip chapel without a chapel pass, right? Well the same applies for the staff! If the file has any info on his chapel credits, Willie could "deal" with him.
             -> I see, I'll try to get it. 
+
+<<set $PeterYapped = true>>
 <<endif>>
 <<stop>>
 ===

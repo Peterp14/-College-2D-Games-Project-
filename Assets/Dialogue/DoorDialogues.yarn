@@ -22,7 +22,7 @@ title: ChapelDoor
 ---
 <<if isPeriod("Chapel") or isPeriod("Afternoon")>>
     Do you want to attend Chapel? 
-    -> Yes
+    -> \[ACTION\] Yes
         <<jump EnterChapel>>
     -> No
         <<jump StayHere>>

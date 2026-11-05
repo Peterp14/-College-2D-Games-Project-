@@ -1,4 +1,5 @@
-﻿title: Luke
+﻿
+title: Luke
 ---
 <<declare $helpedLuke = false>>
 <<declare $lukeWillHelp = false>>
@@ -10,7 +11,7 @@
 <<endif>>
 
 Luke: Hey! You free today? I have something big planned...
--> Yeah, I have time. <<if getBool("hasChapelPass") and hasActions()>>
+-> \[ACTION\] Yeah, I have time. <<if getBool("hasChapelPass")>>
     <<jump HelpLuke>>
 -> No, I don't have time, sorry.
     <<jump DeclineLuke>>
@@ -92,7 +93,7 @@ title: LukeLunch
         <<stop>>
 <<else>>
     Luke: What's up man?
-    -> That guy over just yapped to me about how he ADORES Windows. <<if getBool("friendedLuke") and hasActions() and $seenWindowsGuy and !$lukeWillHelp>>
+    -> That guy over just yapped to me about how he ADORES Windows. <<if getBool("friendedLuke") and $seenWindowsGuy and !$lukeWillHelp>>
         <<jump LukeAngry>>
     -> Nothing much.
         <<stop>>
@@ -119,12 +120,12 @@ title: LukePathClass
 <<endif>>
 
 <<if getBool("lukeHasPaper")>>
-    Luke: As long as the professor is distracted for the majority of class, I can get this done.
+    Luke: As long as the Prof is distracted for the majority of class, I can get this done.
     <<stop>>
 <<endif>>
 
 Luke: Do you have the clean sheet of paper?
--> Yes. <<if getInt("hasPaper") == 1>>
+-> \[ACTION\] Yes. <<if getInt("hasPaper") == 1>>
     <<jump LukePathClassYes>>
 -> No.
     <<jump LukePathClassNo>>
@@ -140,7 +141,7 @@ title: LukePathClassYes
     <<useAction>>
     Luke: Perfect, I can get started.
     Luke: I'll sketch some poster designs to help advertise this big party.
-    Luke: As long as the professor is distracted for the majority of class, I can get this done.
+    Luke: As long as the Prof is distracted for the majority of class, I can get this done.
     <<setBool "lukeHasPaper" true>>
 <<else>>
     Luke: Dang, I don't think I have enough time to make the posters during class.
@@ -159,8 +160,8 @@ Luke: You can't even follow simple instructions, probably prefer Windows over Li
 title: LukePrinter
 ---
 Luke: Perfect! The design for the poster is done.
-Luke: I need to print these without the teacher noticing. 
-Luke: Distract the teacher one more time, maybe this time talk to him, and the posters will be made!
+Luke: I need to print these without the Prof noticing. 
+Luke: Distract the Prof one more time, maybe this time talk to him, and the posters will be made!
 ===
 
 title: LukeHangPosters
