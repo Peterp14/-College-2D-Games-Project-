@@ -58,3 +58,26 @@ Looks like Willie dropped a credit, probably one he got from a skipper.
 -> Don't take it.
     <<stop>>
 ===
+
+title: Speaker
+---
+Steal the speaker? 
+-> \[ACTION\] Yes
+    <<jump steal>>
+-> Nah
+   <<stop>>
+<<stop>>
+===
+
+title: steal
+---
+<<if getBool("samGettingBall")>>
+    You take the speaker
+    <<setBool "speakerStolen" true>>
+    <<removeSpeaker>>
+    <<useAction>>
+<<else>>
+    Sam: WHAT ARE YOU DOING!?
+    <<gameOver "If you want his speaker, you need to take it in secret.">>
+<<endif>>
+===

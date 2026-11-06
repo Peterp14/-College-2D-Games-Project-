@@ -34,6 +34,11 @@ public class HallEndOfDayCutsceneScript : MonoBehaviour
             manager = FindFirstObjectByType<GameManagerScript>();
         }
 
+        if (manager.GetBool("samKnockedOut"))
+        {
+            sam.SetActive(false);
+        }
+
     }
 
     public IEnumerator SamHello()

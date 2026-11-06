@@ -633,11 +633,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
   m_PrefabInstance: {fileID: 560356705}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &213926719 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3455452145137962687, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
-  m_PrefabInstance: {fileID: 719706785}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &219975173
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1226,6 +1221,7 @@ MonoBehaviour:
   player: {fileID: 2099579208}
   luke: {fileID: 1347520479}
   purpleGuy: {fileID: 417104750}
+  sam: {fileID: 1290043548}
 --- !u!4 &565667579
 Transform:
   m_ObjectHideFlags: 0
@@ -1303,11 +1299,11 @@ Transform:
   m_GameObject: {fileID: 613761638}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0604, y: -0.4883, z: 0}
-  m_LocalScale: {x: 0.50389, y: 0.2585179, z: 1}
+  m_LocalPosition: {x: 10.36934, y: -1.4065601, z: 0}
+  m_LocalScale: {x: 0.65505695, y: 0.33607325, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 213926719}
+  m_Father: {fileID: 1114263242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &613761640
 SpriteMask:
@@ -1706,6 +1702,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 404095181825730971, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+      propertyPath: dialogueNode
+      value: SamLunch
+      objectReference: {fileID: 0}
+    - target: {fileID: 404095181825730971, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: dialogueRunner
       value: 
       objectReference: {fileID: 1794651320}
@@ -1728,6 +1728,14 @@ PrefabInstance:
     - target: {fileID: 1719988781325152533, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: m_FlipX
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719988781325152533, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+      propertyPath: m_SortingLayer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1719988781325152533, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -480387333
       objectReference: {fileID: 0}
     - target: {fileID: 1719988781325152533, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
       propertyPath: m_MaskInteraction
@@ -1787,13 +1795,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3455452145137962687, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1507407177}
-    - targetCorrespondingSourceObject: {fileID: 3455452145137962687, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 613761639}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
 --- !u!1001 &744468256
@@ -2231,6 +2233,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6909897606306854167, guid: 9051e67e5f34cbf47a1e3ff9000cbd30, type: 3}
+      propertyPath: dialogueNode
+      value: LucaLunchStart
+      objectReference: {fileID: 0}
+    - target: {fileID: 6909897606306854167, guid: 9051e67e5f34cbf47a1e3ff9000cbd30, type: 3}
       propertyPath: dialogueRunner
       value: 
       objectReference: {fileID: 1794651320}
@@ -2466,6 +2472,8 @@ Transform:
   - {fileID: 228227651}
   - {fileID: 561662755}
   - {fileID: 173880661}
+  - {fileID: 1507407177}
+  - {fileID: 613761639}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1148610197
@@ -2763,6 +2771,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 34711568787198077, guid: 823c7557d3bba354ebc7bac7f5dfd450, type: 3}
   m_PrefabInstance: {fileID: 1649722609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1290043548 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5281011260581593289, guid: 499e7d7faf16d0b46aa1d2ef5f8b6e57, type: 3}
+  m_PrefabInstance: {fileID: 719706785}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1314616112
 PrefabInstance:
@@ -3088,11 +3101,11 @@ Transform:
   m_GameObject: {fileID: 1507407176}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0217, y: -0.3091, z: 0}
-  m_LocalScale: {x: 0.293059, y: 0.11478223, z: 1}
+  m_LocalPosition: {x: 10.31903, y: -1.1736001, z: 0}
+  m_LocalScale: {x: 0.38097668, y: 0.14921689, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 213926719}
+  m_Father: {fileID: 1114263242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!331 &1507407178
 SpriteMask:

@@ -49,7 +49,7 @@ public class GameManagerScript : MonoBehaviour
     public Dictionary<string, object> flags = new Dictionary<string, object>
     {
         { "hasChapelPass", false }, //should be false
-        { "hasItem1", false },
+        { "PersonalSpeaker", false },
         { "hasItem2", false },
         { "hasPaper", 0 },
         { "teacherDistracted", false },
@@ -73,7 +73,15 @@ public class GameManagerScript : MonoBehaviour
         { "posters", false }, //should be false
         { "handedPosters", false }, //should be false
         { "failedPosters", false }, //should be false
-        { "postersHung", false } //should be false
+        { "postersHung", false }, //should be false
+        { "samGettingBall", -1 },
+        { "speakerStolen",false },
+        { "lukeHasSpeaker", false }, //should be false
+        { "gingerBicker", false }, //should be false
+        { "samSpeakerBack", false }, //should be false
+        { "samKnockedOut", false }, //should be false
+        { "hasMilk", false } //should be false
+
     };
 
 
@@ -82,6 +90,10 @@ public class GameManagerScript : MonoBehaviour
         if (PlayerPrefs.HasKey("usingChapelPass") && PlayerPrefs.GetInt("usingChapelPass") == 1)
         {
             SetFlag("hasChapelPass", true);
+        }
+        if (PlayerPrefs.HasKey("usingSpeaker") && PlayerPrefs.GetInt("usingSpeaker") == 1)
+        {
+            SetFlag("PersonalSpeaker", true);
         }
     }
 
@@ -309,7 +321,44 @@ public class GameManagerScript : MonoBehaviour
 
         if (currentPeriod == TimePeriod.EndOfDay && actionsRemaining == 4)
         {
-            StartCoroutine(WaitForEvent(hallEndOfDayCutscenes.SamHello()));
+            if (GetBool("samKnockedOut"))
+                StartCoroutine(WaitForEvent(hallEndOfDayCutscenes.SamHello()));
+            else
+            {
+                StartCoroutine(WaitForEvent(hallEndOfDayCutscenes.EndOfDayComplete()));
+                SetFlag("PersonalSpeaker", true);
+            }
+        }
+
+        if (currentPeriod == TimePeriod.Chapel && GetBool("postersHung") && actionsRemaining == 4)
+        {
+            StartCoroutine(WaitForEvent(quadCutscenes.LukePartyQuad()));
+        }
+
+        if (currentPeriod == TimePeriod.Chapel && GetBool("samGettingBall") && actionsRemaining < GetInt("samGettingBallAt"))
+        {
+            StartCoroutine(WaitForEvent(quadCutscenes.SamReturns()));
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && GetBool("postersHung") && GetBool("lukeHasSpeaker") && GetBool("hasChapelPass") && actionsRemaining == 5)
+        {
+            StartCoroutine(WaitForEvent(lunchCutscenes.LukeLunchChat()));
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && GetBool("samSpeakerBack") && !GetBool("samKnockedOut") && !GetBool("hasMilk"))
+        {
+            StartCoroutine(WaitForEvent(lunchCutscenes.SamSpeakerBack()));
+        }
+
+        if (currentPeriod == TimePeriod.Lunch && GetBool("gingerBicker") && !GetBool("hasMilk"))
+        {
+            SetFlag("gingerBicker", false);
+            StartCoroutine(WaitForEvent(lunchCutscenes.GingerBicker()));
+        }
+
+        if (currentPeriod == TimePeriod.Afternoon && SceneManager.GetActiveScene().name == "Ketrec")
+        {
+            dialogueRunner.StartDialogue("LukeHappyWithParty");
         }
     }
 
@@ -417,10 +466,27 @@ public class GameManagerScript : MonoBehaviour
 
         if (currentPeriod == TimePeriod.Lunch && GetBool("starving") == false)
         {
-            dialogueRunner.StartDialogue("LunchOver");
+            if (GetBool("hasMilk"))
+            {
+                dialogueRunner.StartDialogue("LunchOverToParty");
+
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+            }
+            else
+            {
+                dialogueRunner.StartDialogue("LunchOver");
+
+                yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+            }
+        }
+
+        if (currentPeriod == TimePeriod.Chapel)
+        {
+            dialogueRunner.StartDialogue("ChapelOver");
 
             yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
         }
+
 
     }
 
@@ -524,6 +590,11 @@ public class GameManagerScript : MonoBehaviour
         if (GetBool("hasChapelPass"))
         {
             PlayerPrefs.SetInt("hasChapelPass", 1);
+            PlayerPrefs.Save();
+        }
+        if (GetBool("PersonalSpeaker"))
+        {
+            PlayerPrefs.SetInt("PersonalSpeaker", 1);
             PlayerPrefs.Save();
         }
 

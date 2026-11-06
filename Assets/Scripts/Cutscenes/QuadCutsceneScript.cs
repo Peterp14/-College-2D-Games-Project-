@@ -15,6 +15,8 @@ public class QuadCutsceneScript : MonoBehaviour
 
     public GameObject peter;
 
+    public GameObject luke; 
+
     public Transform playerLunchSpawn;
     public Transform playerChapelSpawn;
     public Transform playerKetRecSpawn;
@@ -33,6 +35,27 @@ public class QuadCutsceneScript : MonoBehaviour
 
     public float moveSpeed = 10f;
 
+    [Header("Spikeball")]
+    public GameObject spikeball;
+    public Transform samT;
+    public Transform samBallPosition;
+    public Transform samStartPosition;
+    public Transform samExitPosition;
+
+    public GameObject speaker; 
+
+
+
+
+    public GameObject sam;
+
+    public Transform spikeballPlayer;
+
+    public float ballSpeed = 2f;
+    public float bounceHeight = 1.5f;
+
+    private bool spikeballPaused = false;
+
     void Start()
     {
 
@@ -40,6 +63,10 @@ public class QuadCutsceneScript : MonoBehaviour
         {
             dialogueRunner = FindFirstObjectByType<DialogueRunner>();
             dialogueRunner.AddCommandHandler("Snitching", Snitching);
+            dialogueRunner.AddCommandHandler("PauseSpikeball", PauseSpikeball);
+            dialogueRunner.AddCommandHandler("ResumeSpikeball", ResumeSpikeball);
+            dialogueRunner.AddCommandHandler("SamGetsBall", SamGetsBall);
+            dialogueRunner.AddCommandHandler("removeSpeaker", removeSpeaker);
         }
 
         if (FindAnyObjectByType<GameManagerScript>() != null)
@@ -55,10 +82,7 @@ public class QuadCutsceneScript : MonoBehaviour
         bool peterEvent = GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Afternoon
             && !GameManagerScript.instance.GetBool("hasChapelPass");
 
-        //// Only show Peter during his Afternoon event
-        //peter.SetActive(peterEvent);
 
-        //// Move the player to the new starting position for Peter's event
         if (peterEvent)
         {
             peter.SetActive(true);
@@ -90,6 +114,17 @@ public class QuadCutsceneScript : MonoBehaviour
         else if (GameManagerScript.instance.previousScene == "Lunch")
         {
             player.transform.position = playerLunchSpawn.position;
+        }
+
+
+        if (GameManagerScript.instance.currentPeriod == GameManagerScript.TimePeriod.Chapel)
+        {
+            spikeball.SetActive(true);
+            StartCoroutine(SpikeballLoop());
+        }
+        else
+        {
+            spikeball.SetActive(false);
         }
     }
 
@@ -187,6 +222,63 @@ public class QuadCutsceneScript : MonoBehaviour
         //sprite.flipX = peter.transform.position.x < playerPosition.position.x;
 
         dialogueRunner.StartDialogue("PeterCredit");
+
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+
+        player.inCutscene = false;
+    }
+
+    public IEnumerator LukePartyQuad()
+    {
+        player.inCutscene = true;
+
+        Transform playerPosition = player.transform;
+        Animator animator = player.GetComponent<Animator>();
+        SpriteRenderer sprite = player.GetComponent<SpriteRenderer>();
+
+        // Luke calls the player over
+        dialogueRunner.StartDialogue("LukeCallsPlayer");
+
+        yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+
+        yield return new WaitForSeconds(0.5f);
+
+        sprite.flipX = true;
+        animator.SetBool("isMoving", true);
+
+        Vector3 yDestination = new Vector3(playerPosition.position.x, luke.transform.position.y, playerPosition.position.z);
+
+        while (Vector2.Distance(playerPosition.position, yDestination) > 0.05f)
+        {
+            playerPosition.position = Vector3.MoveTowards(playerPosition.position, yDestination, 4f * Time.deltaTime);
+
+            yield return null;
+        }
+
+        playerPosition.position = yDestination;
+
+        Vector3 xDestination = new Vector3(luke.transform.position.x + 1f, luke.transform.position.y, playerPosition.position.z);
+
+        //sprite.flipX = xDestination.x < playerPosition.position.x;
+
+        while (Vector2.Distance(playerPosition.position, xDestination) > 0.05f)
+        {
+            playerPosition.position = Vector3.MoveTowards(
+                playerPosition.position,
+                xDestination,
+                4f * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        playerPosition.position = xDestination;
+
+        animator.SetBool("isMoving", false);
+
+        //sprite.flipX = peter.transform.position.x < playerPosition.position.x;
+
+        dialogueRunner.StartDialogue("LukeQuadPlan");
 
         yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
 
@@ -307,5 +399,205 @@ public class QuadCutsceneScript : MonoBehaviour
         yield return StartCoroutine(cameraScript.ReturnToPlayer());
         willieBox.enabled = true;
         player.inCutscene = false;
+    }
+
+    private IEnumerator SpikeballLoop()
+    {
+        Transform start = samT;
+        Transform end = spikeballPlayer;
+
+        while (true)
+        {
+            float progress = 0f;
+
+            while (progress < 1f)
+            {
+                // Pause whenever dialogue is running
+                if (dialogueRunner.IsDialogueRunning || spikeballPaused)
+                {
+                    yield return null;
+                    continue;
+                }
+
+                progress += Time.deltaTime * ballSpeed;
+                progress = Mathf.Clamp01(progress);
+
+                // Move horizontally between players
+                Vector3 position = Vector3.Lerp(
+                    start.position,
+                    end.position,
+                    progress
+                );
+
+                // Create a bouncing arc
+                float arc = -Mathf.Sin(progress * Mathf.PI) * bounceHeight;
+
+                position.y += arc;
+
+                spikeball.transform.position = position;
+
+                yield return null;
+            }
+
+            // Swap the players so the ball travels back
+            Transform temp = start;
+            start = end;
+            end = temp;
+        }
+    }
+
+    public void PauseSpikeball()
+    {
+        spikeballPaused = true;
+    }
+
+    public void ResumeSpikeball()
+    {
+        spikeballPaused = false;
+    }
+
+    public IEnumerator SamGetsBall()
+    {
+        player.inCutscene = true;
+
+        // Stop the normal Spikeball animation
+        PauseSpikeball();
+
+        BoxCollider2D bc = sam.GetComponent<BoxCollider2D>();
+        bc.enabled = false;
+
+        // Move the ball from its current position to the left
+        Vector3 ballStart = spikeball.transform.position;
+        Vector3 ballEnd = samBallPosition.position;
+
+        float duration = 0.7f;
+        float elapsed = 0f;
+        float arcHeight = 2f;
+
+        // Animate the ball flying away
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+
+            float progress = Mathf.Clamp01(elapsed / duration);
+
+            Vector3 position = Vector3.Lerp(ballStart, ballEnd, progress);
+
+            // Arc upward as the ball flies away
+            position.y += Mathf.Sin(progress * Mathf.PI) * arcHeight;
+
+            spikeball.transform.position = position;
+
+            yield return null;
+        }
+
+        spikeball.transform.position = ballEnd;
+
+        // Sam reacts and runs after it
+        yield return new WaitForSeconds(0.4f);
+
+        Transform samTransform = sam.transform;
+        Animator animator = sam.GetComponent<Animator>();
+        SpriteRenderer sprite = sam.GetComponent<SpriteRenderer>();
+
+        sprite.flipX = true;
+        animator.SetBool("Moving", true);
+
+        while (Vector2.Distance(samTransform.position, samBallPosition.position) > 0.05f)
+        {
+            samTransform.position = Vector2.MoveTowards(
+                samTransform.position,
+                samBallPosition.position,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        samTransform.position = samBallPosition.position;
+        animator.SetBool("Moving", false);
+
+        // Hide the ball once Sam picks it up
+        spikeball.SetActive(false);
+
+        manager.SetFlag("samGettingBall", true);
+        manager.SetFlag("samGettingBallAt", manager.actionsRemaining);
+
+        bc.enabled = true;
+
+        player.inCutscene = false;
+    }
+
+    public IEnumerator SamReturns()
+    {
+        player.inCutscene = true;
+
+        Transform samTransform = sam.transform;
+        Animator animator = sam.GetComponent<Animator>();
+        SpriteRenderer sprite = sam.GetComponent<SpriteRenderer>();
+
+        sprite.flipX = false; // Face right
+
+        animator.SetBool("Moving", true);
+
+        while (Vector2.Distance(samTransform.position, samStartPosition.position) > 0.05f)
+        {
+            samTransform.position = Vector2.MoveTowards(
+                samTransform.position,
+                samStartPosition.position,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        samTransform.position = samStartPosition.position;
+
+        animator.SetBool("Moving", false);
+
+        // Resume the Spikeball animation
+        spikeball.transform.position = samT.position;
+        spikeball.SetActive(true);
+        ResumeSpikeball();
+
+        manager.SetFlag("samGettingBall", false);
+        manager.SetFlag("samGettingBallAt", -1);
+
+        if (manager.GetBool("speakerStolen"))
+        {
+            dialogueRunner.StartDialogue("SamLostSpeaker");
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+            sprite.flipX = false;
+            animator.SetBool("Moving", true);
+            spikeball.SetActive(false);
+
+
+            while (Vector2.Distance(samTransform.position, samExitPosition.position) > 0.05f)
+            {
+                samTransform.position = Vector2.MoveTowards(
+                    samTransform.position,
+                    samExitPosition.position,
+                    moveSpeed * Time.deltaTime
+                );
+
+                yield return null;
+            }
+
+            samTransform.position = samExitPosition.position;
+            animator.SetBool("Moving", false);
+            sam.SetActive(false);
+
+            dialogueRunner.StartDialogue("GregHelps");
+            yield return new WaitUntil(() => !dialogueRunner.IsDialogueRunning);
+
+        }
+
+
+        player.inCutscene = false;
+    }
+
+    public void removeSpeaker()
+    {
+        Destroy(speaker); 
     }
 }

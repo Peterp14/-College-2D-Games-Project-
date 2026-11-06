@@ -1611,6 +1611,18 @@ PrefabInstance:
       propertyPath: paper
       value: 
       objectReference: {fileID: 437575841}
+    - target: {fileID: 1078819073432698108, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1078819073432698108, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 8300000, guid: 7090af5790c58fa4cbeb0ffed2579ad2, type: 3}
+    - target: {fileID: 1078819073432698108, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7465885128975314324, guid: 500e6d159d2266f45bac526b3cc05be9, type: 3}
       propertyPath: m_Name
       value: GameManger
