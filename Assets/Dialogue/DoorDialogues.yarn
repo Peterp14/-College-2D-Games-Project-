@@ -174,3 +174,22 @@ Looks like it's getting late, time to head back to the hall.
 <<nextPeriod>>
 <<stop>>
 ===
+
+title: ChapelOver
+---
+Player: Time to head to lunch.
+
+<<changeScene "Lunch">>
+<<nextPeriod>>
+<<stop>>
+===
+
+title: LunchOverToParty
+---
+Worker: Alright there's a big rush! If anyone's been here awhile get out! 
+Player: Alright, everything's set, time to go to the party!
+
+<<changeScene "Ketrec">>
+<<nextPeriod>>
+<<stop>>
+===

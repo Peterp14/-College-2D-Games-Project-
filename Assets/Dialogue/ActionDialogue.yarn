@@ -57,7 +57,7 @@ title: Distraction
     <<PaperDistraction>>
 <<endif>>
 
-<<setFlag("hasPaper", 0)>>
+<<setInt "hasPaper" 0>>
 <<stop>>
 ===
 

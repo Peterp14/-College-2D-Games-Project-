@@ -7,8 +7,11 @@ using UnityEngine.UI;
 public class MainMenuManagerScript : MonoBehaviour
 {
     [SerializeField] private GameObject chapelPass;
+    [SerializeField] private GameObject personalSpeaker;
 
     private Toggle usingChapelPass;
+    private Toggle usingSpeaker;
+
 
     public GameObject instructionScreen;
     public GameObject mainScreen; 
@@ -19,6 +22,12 @@ public class MainMenuManagerScript : MonoBehaviour
         if (PlayerPrefs.GetInt("hasChapelPass") == 0)
         {
             chapelPass.SetActive(false);
+        }
+
+        usingSpeaker = personalSpeaker.GetComponentInChildren<Toggle>();
+        if (PlayerPrefs.GetInt("PersonalSpeaker") == 0)
+        {
+            personalSpeaker.SetActive(false);
         }
     }
 
@@ -40,7 +49,16 @@ public class MainMenuManagerScript : MonoBehaviour
         {
             PlayerPrefs.SetInt("usingChapelPass", 0);
         }
-        
+
+        if (PlayerPrefs.GetInt("PersonalSpeaker") == 1 && usingSpeaker.isOn)
+        {
+            PlayerPrefs.SetInt("usingSpeaker", 1);
+        }
+        else
+        {
+            PlayerPrefs.SetInt("usingSpeaker", 0);
+        }
+
         SceneManager.LoadScene("Hall");
     }
 

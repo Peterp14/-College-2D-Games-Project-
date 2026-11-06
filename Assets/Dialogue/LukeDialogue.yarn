@@ -85,7 +85,14 @@ Luke: I LOVE that you agree. If you catch anyone who disagrees, LET. ME. KNOW...
 
 title: LukeLunch
 ---
-<<if $gingerDefeated>>
+<<if getBool("lukeHasSpeaker")>>
+    <<jump LukeLunchRepeat>>
+<<endif>>
+
+<<if !getBool("lukeHasSpeaker") and getBool("postersHung")>>
+    <<jump LukeNoParty>>
+<<endif>>
+<<if $gingerDefeated>> 
     Luke: That'll teach him to defend Windows!
     Luke: Anyway, what's up?
     -> Thanks for having my back!
@@ -98,6 +105,11 @@ title: LukeLunch
     -> Nothing much.
         <<stop>>
 <<endif>>
+===
+
+title: LukeNoParty
+---
+Luke: Guess we gotta cancel the party since we didn't get the speakers.
 ===
 
 title: LukeAngry
@@ -169,4 +181,58 @@ title: LukeHangPosters
 Luke: Phew! Here they are, in all their glory!
 Luke: Hang one up on the wall without being caught, and I'll take care of the rest of campus!
 <<setBool "handedPosters" true>>
+===
+
+title: LukeCallsPlayer
+---
+Luke: Hey man, over here!
+===
+
+title: LukeQuadPlan
+---
+Luke: Alright the people know about the party now. Next we need some speakers for some good music. 
+Luke: Sam has a great set of speakers, but he's pretty protective over them. I think our best bet would be to snatch them from him. 
+Luke: Maybe we can do something with his spikeball game to distract him. 
+=== 
+
+title: LukeWantsSpeaker
+---
+Luke: Did you get the speaker?
+
+<<if getBool("speakerStolen")>>
+    -> \[ACTION\] Here it is, Sam doesn't know we have it. 
+        <<useAction>>
+        <<setBool "speakerStolen" false>>
+        <<setBool "lukeHasSpeaker" true>>
+        Luke: Great job, lets head to lunch togther to plan what's next.
+        -> Sir yes sir
+            <<useAction>> 
+            <<stop>>
+<<endif>>
+
+-> Not yet. 
+    <<stop>>
+===
+
+title: LukeLunchChat
+---
+Luke: This is going awesome! Now, all we need for the Perfect Party is some drinks. Our meal swipes can't get us enough drinks, try asking around for some.
+
+===
+
+title: LukeLunchRepeat
+---
+
+Luke: Go get us some drinks!
+===
+
+
+title: LukeHappyWithParty
+---
+Luke: The party is a huge hit! Even Willie showed up!
+Luke: Thanks for all your help today, man. Couldn't have done it without you.
+Luke: Using Linux, the superior operating system, I was able to clone Sam's speaker! You can have it! Have fun!
+New permanent item unlocked: Sam's Speaker.
+
+<<jump EndOfDay>>
 ===

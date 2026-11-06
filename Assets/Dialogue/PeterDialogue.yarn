@@ -21,7 +21,7 @@ Peter: Sorry, I'm a bit busy. I can't find Stephen anywhere lately...
 
 title: InquirePeter
 ---
-Peter: MUDA MUDA MUDA MUDA ORA ORA ORA ORA Here is some lore about Stephen.
+Peter: I miss Stephen so much! He randomly disappeared and I haven't seen him in days!
 
 -> \[ACTION\] Does this mean anything to you? <<if getBool("hasItem1") and getBool("hasItem2")>>
     <<jump helpPeter>>
@@ -71,6 +71,10 @@ title: PeterLunch
 title: helpPeterLunch
 ---
 Peter: I got hacked and have no more swipes! Now I'm gonna starve!
+<<if getBool("hasChapelPass")>>
+    -> Dang, that's tough.
+    <<stop>>
+<<endif>>
 Peter: Wait a minute... You need chapel credits right?
 Peter: If you get me some Cowfila I'll give you one of my credits! Whadda ya say?
 -> \[ACTION\] Fair trade, sure.  

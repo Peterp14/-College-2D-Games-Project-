@@ -6,6 +6,11 @@ title: LunchGuy
 <<declare $gotGregsFood = false>>
 <<declare $boughtMeal = false>>
 <<declare $seenWindowsGuy = false>>
+<<declare $gingerRevengeArc = false>>
+
+<<if getBool("hasMilk")>>
+    <<jump LunchGuyOops>>
+<<endif>>
 
 <<if $gotGregsFood>>
     Greg: Enjoy the food, man. You earned it!
@@ -74,6 +79,16 @@ Greg: Don't say I never did anything for ya!
 
 title: Ginger
 ---
+<<if getBool("hasMilk")>>
+    <<jump GingerOops>>
+<<endif>>
+
+<<if $gingerRevengeArc>>
+    Ginger: He's gonna get it! Don't let Sam get involved!
+    <<stop>>
+<<endif>>
+
+
 <<if !$gingerDefeated>>
     Ginger: Oh hey! What's up?  
     -> Not much, any fun facts about yourself? 
@@ -82,6 +97,9 @@ title: Ginger
        <<stop>>
    -> \[ACTION\] Punch him. <<if $helpingLunchGuy and not $gingerDefeated>>
        <<jump PunchGinger>>
+   -> \[ACTION\] Tell him about Greg. <<if $helpingLunchGuy and not $gingerDefeated>>
+       <<set $gingerRevengeArc = true>>
+       <<jump GingerNarc>>
    -> See ya.
        <<stop>>
 <<endif>>
@@ -141,4 +159,31 @@ title: BuyMeal
 Worker: Coming right up!
 Worker: Here's your Cowfila meal! Enjoy!
 <<stop>>
+===
+
+title: GingerNarc
+---
+Ginger: You serious? What is his deal? Gimme a sec, I'm going to give him a piece of my mind! Make sure Sam, that RA, doesn't stop me.
+<<setBool "gingerBicker" true>>
+<<useAction>>
+<<stop>>
+===
+
+title: GingerOops
+---
+Ginger: Oops, I feel bad now...
+
+===
+
+title: LunchGuyOops
+---
+Greg: Dude! C'mon! Ugh...
+
+===
+
+title: GingerBicker
+---
+Ginger: It is on!
+Greg: Dude!
+
 ===

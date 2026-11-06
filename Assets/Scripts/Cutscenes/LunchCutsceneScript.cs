@@ -18,6 +18,7 @@ public class LunchCutsceneScript : MonoBehaviour
 
     public GameObject luke;
     public GameObject purpleGuy;
+    public GameObject sam;
 
 
     void Start()
@@ -158,6 +159,120 @@ public class LunchCutsceneScript : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         player.inCutscene = false;
+    }
+
+    public IEnumerator LukeLunchChat()
+    {
+        player.inCutscene = true;
+        dialogueRunner.StartDialogue("LukeLunchChat");
+
+        player.inCutscene = false;
+        yield return null;
+    }
+
+    public IEnumerator GingerBicker()
+    {
+        player.inCutscene = true;
+        BoxCollider2D box = purpleGuy.GetComponent<BoxCollider2D>();
+        SpriteRenderer gregSprite = guyGettingFood.GetComponent<SpriteRenderer>();
+        box.enabled = false;
+        gregSprite.flipX = false;
+
+        Vector3 destination = new Vector3(
+            guyGettingFood.transform.position.x + 1.2f,
+            guyGettingFood.transform.position.y,
+            guyGettingFood.transform.position.z
+        );
+
+        Animator animator = purpleGuy.GetComponent<Animator>();
+        SpriteRenderer sprite = purpleGuy.GetComponent<SpriteRenderer>();
+
+        if (animator != null)
+            animator.SetBool("Moving", true);
+
+        while (Vector3.Distance(purpleGuy.transform.position, destination) > 0.05f)
+        {
+            if (sprite != null)
+                sprite.flipX = destination.x < purpleGuy.transform.position.x;
+
+            purpleGuy.transform.position = Vector3.MoveTowards(
+                purpleGuy.transform.position,
+                destination,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        if (animator != null)
+            animator.SetBool("Moving", false);
+        dialogueRunner.StartDialogue("GingerBicker");
+        box.enabled = true;
+        yield return new WaitForSeconds(0.5f);
+
+        player.inCutscene = false;
+    }
+
+    public IEnumerator SamSpeakerBack()
+    {
+        player.inCutscene = true;
+
+        Animator animator = sam.GetComponent<Animator>();
+        SpriteRenderer sprite = sam.GetComponent<SpriteRenderer>();
+        BoxCollider2D box = sam.GetComponent<BoxCollider2D>();
+
+        box.enabled = false;
+
+        Vector3 destination = new Vector3(
+            guyGettingFood.transform.position.x + 1f,
+            guyGettingFood.transform.position.y,
+            sam.transform.position.z
+        );
+
+        animator.SetBool("Moving", true);
+
+        while (Vector2.Distance(sam.transform.position, destination) > 0.05f)
+        {
+            sprite.flipX = destination.x < sam.transform.position.x;
+
+            sam.transform.position = Vector2.MoveTowards(
+                sam.transform.position,
+                destination,
+                moveSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        sam.transform.position = destination;
+        animator.SetBool("Moving", false);
+
+        // Sam falls onto the ground
+        Quaternion startRotation = sam.transform.rotation;
+        Quaternion endRotation = Quaternion.Euler(0, 0, -90);
+
+        float elapsed = 0f;
+
+        while (elapsed < 0.5f)
+        {
+            elapsed += Time.deltaTime;
+
+            sam.transform.rotation = Quaternion.Lerp(
+                startRotation,
+                endRotation,
+                elapsed / 0.5f
+            );
+
+            yield return null;
+        }
+
+        sam.transform.rotation = endRotation;
+
+        player.inCutscene = false;
+
+
+        dialogueRunner.StartDialogue("LucaGivesMilk");
+        yield return null;
     }
 
 }

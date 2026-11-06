@@ -2,6 +2,7 @@
 title: Luca
 ---
 <<declare $helpedLuca = false>>
+<<declare $lucaDrinks = false>>
 
 <<if $helpedLuca>>
     Luca: Thanks again for helping me!
@@ -99,3 +100,56 @@ title: LucaNarcClass
 ---
 Luca: Ugh. Office hours again.
 ===
+
+title: LucaLunchStart
+---
+
+<<if getBool("postersHung") && !$lucaDrinks>>
+    <<jump LucaLunchMilk>>
+<<else>>
+    <<if $lucaDrinks>>
+        Luca: Find a way to get Sam to not attend! Ask others for some help.
+    <<else>>
+        <<jump LucaLunchDefault>>
+    <<endif>>
+<<endif>>
+===
+
+title: LucaLunchMilk
+---
+Luca: Hey, saw those posters y'all hung up. Can't wait to attend!
+-> \[ACTION\] Can you get some drinks for us? <<if getBool("lukeHasSpeaker")>>
+    Luca: ... Are you a cop?
+    -> ...
+        Luca: I'm just messing with ya. I just stocked up on "milk" earlier. Heck, I'm drinking some right now!
+        -> Ok...
+            Luca: Anyway, Sam said he's coming to the party tonight. He's an RA; he will totally kill the vibe. Find a way to make sure he doesn't show up, and the "milk" is yours!
+            -> Sure.
+                <<set $lucaDrinks = true>>
+                <<useAction>>
+                <<stop>>
+-> See you there!
+    <<stop>>
+
+===
+
+title: LucaLunchDefault
+---
+Luca: Don't mind me, just enjoying my drink and grilled nuggets!
+
+===
+
+title: LucaGivesMilk
+---
+
+Luca: Dang Sam got hit by a stray! He isn't gonna come to the party after that! 
+Luca: Here's all the "milk" I got.
+<<setBool "hasMilk" true>>
+<<if numActions() == 0>>
+    Luke: Let's go to Ket Rec for the party!
+<<else>>
+    Luke: Make sure to eat lunch and then we can go to Ket Rec for the party!
+<<endif>>
+
+===
+

@@ -87,3 +87,73 @@ Sam: As your RA, I get to chat with you! I hope you had a wonderful day today!
 
 Sam: Well, I'll see you tomorrow! Stay out of trouble!
 ===
+
+title: SamQuad
+---
+<<if getBool("samGettingBall")>>
+    <<stop>>
+<<endif>>
+
+Sam: Hey man! Wanna join us?
+-> \[ACTION\] Yea sure!
+    <<useAction>>
+    <<jump playingSpike>>
+-> I'm ok
+    <<stop>>
+-> Can I have your speaker for tonight? <<if getBool("postersHung")>>
+    Sam: Absolutely not! NO ONE TOUCHES THEM!
+    <<gameOver "If you want his speaker, you need to take it in secret.">>
+    <<stop>>
+<<stop>>
+===
+
+title: playingSpike
+---
+How do you want to play? 
+-> Hit it hard 
+    <<jump samRuns>>
+-> Hit it soft  
+    <<useAction>>
+    Sam: Nice drop shot! 
+<<stop>>
+===
+
+title: samRuns
+---
+<<SamGetsBall>>
+Sam: Good hit, now where is it???
+===
+
+title: SamLostSpeaker
+---
+Sam: YO, where's my speaker?
+Greg: Sorry wasn't looking, we were yapping just now. 
+Sam: NOOO, WHERE IS IT? 
+===
+
+title: GregHelps
+---
+Greg: You're welcome. Better be a good party.
+===
+
+title: SamLunch
+---
+
+<<if getBool("lukeHasSpeaker")>>
+    Sam: Man, I'm so bumed I lost my speaker.
+    -> \[ACTION\] Greg and Ginger have your speaker over there <<if $gingerRevengeArc>>
+        <<jump SamLunchRip>>
+    -> Sorry about that, good luck.
+<<else>>
+    Sam is listening to music, ignoring anything around him.
+    <<stop>>
+<<endif>>
+===
+
+title: SamLunchRip
+---
+
+Sam: Really? Awesome! Thanks for letting me know!
+<<setBool "samSpeakerBack" true>>
+<<useAction>>
+===
